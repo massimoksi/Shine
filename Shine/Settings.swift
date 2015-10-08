@@ -49,7 +49,7 @@ struct Settings {
     static func registerDefaults() {
         NSUserDefaults.standardUserDefaults().registerDefaults([
             Key.Brightness.rawValue: Float(1.0)
-            ])
+        ])
     }
     
     // MARK: - Keys
