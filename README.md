@@ -6,6 +6,7 @@ Shine is an iOS app to transform the display of your device into a dimmable nigh
 
 - Disable automatic screen lock.
 - Pan gesture to adjust screen brightness.
+- Today extension to turn the light on.
 
 ## Contact
 
