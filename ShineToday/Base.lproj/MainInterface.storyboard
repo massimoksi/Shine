@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M4Y-Lb-cyx">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Today View Controller-->
@@ -18,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iyA-3M-0QU">
-                                <rect key="frame" x="24" y="8" width="272" height="44"/>
+                                <rect key="frame" x="0.0" y="8" width="304" height="44"/>
                                 <animations/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -35,8 +34,8 @@
                         <constraints>
                             <constraint firstItem="iyA-3M-0QU" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" id="2lA-MC-Cbz"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="iyA-3M-0QU" secondAttribute="bottom" constant="8" id="Mtm-V6-VNU"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="iyA-3M-0QU" secondAttribute="trailing" constant="8" id="eQK-NA-OEX"/>
-                            <constraint firstItem="iyA-3M-0QU" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" constant="8" id="uRI-3m-JWI"/>
+                            <constraint firstAttribute="trailing" secondItem="iyA-3M-0QU" secondAttribute="trailing" constant="16" id="eQK-NA-OEX"/>
+                            <constraint firstItem="iyA-3M-0QU" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="uRI-3m-JWI"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -55,6 +54,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Brightness" width="24" height="24"/>
+        <image name="Brightness" width="20" height="20"/>
     </resources>
 </document>
