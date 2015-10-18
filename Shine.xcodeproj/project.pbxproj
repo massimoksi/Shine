@@ -58,6 +58,7 @@
 		56579CCC1BB30FA300060B5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		56579CCE1BB30FA300060B5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		56579CD41BB35F4900060B5C /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		56AF763D1BD3871D00DBE670 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MainInterface.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +262,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				5622D4091BC70F0500B52B92 /* Base */,
+				56AF763D1BD3871D00DBE670 /* it */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
