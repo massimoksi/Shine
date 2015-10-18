@@ -7,15 +7,49 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5622D4041BC70F0500B52B92 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5622D4031BC70F0500B52B92 /* NotificationCenter.framework */; settings = {ASSET_TAGS = (); }; };
+		5622D4071BC70F0500B52B92 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5622D4061BC70F0500B52B92 /* TodayViewController.swift */; };
+		5622D40A1BC70F0500B52B92 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5622D4081BC70F0500B52B92 /* MainInterface.storyboard */; };
+		5622D40E1BC70F0500B52B92 /* ShineToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5622D4011BC70F0500B52B92 /* ShineToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		56579CC31BB30FA300060B5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56579CC21BB30FA300060B5C /* AppDelegate.swift */; };
 		56579CC51BB30FA300060B5C /* ScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56579CC41BB30FA300060B5C /* ScreenViewController.swift */; };
 		56579CC81BB30FA300060B5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56579CC61BB30FA300060B5C /* Main.storyboard */; };
 		56579CCA1BB30FA300060B5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56579CC91BB30FA300060B5C /* Assets.xcassets */; };
 		56579CCD1BB30FA300060B5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56579CCB1BB30FA300060B5C /* LaunchScreen.storyboard */; };
 		56579CD51BB35F4900060B5C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56579CD41BB35F4900060B5C /* Settings.swift */; settings = {ASSET_TAGS = (); }; };
+		56AF763C1BD3719100DBE670 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56579CC91BB30FA300060B5C /* Assets.xcassets */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		5622D40C1BC70F0500B52B92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 56579CB71BB30FA300060B5C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5622D4001BC70F0500B52B92;
+			remoteInfo = ShineToday;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5622D4121BC70F0600B52B92 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5622D40E1BC70F0500B52B92 /* ShineToday.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		5622D4011BC70F0500B52B92 /* ShineToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShineToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5622D4031BC70F0500B52B92 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		5622D4061BC70F0500B52B92 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		5622D4091BC70F0500B52B92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		5622D40B1BC70F0500B52B92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		56579CBF1BB30FA300060B5C /* Shine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56579CC21BB30FA300060B5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56579CC41BB30FA300060B5C /* ScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenViewController.swift; sourceTree = "<group>"; };
@@ -27,6 +61,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5622D3FE1BC70F0500B52B92 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5622D4041BC70F0500B52B92 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		56579CBC1BB30FA300060B5C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -37,10 +79,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5622D4021BC70F0500B52B92 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5622D4031BC70F0500B52B92 /* NotificationCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5622D4051BC70F0500B52B92 /* ShineToday */ = {
+			isa = PBXGroup;
+			children = (
+				5622D4061BC70F0500B52B92 /* TodayViewController.swift */,
+				5622D4081BC70F0500B52B92 /* MainInterface.storyboard */,
+				5622D40B1BC70F0500B52B92 /* Info.plist */,
+			);
+			path = ShineToday;
+			sourceTree = "<group>";
+		};
 		56579CB61BB30FA300060B5C = {
 			isa = PBXGroup;
 			children = (
 				56579CC11BB30FA300060B5C /* Shine */,
+				5622D4051BC70F0500B52B92 /* ShineToday */,
+				5622D4021BC70F0500B52B92 /* Frameworks */,
 				56579CC01BB30FA300060B5C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				56579CBF1BB30FA300060B5C /* Shine.app */,
+				5622D4011BC70F0500B52B92 /* ShineToday.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +133,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5622D4001BC70F0500B52B92 /* ShineToday */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5622D4111BC70F0600B52B92 /* Build configuration list for PBXNativeTarget "ShineToday" */;
+			buildPhases = (
+				5622D3FD1BC70F0500B52B92 /* Sources */,
+				5622D3FE1BC70F0500B52B92 /* Frameworks */,
+				5622D3FF1BC70F0500B52B92 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShineToday;
+			productName = ShineToday;
+			productReference = 5622D4011BC70F0500B52B92 /* ShineToday.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		56579CBE1BB30FA300060B5C /* Shine */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 56579CD11BB30FA300060B5C /* Build configuration list for PBXNativeTarget "Shine" */;
@@ -77,10 +157,12 @@
 				56579CBB1BB30FA300060B5C /* Sources */,
 				56579CBC1BB30FA300060B5C /* Frameworks */,
 				56579CBD1BB30FA300060B5C /* Resources */,
+				5622D4121BC70F0600B52B92 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5622D40D1BC70F0500B52B92 /* PBXTargetDependency */,
 			);
 			name = Shine;
 			productName = Shine;
@@ -96,6 +178,9 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Massimo Peri";
 				TargetAttributes = {
+					5622D4001BC70F0500B52B92 = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
 					56579CBE1BB30FA300060B5C = {
 						CreatedOnToolsVersion = 7.0;
 					};
@@ -115,11 +200,21 @@
 			projectRoot = "";
 			targets = (
 				56579CBE1BB30FA300060B5C /* Shine */,
+				5622D4001BC70F0500B52B92 /* ShineToday */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5622D3FF1BC70F0500B52B92 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56AF763C1BD3719100DBE670 /* Assets.xcassets in Resources */,
+				5622D40A1BC70F0500B52B92 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		56579CBD1BB30FA300060B5C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -133,6 +228,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5622D3FD1BC70F0500B52B92 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5622D4071BC70F0500B52B92 /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		56579CBB1BB30FA300060B5C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -145,7 +248,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		5622D40D1BC70F0500B52B92 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5622D4001BC70F0500B52B92 /* ShineToday */;
+			targetProxy = 5622D40C1BC70F0500B52B92 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		5622D4081BC70F0500B52B92 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5622D4091BC70F0500B52B92 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		56579CC61BB30FA300060B5C /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -165,6 +284,28 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5622D40F1BC70F0600B52B92 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ShineToday/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.massimoperi.Shine.ShineToday;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		5622D4101BC70F0600B52B92 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ShineToday/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.massimoperi.Shine.ShineToday;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		56579CCF1BB30FA300060B5C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -252,6 +393,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Shine/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.massimoperi.Shine;
@@ -263,6 +405,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Shine/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.massimoperi.Shine;
@@ -273,6 +416,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5622D4111BC70F0600B52B92 /* Build configuration list for PBXNativeTarget "ShineToday" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5622D40F1BC70F0600B52B92 /* Debug */,
+				5622D4101BC70F0600B52B92 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		56579CBA1BB30FA300060B5C /* Build configuration list for PBXProject "Shine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
