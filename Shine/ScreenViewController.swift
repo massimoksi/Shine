@@ -26,8 +26,10 @@ class ScreenViewController: UIViewController {
     
     var panLocation: CGPoint!
     
-    var brightnessLabel: UILabel!
+    @IBOutlet weak var overlayView: UIView!
 
+    var brightnessLabel: UILabel!
+    
     private lazy var brightnessFormatter: NSNumberFormatter = {
         var formatter = NSNumberFormatter()
         formatter.numberStyle = .PercentStyle
@@ -44,7 +46,7 @@ class ScreenViewController: UIViewController {
         brightnessLabel = UILabel(frame: CGRect(x: view.bounds.midX - 50.0, y: view.bounds.midY - 32.0, width: 100.0, height: 64.0))
         brightnessLabel.font = UIFont.systemFontOfSize(36.0)
         brightnessLabel.textAlignment = .Center
-        brightnessLabel.textColor = UIColor.blackColor()
+        brightnessLabel.textColor = UIColor(white: 0.65, alpha: 1.0)
         brightnessLabel.alpha = 0.0
         view.addSubview(brightnessLabel)
     }
@@ -89,7 +91,7 @@ class ScreenViewController: UIViewController {
     @IBAction func adjustBrightness(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .Began:
-            panLocation = sender.locationInView(view)
+            panLocation = sender.locationInView(overlayView)
 
             brightnessLabel.frame = CGRect(origin: locationForLabelFromLocation(panLocation), size: brightnessLabel.frame.size)
             brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
@@ -97,12 +99,12 @@ class ScreenViewController: UIViewController {
             
         case .Changed:
             // Calculate pan.
-            let actPanLocation = sender.locationInView(view)
+            let actPanLocation = sender.locationInView(overlayView)
             let panTranslation = panLocation.y - actPanLocation.y
             panLocation = actPanLocation
 
             // Calculate brightness.
-            brightness += panTranslation / (view.bounds.height * 0.75)
+            brightness += panTranslation / (overlayView.bounds.height * 0.75)
             brightness = max(min(brightness, 1.0), 0.0)
 
             brightnessLabel.frame = CGRect(origin: locationForLabelFromLocation(actPanLocation), size: brightnessLabel.frame.size)
@@ -118,8 +120,8 @@ class ScreenViewController: UIViewController {
             // Store final screen brightness into user defaults.
             Settings.brightness = Float(brightness)
             
-            UIView.animateWithDuration(1.0, animations: { [weak self] in
-                self!.brightnessLabel.alpha = 0.0
+            UIView.animateWithDuration(1.0, animations: { [unowned self] in
+                self.brightnessLabel.alpha = 0.0
             })
             
         case .Cancelled, .Failed:
@@ -148,14 +150,14 @@ class ScreenViewController: UIViewController {
     
     private func softDimBrightness() {
         // Darken screen background.
-        view.backgroundColor = UIColor(white: min(brightness / 0.25, 1.0), alpha: 1.0)
+        overlayView.alpha = 1.0 - min(brightness / 0.25, 1.0)
     }
     
     private func locationForLabelFromLocation(location: CGPoint) -> CGPoint {
         var newLocation = CGPoint()
 
         // Calculate horizontal position.
-        if (location.x < view.bounds.midX) {
+        if (location.x < overlayView.bounds.midX) {
             newLocation.x = location.x + 8.0
         }
         else {
@@ -167,8 +169,8 @@ class ScreenViewController: UIViewController {
         if (newLocation.y < 4.0) {
             newLocation.y = 4.0
         }
-        else if (newLocation.y > view.frame.height - brightnessLabel.frame.height - 4.0) {
-            newLocation.y = view.frame.height - brightnessLabel.frame.height - 4.0
+        else if (newLocation.y > overlayView.frame.height - brightnessLabel.frame.height - 4.0) {
+            newLocation.y = overlayView.frame.height - brightnessLabel.frame.height - 4.0
         }
         
         return newLocation

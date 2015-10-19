@@ -15,21 +15,40 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWl-bQ-LlE">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                <gestureRecognizers/>
+                            </view>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="xWl-bQ-LlE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="1h1-D5-0US"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="xWl-bQ-LlE" secondAttribute="bottom" id="QaU-vm-s74"/>
+                            <constraint firstItem="xWl-bQ-LlE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="wIZ-im-E8N"/>
+                            <constraint firstAttribute="trailing" secondItem="xWl-bQ-LlE" secondAttribute="trailing" id="xoR-mD-WOo"/>
+                        </constraints>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="3bo-2c-VDO" appends="YES" id="W7d-Ut-g6F"/>
+                            <outletCollection property="gestureRecognizers" destination="et4-BF-0sg" appends="YES" id="W1u-Cc-9oX"/>
                         </connections>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="overlayView" destination="xWl-bQ-LlE" id="5WH-sx-MNv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="3bo-2c-VDO">
+                <panGestureRecognizer minimumNumberOfTouches="1" id="et4-BF-0sg">
                     <connections>
-                        <action selector="adjustBrightness:" destination="BYZ-38-t0r" id="NJw-C4-rUS"/>
+                        <action selector="adjustBrightness:" destination="BYZ-38-t0r" id="JFV-2y-SHz"/>
                     </connections>
                 </panGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="596" y="439"/>
         </scene>
     </scenes>
 </document>
