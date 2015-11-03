@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Screen View Controller-->
@@ -34,11 +35,13 @@
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="et4-BF-0sg" appends="YES" id="W1u-Cc-9oX"/>
+                            <outletCollection property="gestureRecognizers" destination="KJc-uj-Mau" appends="YES" id="sUZ-qE-GQE"/>
                         </connections>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="overlayView" destination="xWl-bQ-LlE" id="5WH-sx-MNv"/>
+                        <segue destination="96q-6l-Nch" kind="custom" identifier="ShowSettingsSegue" customClass="MZFormSheetPresentationViewControllerSegue" id="QTU-le-axw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -47,8 +50,104 @@
                         <action selector="adjustBrightness:" destination="BYZ-38-t0r" id="JFV-2y-SHz"/>
                     </connections>
                 </panGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="KJc-uj-Mau">
+                    <connections>
+                        <action selector="showSettings:" destination="BYZ-38-t0r" id="2iS-Rg-tXi"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="596" y="439"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="v4J-9d-wdF">
+            <objects>
+                <viewController storyboardIdentifier="SettingsVC" id="96q-6l-Nch" customClass="SettingsViewController" customModule="Shine" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="K6B-1i-DGk"/>
+                        <viewControllerLayoutGuide type="bottom" id="dn3-CC-g2d"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ik1-K7-WqB">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="116"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mKy-VF-tWc">
+                                <rect key="frame" x="16" y="64" width="268" height="44"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="eW2-wS-yPV"/>
+                                </constraints>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <segue destination="X5n-zv-pUM" kind="unwind" unwindAction="unwindToScreenViewController:" id="3AJ-2c-okM"/>
+                                </connections>
+                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4P2-vD-QWq">
+                                <rect key="frame" x="16" y="8" width="268" height="48"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="8At-ip-ib5"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="7" minimumInteritemSpacing="7" id="58W-9h-me0">
+                                    <size key="itemSize" width="48" height="48"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LightColorCell" id="3vk-a3-bVZ" customClass="ColorCollectionViewCell" customModule="Shine" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PIE-OA-vPP" customClass="CheckboxView" customModule="Shine" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                                    <animations/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <animations/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstItem="PIE-OA-vPP" firstAttribute="top" secondItem="3vk-a3-bVZ" secondAttribute="top" id="5oA-d4-fIb"/>
+                                            <constraint firstItem="PIE-OA-vPP" firstAttribute="leading" secondItem="3vk-a3-bVZ" secondAttribute="leading" id="NVT-b3-x6T"/>
+                                            <constraint firstAttribute="trailing" secondItem="PIE-OA-vPP" secondAttribute="trailing" id="W8V-k5-d1U"/>
+                                            <constraint firstAttribute="bottom" secondItem="PIE-OA-vPP" secondAttribute="bottom" id="p4r-iI-Kk5"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="checkbox" destination="PIE-OA-vPP" id="0BD-pZ-drH"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="96q-6l-Nch" id="uvv-NM-KXV"/>
+                                    <outlet property="delegate" destination="96q-6l-Nch" id="gFe-om-NNW"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4P2-vD-QWq" firstAttribute="top" secondItem="K6B-1i-DGk" secondAttribute="bottom" constant="8" id="EJ4-Gm-bzz"/>
+                            <constraint firstItem="4P2-vD-QWq" firstAttribute="leading" secondItem="Ik1-K7-WqB" secondAttribute="leadingMargin" id="iWS-Tq-7ai"/>
+                            <constraint firstItem="mKy-VF-tWc" firstAttribute="top" secondItem="4P2-vD-QWq" secondAttribute="bottom" constant="8" id="m4D-uH-jpA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mKy-VF-tWc" secondAttribute="trailing" id="vGl-Hl-vhV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="4P2-vD-QWq" secondAttribute="trailing" id="vRb-9L-0Py"/>
+                            <constraint firstItem="mKy-VF-tWc" firstAttribute="leading" secondItem="Ik1-K7-WqB" secondAttribute="leadingMargin" id="wyC-0N-tUn"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="300" height="116"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GMP-2l-sjd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="X5n-zv-pUM" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1228" y="439"/>
         </scene>
     </scenes>
 </document>

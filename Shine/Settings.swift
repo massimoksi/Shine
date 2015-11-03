@@ -32,6 +32,21 @@ struct Settings {
         }
     }
     
+    static var lightColor: LightColor {
+        get {
+            let colorValue = NSUserDefaults.standardUserDefaults().integerForKey(Key.LightColor.rawValue)
+            guard let color = LightColor(rawValue: colorValue) else {
+                return .White
+            }
+        
+            return color
+        }
+        
+        set {
+            NSUserDefaults.standardUserDefaults().setInteger(newValue.rawValue, forKey: Key.LightColor.rawValue)
+        }
+    }
+    
     static var bundleVersion: String {
         get {
             guard let version = NSUserDefaults.standardUserDefaults().stringForKey(Key.BundleVersion.rawValue) else {
@@ -48,15 +63,17 @@ struct Settings {
     
     static func registerDefaults() {
         NSUserDefaults.standardUserDefaults().registerDefaults([
-            Key.Brightness.rawValue: Float(1.0)
+            Key.Brightness.rawValue: Float(1.0),
+            Key.LightColor.rawValue: LightColor.White.rawValue
         ])
     }
     
     // MARK: - Keys
     
     private enum Key: String {
-        case Brightness = "Brightness"
-        case BundleVersion = "Version"
+        case Brightness
+        case LightColor
+        case BundleVersion
     }
     
 }

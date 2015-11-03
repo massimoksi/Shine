@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import MZFormSheetPresentationController
 
 class ScreenViewController: UIViewController {
 
@@ -41,7 +42,8 @@ class ScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        view.backgroundColor = Settings.lightColor.color
         
         brightnessLabel = UILabel(frame: CGRect(x: view.bounds.midX - 50.0, y: view.bounds.midY - 32.0, width: 100.0, height: 64.0))
         brightnessLabel.font = UIFont.systemFontOfSize(36.0)
@@ -84,6 +86,20 @@ class ScreenViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidBecomeActiveNotification, object: nil)
+    }
+
+    // MARK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "ShowSettingsSegue") {
+            let presentationSegue = segue as! MZFormSheetPresentationViewControllerSegue
+            presentationSegue.formSheetPresentationController.contentViewControllerTransitionStyle = .Fade
+            presentationSegue.formSheetPresentationController.presentationController?.contentViewSize = CGSize(width: 300.0, height: 116.0)
+            presentationSegue.formSheetPresentationController.presentationController?.shouldCenterVertically = true
+            
+            let settingsViewController = segue.destinationViewController as! SettingsViewController
+            settingsViewController.delegate = self
+        }
     }
 
     // MARK: - Actions
@@ -136,6 +152,16 @@ class ScreenViewController: UIViewController {
         }
     }
     
+    @IBAction func showSettings(sender: UILongPressGestureRecognizer) {
+        if sender.state == .Began {
+            performSegueWithIdentifier("ShowSettingsSegue", sender: self)
+        }
+    }
+
+    @IBAction func unwindToScreenViewController(segue: UIStoryboardSegue) {
+        // Nothing to do.
+    }
+    
     // MARK: - Notifications handlers
     
     func resetBrightness() {
@@ -174,6 +200,16 @@ class ScreenViewController: UIViewController {
         }
         
         return newLocation
+    }
+    
+}
+
+// MARK: - Settings view controller delegate
+
+extension ScreenViewController: SettingsViewControllerDelegate {
+    
+    func updateLightColor() {
+        view.backgroundColor = Settings.lightColor.color
     }
     
 }
