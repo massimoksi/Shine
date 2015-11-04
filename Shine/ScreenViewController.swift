@@ -53,7 +53,7 @@ class ScreenViewController: UIViewController {
         brightnessLabel = UILabel(frame: CGRect(x: view.bounds.midX - 50.0, y: view.bounds.midY - 32.0, width: 100.0, height: 64.0))
         brightnessLabel.font = UIFont.systemFontOfSize(36.0)
         brightnessLabel.textAlignment = .Center
-        brightnessLabel.textColor = UIColor(white: 0.65, alpha: 1.0)
+        brightnessLabel.textColor = UIColor(white: 0.0, alpha: 0.25)
         brightnessLabel.alpha = 0.0
         view.addSubview(brightnessLabel)
     }
@@ -99,7 +99,7 @@ class ScreenViewController: UIViewController {
         if (segue.identifier == "ShowSettingsSegue") {
             let presentationSegue = segue as! MZFormSheetPresentationViewControllerSegue
             presentationSegue.formSheetPresentationController.contentViewControllerTransitionStyle = .Fade
-            presentationSegue.formSheetPresentationController.presentationController?.contentViewSize = CGSize(width: 300.0, height: 116.0)
+            presentationSegue.formSheetPresentationController.presentationController?.contentViewSize = CGSize(width: 300.0, height: 108.0)
             presentationSegue.formSheetPresentationController.presentationController?.shouldCenterVertically = true
             
             let settingsViewController = segue.destinationViewController as! SettingsViewController

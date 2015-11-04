@@ -67,7 +67,7 @@
                         <viewControllerLayoutGuide type="bottom" id="dn3-CC-g2d"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ik1-K7-WqB">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="116"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="108"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mKy-VF-tWc">
@@ -76,7 +76,10 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="eW2-wS-yPV"/>
                                 </constraints>
-                                <state key="normal" title="Done"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.25" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="X5n-zv-pUM" kind="unwind" unwindAction="unwindToScreenViewController:" id="3AJ-2c-okM"/>
                                 </connections>
@@ -142,7 +145,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="300" height="116"/>
+                    <size key="freeformSize" width="300" height="108"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GMP-2l-sjd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="X5n-zv-pUM" userLabel="Exit" sceneMemberID="exit"/>
