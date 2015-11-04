@@ -69,6 +69,7 @@
 		56579CD41BB35F4900060B5C /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5682236B1BE6D41B00B66360 /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		56AF763D1BD3871D00DBE670 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MainInterface.strings; sourceTree = "<group>"; };
+		56CD2D961BEAB8860092484E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Main.strings; sourceTree = "<group>"; };
 		72407ED2B4B4B7FDB5022B74 /* Pods-Shine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Shine/Pods-Shine.debug.xcconfig"; sourceTree = "<group>"; };
 		EC4BB0268F57D93FEF925C5F /* Pods_Shine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -249,6 +250,7 @@
 			knownRegions = (
 				en,
 				Base,
+				it,
 			);
 			mainGroup = 56579CB61BB30FA300060B5C;
 			productRefGroup = 56579CC01BB30FA300060B5C /* Products */;
@@ -378,6 +380,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				56579CC71BB30FA300060B5C /* Base */,
+				56CD2D961BEAB8860092484E /* it */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
