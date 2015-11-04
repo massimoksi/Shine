@@ -32,18 +32,13 @@ struct Settings {
         }
     }
     
-    static var lightColor: LightColor {
+    static var lightColor: Int {
         get {
-            let colorValue = NSUserDefaults.standardUserDefaults().integerForKey(Key.LightColor.rawValue)
-            guard let color = LightColor(rawValue: colorValue) else {
-                return .White
-            }
-        
-            return color
+            return NSUserDefaults.standardUserDefaults().integerForKey(Key.LightColor.rawValue)
         }
         
         set {
-            NSUserDefaults.standardUserDefaults().setInteger(newValue.rawValue, forKey: Key.LightColor.rawValue)
+            NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey: Key.LightColor.rawValue)
         }
     }
     
@@ -64,7 +59,7 @@ struct Settings {
     static func registerDefaults() {
         NSUserDefaults.standardUserDefaults().registerDefaults([
             Key.Brightness.rawValue: Float(1.0),
-            Key.LightColor.rawValue: LightColor.White.rawValue
+            Key.LightColor.rawValue: 0
         ])
     }
     

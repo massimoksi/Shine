@@ -37,7 +37,7 @@ extension SettingsViewController: UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LightColorCell", forIndexPath: indexPath) as! ColorCollectionViewCell
         cell.checkbox.tintColor = LightColor.allColors[indexPath.row]
-        cell.checkbox.on = Settings.lightColor.rawValue == indexPath.row
+        cell.checkbox.on = Settings.lightColor == indexPath.row
         
         return cell
     }
@@ -49,7 +49,7 @@ extension SettingsViewController: UICollectionViewDataSource {
 extension SettingsViewController: UICollectionViewDelegate {
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let oldSelectedIndexPath = NSIndexPath(forItem: Settings.lightColor.rawValue, inSection: 0)
+        let oldSelectedIndexPath = NSIndexPath(forItem: Settings.lightColor, inSection: 0)
         
         if (indexPath != oldSelectedIndexPath) {
             let oldSelectedCell = collectionView.cellForItemAtIndexPath(oldSelectedIndexPath) as! ColorCollectionViewCell
@@ -58,7 +58,7 @@ extension SettingsViewController: UICollectionViewDelegate {
             let cell = collectionView.cellForItemAtIndexPath(indexPath) as! ColorCollectionViewCell
             cell.checkbox.on = true
             
-            Settings.lightColor = LightColor(rawValue: indexPath.item)!
+            Settings.lightColor = indexPath.item
             
             delegate?.updateLightColor()
         }

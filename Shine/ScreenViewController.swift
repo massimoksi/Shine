@@ -43,7 +43,12 @@ class ScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = Settings.lightColor.color
+        if let lightColor = LightColor(rawValue: Settings.lightColor) {
+            view.backgroundColor = lightColor.color
+        }
+        else {
+            view.backgroundColor = LightColor.White.color
+        }
         
         brightnessLabel = UILabel(frame: CGRect(x: view.bounds.midX - 50.0, y: view.bounds.midY - 32.0, width: 100.0, height: 64.0))
         brightnessLabel.font = UIFont.systemFontOfSize(36.0)
@@ -209,7 +214,14 @@ class ScreenViewController: UIViewController {
 extension ScreenViewController: SettingsViewControllerDelegate {
     
     func updateLightColor() {
-        view.backgroundColor = Settings.lightColor.color
+        UIView.animateWithDuration(1.0, animations: {
+            if let lightColor = LightColor(rawValue: Settings.lightColor) {
+                self.view.backgroundColor = lightColor.color
+            }
+            else {
+                self.view.backgroundColor = LightColor.White.color
+            }
+        })
     }
     
 }
