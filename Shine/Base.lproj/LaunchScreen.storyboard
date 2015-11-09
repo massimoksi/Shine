@@ -29,12 +29,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a dimmable night light" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ug4-34-45o">
-                                <rect key="frame" x="20" y="292" width="560" height="32"/>
+                                <rect key="frame" x="20" y="284" width="560" height="32"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="Oxp-86-KsP"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -42,7 +42,7 @@
                         <animations/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="ug4-34-45o" firstAttribute="top" secondItem="9Yl-4q-9fW" secondAttribute="bottom" constant="8" id="7Hh-Bg-Qyh"/>
+                            <constraint firstItem="ug4-34-45o" firstAttribute="top" secondItem="9Yl-4q-9fW" secondAttribute="bottom" id="7Hh-Bg-Qyh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ug4-34-45o" secondAttribute="trailing" id="Ojn-q7-9ka"/>
                             <constraint firstItem="ug4-34-45o" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="Ukp-2C-grA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9Yl-4q-9fW" secondAttribute="trailing" id="gRX-qz-JGY"/>
