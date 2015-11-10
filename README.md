@@ -18,6 +18,11 @@ To run Shine on your device you will need at least [Xcode 7](https://developer.a
 3. Open `Shine.xcworkspace`.
 4. Build and run on your device.
 
+## Contributing
+
+Comments, pull requests, bug reports and issues are welcome and encouraged.
+Feel free to contribute in the way you prefer.
+
 ## Credits
 
 Shine depends on the following third-party libraries:
