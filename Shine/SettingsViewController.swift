@@ -22,7 +22,21 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+    @IBOutlet weak var doubleTapSwitch: UISwitch!
+    
     var delegate: SettingsViewControllerDelegate?
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        doubleTapSwitch.on = Settings.doubleTap
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func toggleDoubleTap(sender: UISwitch) {
+        Settings.doubleTap = sender.on
+    }
     
 }
 

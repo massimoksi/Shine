@@ -101,7 +101,7 @@ class ScreenViewController: UIViewController {
         if (segue.identifier == "ShowSettingsSegue") {
             let presentationSegue = segue as! MZFormSheetPresentationViewControllerSegue
             presentationSegue.formSheetPresentationController.contentViewControllerTransitionStyle = .Fade
-            presentationSegue.formSheetPresentationController.presentationController?.contentViewSize = CGSize(width: 300.0, height: 108.0)
+            presentationSegue.formSheetPresentationController.presentationController?.contentViewSize = CGSize(width: 300.0, height: 160.0)
             presentationSegue.formSheetPresentationController.presentationController?.shouldCenterVertically = true
             
             let settingsViewController = segue.destinationViewController as! SettingsViewController
@@ -112,55 +112,57 @@ class ScreenViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func adjustBrightness(sender: UIPanGestureRecognizer) {
-        switch sender.state {
-        case .Began:
-            panLocation = sender.locationInView(overlayView)
-
-            brightnessLabel.frame = CGRect(origin: locationForLabelFromLocation(panLocation), size: brightnessLabel.frame.size)
-            brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
-            brightnessLabel.alpha = 1.0
-            
-        case .Changed:
-            // Calculate pan.
-            let actPanLocation = sender.locationInView(overlayView)
-            let panTranslation = panLocation.y - actPanLocation.y
-            panLocation = actPanLocation
-
-            // Calculate brightness.
-            brightness += panTranslation / (overlayView.bounds.height * 0.75)
-            brightness = max(min(brightness, 1.0), 0.0)
-
-            brightnessLabel.frame = CGRect(origin: locationForLabelFromLocation(actPanLocation), size: brightnessLabel.frame.size)
-            brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
-            
-            // Calculate screen brightness.
-            let screenBrightness = (brightness - 0.25) / 0.75
-            UIScreen.mainScreen().brightness = screenBrightness
-
-            softDimBrightness()
-            
-        case .Ended:
-            // Store final screen brightness into user defaults.
-            Settings.brightness = Float(brightness)
-            
-            UIView.animateWithDuration(1.0, animations: { [unowned self] in
-                self.brightnessLabel.alpha = 0.0
-            })
-            
-        case .Cancelled, .Failed:
-            resetBrightness()
-
-            brightnessLabel.alpha = 0.0
-            
-        default:
-            resetBrightness()
-            
-            brightnessLabel.alpha = 0.0
+        if (lightOn) {
+            switch sender.state {
+            case .Began:
+                panLocation = sender.locationInView(overlayView)
+                
+                brightnessLabel.frame = CGRect(origin: locationForLabelFromLocation(panLocation), size: brightnessLabel.frame.size)
+                brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
+                brightnessLabel.alpha = 1.0
+                
+            case .Changed:
+                // Calculate pan.
+                let actPanLocation = sender.locationInView(overlayView)
+                let panTranslation = panLocation.y - actPanLocation.y
+                panLocation = actPanLocation
+                
+                // Calculate brightness.
+                brightness += panTranslation / (overlayView.bounds.height * 0.75)
+                brightness = max(min(brightness, 1.0), 0.0)
+                
+                brightnessLabel.frame = CGRect(origin: locationForLabelFromLocation(actPanLocation), size: brightnessLabel.frame.size)
+                brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
+                
+                // Calculate screen brightness.
+                let screenBrightness = (brightness - 0.25) / 0.75
+                UIScreen.mainScreen().brightness = screenBrightness
+                
+                softDimBrightness()
+                
+            case .Ended:
+                // Store final screen brightness into user defaults.
+                Settings.brightness = Float(brightness)
+                
+                UIView.animateWithDuration(1.0, animations: { [unowned self] in
+                    self.brightnessLabel.alpha = 0.0
+                    })
+                
+            case .Cancelled, .Failed:
+                resetBrightness()
+                
+                brightnessLabel.alpha = 0.0
+                
+            default:
+                resetBrightness()
+                
+                brightnessLabel.alpha = 0.0
+            }
         }
     }
 
     @IBAction func switchOffLight(sender: UITapGestureRecognizer) {
-        if sender.state == .Ended {
+        if (Settings.doubleTap && (sender.state == .Ended)) {
             if lightOn {
                 overlayView.alpha = 1.0
                 
@@ -181,7 +183,11 @@ class ScreenViewController: UIViewController {
     }
 
     @IBAction func unwindToScreenViewController(segue: UIStoryboardSegue) {
-        // Nothing to do.
+        if !Settings.doubleTap && !lightOn {
+            lightOn = true
+            
+            resetBrightness()
+        }
     }
     
     // MARK: - Notifications handlers
