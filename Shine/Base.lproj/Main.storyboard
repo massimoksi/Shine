@@ -37,6 +37,7 @@
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="et4-BF-0sg" appends="YES" id="W1u-Cc-9oX"/>
                             <outletCollection property="gestureRecognizers" destination="KJc-uj-Mau" appends="YES" id="sUZ-qE-GQE"/>
+                            <outletCollection property="gestureRecognizers" destination="SPP-vI-dNr" appends="YES" id="goT-ep-7nU"/>
                         </connections>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -56,6 +57,11 @@
                         <action selector="showSettings:" destination="BYZ-38-t0r" id="2iS-Rg-tXi"/>
                     </connections>
                 </pongPressGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="SPP-vI-dNr">
+                    <connections>
+                        <action selector="switchOffLight:" destination="BYZ-38-t0r" id="cey-Kg-DK6"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="596" y="439"/>
         </scene>
@@ -99,14 +105,14 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LightColorCell" id="3vk-a3-bVZ" customClass="ColorCollectionViewCell" customModule="Shine" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" reuseIdentifier="LightColorCell" id="3vk-a3-bVZ" customClass="ColorCollectionViewCell" customModule="Shine" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PIE-OA-vPP" customClass="CheckboxView" customModule="Shine" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PIE-OA-vPP" customClass="CheckboxView" customModule="Shine" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                                                     <animations/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -24,8 +24,9 @@ import MZFormSheetPresentationController
 class ScreenViewController: UIViewController {
 
     var brightness: CGFloat = 0.0
+    var lightOn: Bool = false
     
-    var panLocation: CGPoint!
+    var panLocation: CGPoint!   // TODO: Use optionals.
     
     @IBOutlet weak var overlayView: UIView!
 
@@ -72,15 +73,16 @@ class ScreenViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
+        lightOn = true
         
+        brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
+
+        // Fade label in/out.
         UIView.animateKeyframesWithDuration(2.0, delay: 0.0, options: UIViewKeyframeAnimationOptions(rawValue: 0), animations: {
-            // Fade in.
             UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.5, animations: { [unowned self] in
                 self.brightnessLabel.alpha = 1.0
             })
             
-            // Fade out.
             UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: { [unowned self] in
                 self.brightnessLabel.alpha = 0.0
             })
@@ -154,6 +156,21 @@ class ScreenViewController: UIViewController {
             resetBrightness()
             
             brightnessLabel.alpha = 0.0
+        }
+    }
+
+    @IBAction func switchOffLight(sender: UITapGestureRecognizer) {
+        if sender.state == .Ended {
+            if lightOn {
+                overlayView.alpha = 1.0
+                
+                lightOn = false
+            }
+            else {
+                resetBrightness()
+                
+                lightOn = true
+            }
         }
     }
     

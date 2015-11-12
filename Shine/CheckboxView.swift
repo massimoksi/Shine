@@ -45,18 +45,20 @@ import UIKit
     
     private let checkmarkLayer = CAShapeLayer()
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         translatesAutoresizingMaskIntoConstraints = false
         
         layer.addSublayer(checkmarkLayer)
     }
     
-    override func intrinsicContentSize() -> CGSize {
-        let minSize = 44.0
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         
-        return CGSize(width: minSize, height: minSize)
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        layer.addSublayer(checkmarkLayer)
     }
     
     override class func requiresConstraintBasedLayout() -> Bool {
