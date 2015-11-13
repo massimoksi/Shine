@@ -8,7 +8,7 @@ Shine is an iOS app to transform the screen of your device into a dimmable night
 - Pan gesture to adjust screen brightness.
 - Today extension to turn the light on.
 - Change the light color with a long press gesture.
-- Switch the light on/off with a double tap on.
+- Switch the light on/off with a double tap.
 
 ## Installation
 
