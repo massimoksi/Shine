@@ -12,7 +12,7 @@ Shine is an iOS app to transform the screen of your device into a dimmable night
 
 ## Installation
 
-To run Shine on your device you will need at least [Xcode 7](https://developer.apple.com/xcode/) and [CocoaPods](https://cocoapods.org/) installed.
+To run Shine on your device (running iOS 9.0 or above) you will need at least [Xcode 7](https://developer.apple.com/xcode/) and [CocoaPods](https://cocoapods.org/) installed.
 
 1. Clone this repository.
 2. Run `pod install`.
