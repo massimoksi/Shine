@@ -25,9 +25,9 @@ class ScreenViewController: UIViewController {
 
     var brightness: CGFloat = 0.0
     var lightOn: Bool = false
-    
-    var panLocation: CGPoint!   // TODO: Use optionals.
-    
+
+    var panLocation: CGPoint = CGPointZero
+
     @IBOutlet weak var overlayView: UIView!
 
     var brightnessLabel: UILabel!
@@ -131,14 +131,10 @@ class ScreenViewController: UIViewController {
                 brightness += panTranslation / (overlayView.bounds.height * 0.75)
                 brightness = max(min(brightness, 1.0), 0.0)
                 
+                adjustLight()
+                
                 brightnessLabel.frame = CGRect(origin: locationForLabelFromLocation(actPanLocation), size: brightnessLabel.frame.size)
                 brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
-                
-                // Calculate screen brightness.
-                let screenBrightness = (brightness - 0.25) / 0.75
-                UIScreen.mainScreen().brightness = screenBrightness
-                
-                softDimBrightness()
                 
             case .Ended:
                 // Store final screen brightness into user defaults.
@@ -164,8 +160,9 @@ class ScreenViewController: UIViewController {
     @IBAction func switchOffLight(sender: UITapGestureRecognizer) {
         if (Settings.doubleTap && (sender.state == .Ended)) {
             if lightOn {
-                overlayView.alpha = 1.0
-                
+                brightness = 0.0
+                adjustLight()
+
                 lightOn = false
             }
             else {
@@ -194,15 +191,17 @@ class ScreenViewController: UIViewController {
     
     func resetBrightness() {
         brightness = CGFloat(Settings.brightness)
-        
-        UIScreen.mainScreen().brightness = brightness
-        
-        softDimBrightness()
+
+        adjustLight()
     }
 
     // MARK: - Private methods
-    
-    private func softDimBrightness() {
+
+    private func adjustLight() {
+        // Adjust screen brightness.
+        let screenBrightness = (brightness - 0.25) / 0.75
+        UIScreen.mainScreen().brightness = screenBrightness
+
         // Darken screen background.
         overlayView.alpha = 1.0 - min(brightness / 0.25, 1.0)
     }
