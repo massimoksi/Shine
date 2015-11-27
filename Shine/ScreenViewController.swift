@@ -54,7 +54,7 @@ class ScreenViewController: UIViewController {
         brightnessLabel = UILabel(frame: CGRect(x: view.bounds.midX - 50.0, y: view.bounds.midY - 32.0, width: 100.0, height: 64.0))
         brightnessLabel.font = UIFont.systemFontOfSize(36.0)
         brightnessLabel.textAlignment = .Center
-        brightnessLabel.textColor = UIColor(white: 0.0, alpha: 0.25)
+        brightnessLabel.textColor = UIColor(white: 0.75, alpha: 1.0)
         brightnessLabel.alpha = 0.0
         view.addSubview(brightnessLabel)
     }
