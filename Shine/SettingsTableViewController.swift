@@ -6,10 +6,10 @@
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -20,8 +20,8 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
-    
+class SettingsTableViewController: UITableViewController {
+
     @IBOutlet weak var doubleTapSwitch: UISwitch!
     
     var delegate: SettingsViewControllerDelegate?
@@ -31,7 +31,7 @@ class SettingsViewController: UIViewController {
         
         doubleTapSwitch.on = Settings.doubleTap
     }
-    
+
     // MARK: - Actions
     
     @IBAction func toggleDoubleTap(sender: UISwitch) {
@@ -42,12 +42,12 @@ class SettingsViewController: UIViewController {
 
 // MARK: - Collection view data source
 
-extension SettingsViewController: UICollectionViewDataSource {
-
+extension SettingsTableViewController: UICollectionViewDataSource {
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return LightColor.allColors.count
     }
-
+    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LightColorCell", forIndexPath: indexPath) as! ColorCollectionViewCell
         cell.checkbox.tintColor = LightColor.allColors[indexPath.row]
@@ -55,13 +55,13 @@ extension SettingsViewController: UICollectionViewDataSource {
         
         return cell
     }
-
+    
 }
 
 // MARK: - Collection view delegate
 
-extension SettingsViewController: UICollectionViewDelegate {
-
+extension SettingsTableViewController: UICollectionViewDelegate {
+    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let oldSelectedIndexPath = NSIndexPath(forItem: Settings.lightColor, inSection: 0)
         

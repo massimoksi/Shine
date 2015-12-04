@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5605FA971BE2D0EF00253D38 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5605FA961BE2D0EF00253D38 /* SettingsViewController.swift */; };
 		5620C8961BE81CD7007EC4D6 /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5620C8951BE81CD7007EC4D6 /* CheckboxView.swift */; };
 		5622D4041BC70F0500B52B92 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5622D4031BC70F0500B52B92 /* NotificationCenter.framework */; };
 		5622D4071BC70F0500B52B92 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5622D4061BC70F0500B52B92 /* TodayViewController.swift */; };
 		5622D40A1BC70F0500B52B92 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5622D4081BC70F0500B52B92 /* MainInterface.storyboard */; };
 		5622D40E1BC70F0500B52B92 /* ShineToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5622D4011BC70F0500B52B92 /* ShineToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		564094EC1C0CFDD900D9E634 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564094EB1C0CFDD900D9E634 /* SettingsTableViewController.swift */; };
 		564BD5471BE17EFF006E9C23 /* LightColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564BD5461BE17EFF006E9C23 /* LightColor.swift */; };
 		56579CC31BB30FA300060B5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56579CC21BB30FA300060B5C /* AppDelegate.swift */; };
 		56579CC51BB30FA300060B5C /* ScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56579CC41BB30FA300060B5C /* ScreenViewController.swift */; };
@@ -51,13 +51,13 @@
 
 /* Begin PBXFileReference section */
 		28376F5CA447280C0EE5CD7E /* Pods-Shine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shine.release.xcconfig"; path = "Pods/Target Support Files/Pods-Shine/Pods-Shine.release.xcconfig"; sourceTree = "<group>"; };
-		5605FA961BE2D0EF00253D38 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5620C8951BE81CD7007EC4D6 /* CheckboxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
 		5622D4011BC70F0500B52B92 /* ShineToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShineToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5622D4031BC70F0500B52B92 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		5622D4061BC70F0500B52B92 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		5622D4091BC70F0500B52B92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		5622D40B1BC70F0500B52B92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		564094EB1C0CFDD900D9E634 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		564BD5461BE17EFF006E9C23 /* LightColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightColor.swift; sourceTree = "<group>"; };
 		56579CBF1BB30FA300060B5C /* Shine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56579CC21BB30FA300060B5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				56579CC41BB30FA300060B5C /* ScreenViewController.swift */,
-				5605FA961BE2D0EF00253D38 /* SettingsViewController.swift */,
+				564094EB1C0CFDD900D9E634 /* SettingsTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -350,8 +350,8 @@
 				56579CD51BB35F4900060B5C /* Settings.swift in Sources */,
 				56579CC51BB30FA300060B5C /* ScreenViewController.swift in Sources */,
 				564BD5471BE17EFF006E9C23 /* LightColor.swift in Sources */,
+				564094EC1C0CFDD900D9E634 /* SettingsTableViewController.swift in Sources */,
 				5620C8961BE81CD7007EC4D6 /* CheckboxView.swift in Sources */,
-				5605FA971BE2D0EF00253D38 /* SettingsViewController.swift in Sources */,
 				56579CC31BB30FA300060B5C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

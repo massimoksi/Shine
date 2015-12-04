@@ -101,10 +101,11 @@ class ScreenViewController: UIViewController {
         if (segue.identifier == "ShowSettingsSegue") {
             let presentationSegue = segue as! MZFormSheetPresentationViewControllerSegue
             presentationSegue.formSheetPresentationController.contentViewControllerTransitionStyle = .Fade
-            presentationSegue.formSheetPresentationController.presentationController?.contentViewSize = CGSize(width: 300.0, height: 160.0)
+            presentationSegue.formSheetPresentationController.presentationController?.contentViewSize = CGSize(width: 300.0, height: 248.0)
             presentationSegue.formSheetPresentationController.presentationController?.shouldCenterVertically = true
             
-            let settingsViewController = segue.destinationViewController as! SettingsViewController
+            let settingsNavController = segue.destinationViewController as! UINavigationController
+            let settingsViewController = settingsNavController.topViewController as! SettingsTableViewController
             settingsViewController.delegate = self
         }
     }
