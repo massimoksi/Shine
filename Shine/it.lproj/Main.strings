@@ -1,6 +1,6 @@
 
-/* Class = "UILabel"; text = "Double tap to switch on/off"; ObjectID = "XFH-IL-e8V"; */
-"XFH-IL-e8V.text" = "Doppio tap per spegnere";
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "UVe-C3-W9R"; */
+"UVe-C3-W9R.title" = "Impostazioni";
 
-/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "mKy-VF-tWc"; */
-"mKy-VF-tWc.normalTitle" = "Fine";
+/* Class = "UILabel"; text = "Double tap to turn off"; ObjectID = "Z0A-0c-ciH"; */
+"Z0A-0c-ciH.text" = "Doppio tap per spegnere";
