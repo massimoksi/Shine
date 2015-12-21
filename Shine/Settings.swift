@@ -21,46 +21,46 @@
 import Foundation
 
 struct Settings {
-    
+
     static var brightness: Float {
         get {
             return NSUserDefaults.standardUserDefaults().floatForKey(Key.Brightness.rawValue)
         }
-        
+
         set {
             NSUserDefaults.standardUserDefaults().setFloat(max(min(newValue, 1.0), 0.0), forKey: Key.Brightness.rawValue)
         }
     }
-    
+
     static var lightColor: Int {
         get {
             return NSUserDefaults.standardUserDefaults().integerForKey(Key.LightColor.rawValue)
         }
-        
+
         set {
             NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey: Key.LightColor.rawValue)
         }
     }
-    
+
     static var bundleVersion: String {
         get {
             guard let version = NSUserDefaults.standardUserDefaults().stringForKey(Key.BundleVersion.rawValue) else {
                 return "0.0.0"
             }
-            
+
             return version
         }
-        
+
         set {
             NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: Key.BundleVersion.rawValue)
         }
     }
-    
+
     static var doubleTap: Bool {
         get {
             return NSUserDefaults.standardUserDefaults().boolForKey(Key.DoubleTap.rawValue)
         }
-        
+
         set {
             NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: Key.DoubleTap.rawValue)
         }

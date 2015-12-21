@@ -215,6 +215,7 @@
 				5622D4121BC70F0600B52B92 /* Embed App Extensions */,
 				557A47C2AF6D512D7B39D72B /* Embed Pods Frameworks */,
 				24AB05301FC1CD295AFB03F4 /* Copy Pods Resources */,
+				564DF1561C28AFAA00CA342B /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -330,6 +331,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Shine/Pods-Shine-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		564DF1561C28AFAA00CA342B /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 

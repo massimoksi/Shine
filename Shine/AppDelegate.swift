@@ -30,14 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Register user defaults.
         Settings.registerDefaults()
-        
+
         // Check and update app version.
         if let actVersion = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
-            if (actVersion != Settings.bundleVersion) {
+            if actVersion != Settings.bundleVersion {
                 Settings.bundleVersion = actVersion
             }
         }
-        
+
         return true
     }
 
