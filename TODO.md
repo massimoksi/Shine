@@ -1,6 +1,6 @@
 v0.5.1
 ------
-[ ] Create an icon for iPad Pro.
+[x] Create an icon for iPad Pro.
 [ ] Dismiss Settings view with a tap on the background view.
 [ ] Test what happens when changing iPad orientation with the settings view visible.
 [ ] Change padding for brightness label.
