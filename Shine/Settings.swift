@@ -70,6 +70,7 @@ struct Settings {
         NSUserDefaults.standardUserDefaults().registerDefaults([
             Key.Brightness.rawValue: Float(1.0),
             Key.LightColor.rawValue: 0,
+            Key.BundleVersion.rawValue: "0.0.0",
             Key.DoubleTap.rawValue: true
         ])
     }
