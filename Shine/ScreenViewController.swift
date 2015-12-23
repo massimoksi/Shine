@@ -106,6 +106,7 @@ class ScreenViewController: UIViewController {
             presentationSegue.formSheetPresentationController.contentViewControllerTransitionStyle = .Fade
             presentationSegue.formSheetPresentationController.presentationController?.contentViewSize = CGSize(width: 300.0, height: 248.0)
             presentationSegue.formSheetPresentationController.presentationController?.shouldCenterVertically = true
+            presentationSegue.formSheetPresentationController.presentationController?.shouldDismissOnBackgroundViewTap = true
 
             let settingsNavController = segue.destinationViewController as! UINavigationController
             let settingsViewController = settingsNavController.topViewController as! SettingsTableViewController
