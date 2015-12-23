@@ -22,9 +22,13 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
 
+    // MARK: Properties
+
     @IBOutlet weak var doubleTapSwitch: UISwitch!
 
     var delegate: SettingsViewControllerDelegate?
+
+    // MARK: Life cycle
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -32,7 +36,7 @@ class SettingsTableViewController: UITableViewController {
         doubleTapSwitch.on = Settings.doubleTap
     }
 
-    // MARK: - Actions
+    // MARK: Actions
 
     @IBAction func toggleDoubleTap(sender: UISwitch) {
         Settings.doubleTap = sender.on
