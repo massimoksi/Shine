@@ -23,6 +23,8 @@ import MZFormSheetPresentationController
 
 class ScreenViewController: UIViewController {
 
+    // MARK: Properties
+
     var brightness: CGFloat = 0.0
     var lightOn: Bool = false
 
@@ -40,6 +42,8 @@ class ScreenViewController: UIViewController {
 
         return formatter
     }()
+
+    // MARK: Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,7 +98,7 @@ class ScreenViewController: UIViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
 
-    // MARK: - Navigation
+    // MARK: Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowSettingsSegue" {
@@ -109,7 +113,7 @@ class ScreenViewController: UIViewController {
         }
     }
 
-    // MARK: - Actions
+    // MARK: Actions
 
     @IBAction func adjustBrightness(sender: UIPanGestureRecognizer) {
         if lightOn {
@@ -142,7 +146,7 @@ class ScreenViewController: UIViewController {
 
                 UIView.animateWithDuration(1.0, animations: { [unowned self] in
                     self.brightnessLabel.alpha = 0.0
-                    })
+                })
 
             case .Cancelled, .Failed:
                 resetBrightness()
@@ -186,7 +190,7 @@ class ScreenViewController: UIViewController {
         }
     }
 
-    // MARK: - Notifications handlers
+    // MARK: Notifications handlers
 
     func resetBrightness() {
         brightness = CGFloat(Settings.brightness)
@@ -194,7 +198,7 @@ class ScreenViewController: UIViewController {
         adjustLight()
     }
 
-    // MARK: - Private methods
+    // MARK: Helper functions
 
     private func adjustLight() {
         // Adjust screen brightness.
