@@ -22,6 +22,8 @@ import UIKit
 
 @IBDesignable class CheckboxView: UIView {
 
+    // MARK: Properties
+
     @IBInspectable var on: Bool = false {
         didSet {
             // Show/hide checkmark.
@@ -45,6 +47,8 @@ import UIKit
 
     private let checkmarkLayer = CAShapeLayer()
 
+    // MARK: Initializers
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -60,6 +64,8 @@ import UIKit
 
         layer.addSublayer(checkmarkLayer)
     }
+
+    // MARK: Layout
 
     override class func requiresConstraintBasedLayout() -> Bool {
         return true
@@ -82,7 +88,7 @@ import UIKit
         checkmarkLayer.hidden = !on
     }
 
-    // MARK: - Private methods
+    // MARK: Helper functions
 
     private func checkmarkPath() -> UIBezierPath {
         let w = frame.width
