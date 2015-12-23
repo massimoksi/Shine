@@ -21,6 +21,7 @@
 import UIKit
 
 enum LightColor: Int {
+
     case White
     case Yellow
     case Pink
@@ -49,4 +50,5 @@ enum LightColor: Int {
     static var allColors: [UIColor] {
         return [White.color, Yellow.color, Pink.color, LightBlue.color, Red.color]
     }
+
 }
