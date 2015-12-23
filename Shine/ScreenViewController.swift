@@ -215,9 +215,9 @@ class ScreenViewController: UIViewController {
 
         // Calculate horizontal position.
         if location.x < overlayView.bounds.midX {
-            newLocation.x = location.x + 8.0
+            newLocation.x = location.x + 40.0
         } else {
-             newLocation.x = location.x - 8.0 - brightnessLabel.frame.width
+             newLocation.x = location.x - 40.0 - brightnessLabel.frame.width
         }
 
         // Calculate vertical position.
