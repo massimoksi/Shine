@@ -57,7 +57,7 @@ class ScreenViewController: UIViewController {
         brightnessLabel = UILabel(frame: CGRect(x: view.bounds.midX - 50.0, y: view.bounds.midY - 32.0, width: 100.0, height: 64.0))
         brightnessLabel.font = UIFont.systemFontOfSize(36.0)
         brightnessLabel.textAlignment = .Center
-        brightnessLabel.textColor = UIColor(white: 0.75, alpha: 1.0)
+        brightnessLabel.textColor = frontColor()
         brightnessLabel.alpha = 0.0
         view.addSubview(brightnessLabel)
     }
@@ -122,9 +122,10 @@ class ScreenViewController: UIViewController {
             case .Began:
                 panLocation = sender.locationInView(overlayView)
 
-                brightnessLabel.frame = CGRect(origin: locationForLabelFromLocation(panLocation), size: brightnessLabel.frame.size)
-                brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
                 brightnessLabel.alpha = 1.0
+                brightnessLabel.frame = CGRect(origin: locationForLabelFromLocation(panLocation), size: brightnessLabel.frame.size)
+                brightnessLabel.textColor = frontColor()
+                brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
 
             case .Changed:
                 // Calculate pan.
@@ -139,6 +140,7 @@ class ScreenViewController: UIViewController {
                 adjustLight()
 
                 brightnessLabel.frame = CGRect(origin: locationForLabelFromLocation(actPanLocation), size: brightnessLabel.frame.size)
+                brightnessLabel.textColor = frontColor()
                 brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
 
             case .Ended:
@@ -229,6 +231,14 @@ class ScreenViewController: UIViewController {
         }
 
         return newLocation
+    }
+
+    private func frontColor() -> UIColor {
+        if brightness > 0.25 {
+            return UIColor(white: 0.0, alpha: 0.25)
+        } else {
+            return LightColor(rawValue: Settings.lightColor)?.color ?? LightColor.White.color
+        }
     }
 
 }
