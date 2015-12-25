@@ -216,18 +216,20 @@ class ScreenViewController: UIViewController {
         var newLocation = CGPoint()
 
         // Calculate horizontal position.
+        let horzPadding: CGFloat = 40.0
         if location.x < overlayView.bounds.midX {
-            newLocation.x = location.x + 40.0
+            newLocation.x = location.x + horzPadding
         } else {
-             newLocation.x = location.x - 40.0 - brightnessLabel.frame.width
+             newLocation.x = location.x - horzPadding - brightnessLabel.frame.width
         }
 
         // Calculate vertical position.
+        let vertMargin: CGFloat = 4.0
         newLocation.y = location.y - brightnessLabel.frame.height / 2.0
-        if newLocation.y < 4.0 {
-            newLocation.y = 4.0
-        } else if newLocation.y > overlayView.frame.height - brightnessLabel.frame.height - 4.0 {
-            newLocation.y = overlayView.frame.height - brightnessLabel.frame.height - 4.0
+        if newLocation.y < vertMargin {
+            newLocation.y = vertMargin
+        } else if newLocation.y > overlayView.frame.height - brightnessLabel.frame.height - vertMargin {
+            newLocation.y = overlayView.frame.height - brightnessLabel.frame.height - vertMargin
         }
 
         return newLocation

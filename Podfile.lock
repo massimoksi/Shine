@@ -1,12 +1,15 @@
 PODS:
+  - Former (1.1.0)
   - MZAppearance (1.1.6)
   - MZFormSheetPresentationController (2.1.2):
     - MZAppearance
 
 DEPENDENCIES:
+  - Former
   - MZFormSheetPresentationController (~> 2.1.2)
 
 SPEC CHECKSUMS:
+  Former: 5b2ac5acdc8b059e1346d048c26a9d5dbd751c55
   MZAppearance: 0c06d3fa9cc55142f1da14bc8631fbe8fd6e19d5
   MZFormSheetPresentationController: a268a1840780d52f47688d823d2b6d35318bf24d
 

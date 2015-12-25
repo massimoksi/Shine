@@ -20,7 +20,27 @@
 
 import UIKit
 
-@IBDesignable class CheckboxView: UIView {
+class ColorSelectionCell: UITableViewCell {
+
+    // MARK: Properties
+
+    @IBOutlet weak var collectionView: UICollectionView!
+
+    // MARK: Life cycle
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        selectionStyle = .None
+
+        collectionView.registerClass(ColorSelectionCheckbox.self, forCellWithReuseIdentifier: "ColorSelectionCheckbox")
+    }
+
+}
+
+// MARK: -
+
+@IBDesignable class ColorSelectionCheckbox: UICollectionViewCell {
 
     // MARK: Properties
 
