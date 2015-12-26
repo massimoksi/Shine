@@ -49,6 +49,14 @@ final class SettingsFormViewController: FormViewController {
             Settings.doubleTap = switched
         }
 
+        let timerEnableSwitchRow = SwitchRowFormer<FormSwitchCell>() {
+            $0.titleLabel.text = NSLocalizedString("Enable timer", comment: "")
+            }.configure {
+                $0.switched = Settings.timerEnable
+            }.onSwitchChanged { switched in
+                Settings.timerEnable = switched
+        }
+
         let createHeader: (String -> ViewFormer) = { text in
             return LabelViewFormer<FormLabelHeaderView>().configure {
                 $0.text = text.uppercaseString
@@ -57,7 +65,7 @@ final class SettingsFormViewController: FormViewController {
         }
 
         let colorSection = SectionFormer(rowFormer: colorSelectionRow).set(headerViewFormer: createHeader(NSLocalizedString("Light color", comment: "")))
-        let generalSection = SectionFormer(rowFormer: doubleTapSwitchRow).set(headerViewFormer: createHeader(NSLocalizedString("General", comment: "")))
+        let generalSection = SectionFormer(rowFormer: doubleTapSwitchRow, timerEnableSwitchRow).set(headerViewFormer: createHeader(NSLocalizedString("General", comment: "")))
 
         former.append(sectionFormer: colorSection)
         former.append(sectionFormer: generalSection)

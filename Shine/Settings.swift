@@ -66,12 +66,23 @@ struct Settings {
         }
     }
 
+    static var timerEnable: Bool {
+        get {
+            return NSUserDefaults.standardUserDefaults().boolForKey(Key.TimerEnable.rawValue)
+        }
+
+        set {
+            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: Key.TimerEnable.rawValue)
+        }
+    }
+
     static func registerDefaults() {
         NSUserDefaults.standardUserDefaults().registerDefaults([
             Key.Brightness.rawValue: Float(1.0),
             Key.LightColor.rawValue: 0,
             Key.BundleVersion.rawValue: "0.0.0",
-            Key.DoubleTap.rawValue: true
+            Key.DoubleTap.rawValue: true,
+            Key.TimerEnable.rawValue: false
         ])
     }
 
@@ -82,6 +93,7 @@ struct Settings {
         case LightColor
         case BundleVersion
         case DoubleTap
+        case TimerEnable
     }
 
 }
