@@ -22,6 +22,7 @@
 		56DD1AE41C2BE00000739252 /* SettingsFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DD1AE31C2BE00000739252 /* SettingsFormViewController.swift */; };
 		56DD1AE71C2DF98200739252 /* ColorSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DD1AE61C2DF98200739252 /* ColorSelectionCell.swift */; };
 		56DD1AE91C2DF9A500739252 /* ColorSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56DD1AE81C2DF9A500739252 /* ColorSelectionCell.xib */; };
+		56DD1AEC1C2E7FA000739252 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56DD1AEE1C2E7FA000739252 /* Localizable.strings */; };
 		A4608C44FC30E56A13156EB4 /* Pods_Shine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC4BB0268F57D93FEF925C5F /* Pods_Shine.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,8 @@
 		56DD1AE31C2BE00000739252 /* SettingsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsFormViewController.swift; sourceTree = "<group>"; };
 		56DD1AE61C2DF98200739252 /* ColorSelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSelectionCell.swift; sourceTree = "<group>"; };
 		56DD1AE81C2DF9A500739252 /* ColorSelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorSelectionCell.xib; sourceTree = "<group>"; };
+		56DD1AED1C2E7FA000739252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		56DD1AEF1C2E802F00739252 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		72407ED2B4B4B7FDB5022B74 /* Pods-Shine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Shine/Pods-Shine.debug.xcconfig"; sourceTree = "<group>"; };
 		EC4BB0268F57D93FEF925C5F /* Pods_Shine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -144,6 +147,7 @@
 				5682236D1BE6D83E00B66360 /* Views */,
 				5682236E1BE6D84D00B66360 /* Controllers */,
 				56579CCE1BB30FA300060B5C /* Info.plist */,
+				56DD1AEE1C2E7FA000739252 /* Localizable.strings */,
 			);
 			path = Shine;
 			sourceTree = "<group>";
@@ -278,6 +282,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56DD1AEC1C2E7FA000739252 /* Localizable.strings in Resources */,
 				56DD1AE91C2DF9A500739252 /* ColorSelectionCell.xib in Resources */,
 				56579CCD1BB30FA300060B5C /* LaunchScreen.storyboard in Resources */,
 				56579CCA1BB30FA300060B5C /* Assets.xcassets in Resources */,
@@ -406,6 +411,15 @@
 				56579CCC1BB30FA300060B5C /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		56DD1AEE1C2E7FA000739252 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				56DD1AED1C2E7FA000739252 /* Base */,
+				56DD1AEF1C2E802F00739252 /* it */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
