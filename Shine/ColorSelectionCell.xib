@@ -6,33 +6,37 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB" customClass="ColorSelectionCell" customModule="Shine" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="U0X-mA-VVZ">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="7" minimumInteritemSpacing="7" id="4p6-DS-mLM">
-                        <size key="itemSize" width="48" height="48"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    </collectionViewFlowLayout>
-                </collectionView>
-            </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="U0X-mA-VVZ" secondAttribute="trailing" id="S0D-ot-6OG"/>
-                <constraint firstItem="U0X-mA-VVZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="bnU-zN-Qt1"/>
-                <constraint firstItem="U0X-mA-VVZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="dPs-A7-Bf9"/>
-                <constraint firstAttribute="bottom" secondItem="U0X-mA-VVZ" secondAttribute="bottom" id="ns5-WY-DPP"/>
-            </constraints>
-            <nil key="simulatedStatusBarMetrics"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Je3-Pg-ERv" customClass="ColorSelectionCell" customModule="Shine" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Je3-Pg-ERv" id="vYF-b0-6Yz">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="U0X-mA-VVZ">
+                        <rect key="frame" x="24" y="0.0" width="272" height="43"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="272" id="yUU-KB-yK2"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="8" minimumInteritemSpacing="8" id="4p6-DS-mLM">
+                            <size key="itemSize" width="48" height="48"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="U0X-mA-VVZ" firstAttribute="top" secondItem="vYF-b0-6Yz" secondAttribute="top" id="Cte-Pf-cQ0"/>
+                    <constraint firstAttribute="bottom" secondItem="U0X-mA-VVZ" secondAttribute="bottom" id="obC-hO-H8c"/>
+                    <constraint firstItem="U0X-mA-VVZ" firstAttribute="centerX" secondItem="vYF-b0-6Yz" secondAttribute="centerX" id="xhE-e4-kQP"/>
+                </constraints>
+            </tableViewCellContentView>
             <connections>
-                <outlet property="collectionView" destination="U0X-mA-VVZ" id="7CM-AQ-fIj"/>
+                <outlet property="collectionView" destination="U0X-mA-VVZ" id="OkD-CW-QHr"/>
             </connections>
-        </view>
+            <point key="canvasLocation" x="276" y="605"/>
+        </tableViewCell>
     </objects>
 </document>

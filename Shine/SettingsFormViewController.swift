@@ -32,6 +32,8 @@ final class SettingsFormViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.scrollEnabled = false
+
         let colorSelectionRow = CustomRowFormer<ColorSelectionCell>(instantiateType: .Nib(nibName: "ColorSelectionCell")) {
             $0.collectionView.dataSource = self
             $0.collectionView.delegate = self
@@ -47,12 +49,15 @@ final class SettingsFormViewController: FormViewController {
             Settings.doubleTap = switched
         }
 
-        let spaceHeader = CustomViewFormer<FormHeaderFooterView>().configure {
-            $0.viewHeight = 30.0
+        let createHeader: (String -> ViewFormer) = { text in
+            return LabelViewFormer<FormLabelHeaderView>().configure {
+                $0.text = text.uppercaseString
+                $0.viewHeight = 42.0
+            }
         }
 
-        let colorSection = SectionFormer(rowFormer: colorSelectionRow).set(headerViewFormer: spaceHeader)
-        let generalSection = SectionFormer(rowFormer: doubleTapSwitchRow).set(headerViewFormer: spaceHeader)
+        let colorSection = SectionFormer(rowFormer: colorSelectionRow).set(headerViewFormer: createHeader(NSLocalizedString("Light color", comment: "")))
+        let generalSection = SectionFormer(rowFormer: doubleTapSwitchRow).set(headerViewFormer: createHeader(NSLocalizedString("General", comment: "")))
 
         former.append(sectionFormer: colorSection)
         former.append(sectionFormer: generalSection)

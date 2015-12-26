@@ -109,7 +109,7 @@ class ScreenViewController: UIViewController {
             presentationSegue.formSheetPresentationController.presentationController?.shouldDismissOnBackgroundViewTap = true
 
             let settingsNavController = segue.destinationViewController as! UINavigationController
-            let settingsViewController = settingsNavController.topViewController as! SettingsTableViewController
+            let settingsViewController = settingsNavController.topViewController as! SettingsFormViewController
             settingsViewController.delegate = self
         }
     }
@@ -247,7 +247,7 @@ class ScreenViewController: UIViewController {
 
 // MARK: - Settings view controller delegate
 
-extension ScreenViewController: SettingsViewControllerDelegate {
+extension ScreenViewController: SettingsFormViewDelegate {
 
     func updateLightColor() {
         UIView.animateWithDuration(1.0, animations: {
