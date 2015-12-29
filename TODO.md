@@ -1,10 +1,3 @@
-v0.5.1
-------
-[x] Create an icon for iPad Pro.
-[x] Dismiss Settings view with a tap on the background view.
-[x] Change padding for brightness label.
-[x] Change text color for brightness label.
-
 v0.6.0
 ------
 [ ] Add a timer to turn the light off automatically.

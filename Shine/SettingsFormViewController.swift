@@ -27,12 +27,19 @@ final class SettingsFormViewController: FormViewController {
 
     weak var delegate: SettingsFormViewDelegate?
 
+    private lazy var timerDurationFormatter: NSDateComponentsFormatter = {
+        let formatter = NSDateComponentsFormatter()
+        formatter.unitsStyle = .Abbreviated
+
+        return formatter
+    }()
+
     // MARK: Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.scrollEnabled = false
+//        tableView.scrollEnabled = false
 
         let colorSelectionRow = CustomRowFormer<ColorSelectionCell>(instantiateType: .Nib(nibName: "ColorSelectionCell")) {
             $0.collectionView.dataSource = self
@@ -53,8 +60,16 @@ final class SettingsFormViewController: FormViewController {
             $0.titleLabel.text = NSLocalizedString("Enable timer", comment: "")
             }.configure {
                 $0.switched = Settings.timerEnable
-            }.onSwitchChanged { switched in
-                Settings.timerEnable = switched
+        }
+
+        let timerDurationLabelRow = LabelRowFormer<FormLabelCell>().configure {
+            $0.text = NSLocalizedString("Turn off after", comment: "")
+
+            let comps = NSDateComponents()
+            let timerDuration = Settings.timerDuration
+            comps.hour = Int(timerDuration) / 3600
+            comps.minute = (Int(timerDuration) % 3600) / 60
+            $0.subText = timerDurationFormatter.stringFromDateComponents(comps)
         }
 
         let createHeader: (String -> ViewFormer) = { text in
@@ -65,16 +80,37 @@ final class SettingsFormViewController: FormViewController {
         }
 
         let colorSection = SectionFormer(rowFormer: colorSelectionRow).set(headerViewFormer: createHeader(NSLocalizedString("Light color", comment: "")))
-        let generalSection = SectionFormer(rowFormer: doubleTapSwitchRow, timerEnableSwitchRow).set(headerViewFormer: createHeader(NSLocalizedString("General", comment: "")))
 
-        former.append(sectionFormer: colorSection)
-        former.append(sectionFormer: generalSection)
+        let generalRowFormers = Settings.timerEnable ? [doubleTapSwitchRow, timerEnableSwitchRow, timerDurationLabelRow] : [doubleTapSwitchRow, timerEnableSwitchRow]
+        let generalSection = SectionFormer(rowFormers: generalRowFormers).set(headerViewFormer: createHeader(NSLocalizedString("General", comment: "")))
+
+        timerEnableSwitchRow.onSwitchChanged { switched in
+            Settings.timerEnable = switched
+
+            if switched {
+                self.former.insertUpdate(rowFormer: timerDurationLabelRow, toIndexPath: NSIndexPath(forItem: 2, inSection: 1), rowAnimation: UITableViewRowAnimation.Automatic)
+            } else {
+                self.former.removeUpdate(rowFormer: timerDurationLabelRow, rowAnimation: UITableViewRowAnimation.Automatic)
+            }
+        }
+
+        former.append(sectionFormer: colorSection, generalSection)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+    // MARK: Helper functions
+
+//    private func insertRows(sectionTop sectionTop: RowFormer, sectionBottom: RowFormer)(insert: Bool) {
+//        if insert {
+//            former.insertUpdate(rowFormer: subRowFormers, below: sectionBottom, rowAnimation: UITableViewRowAnimation.Automatic)
+//        } else {
+//            former.removeUpdate(rowFormer: subRowFormers, rowAnimation: UITableViewRowAnimation.Automatic)
+//        }
+//    }
 
 }
 

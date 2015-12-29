@@ -76,13 +76,24 @@ struct Settings {
         }
     }
 
+    static var timerDuration: Double {
+        get {
+            return NSUserDefaults.standardUserDefaults().doubleForKey(Key.TimerDuration.rawValue)
+        }
+
+        set {
+            NSUserDefaults.standardUserDefaults().setDouble(newValue, forKey: Key.TimerDuration.rawValue)
+        }
+    }
+
     static func registerDefaults() {
         NSUserDefaults.standardUserDefaults().registerDefaults([
             Key.Brightness.rawValue: Float(1.0),
             Key.LightColor.rawValue: 0,
             Key.BundleVersion.rawValue: "0.0.0",
             Key.DoubleTap.rawValue: true,
-            Key.TimerEnable.rawValue: false
+            Key.TimerEnable.rawValue: false,
+            Key.TimerDuration.rawValue: 600.0
         ])
     }
 
@@ -94,6 +105,7 @@ struct Settings {
         case BundleVersion
         case DoubleTap
         case TimerEnable
+        case TimerDuration
     }
 
 }
