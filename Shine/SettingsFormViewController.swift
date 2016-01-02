@@ -34,12 +34,23 @@ final class SettingsFormViewController: FormViewController {
         return formatter
     }()
 
+    private var timerDurationLabelRow: LabelRowFormer<FormLabelCell>!
+
     // MARK: Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        tableView.scrollEnabled = false
+        let createHeader: (String -> ViewFormer) = { text in
+            return LabelViewFormer<FormLabelHeaderView>().configure {
+                $0.text = text.uppercaseString
+                $0.viewHeight = 42.0
+            }
+        }
+
+        // -------------------------
+        // Light color
+        // -------------------------
 
         let colorSelectionRow = CustomRowFormer<ColorSelectionCell>(instantiateType: .Nib(nibName: "ColorSelectionCell")) {
             $0.collectionView.dataSource = self
@@ -47,6 +58,12 @@ final class SettingsFormViewController: FormViewController {
         }.configure {
             $0.rowHeight = 54.0
         }
+
+        let colorSection = SectionFormer(rowFormer: colorSelectionRow).set(headerViewFormer: createHeader(NSLocalizedString("Light color", comment: "")))
+
+        // -------------------------
+        // General
+        // -------------------------
 
         let doubleTapSwitchRow = SwitchRowFormer<FormSwitchCell>() {
             $0.titleLabel.text = NSLocalizedString("Turn off with a double tap", comment: "")
@@ -62,7 +79,7 @@ final class SettingsFormViewController: FormViewController {
                 $0.switched = Settings.timerEnable
         }
 
-        let timerDurationLabelRow = LabelRowFormer<FormLabelCell>().configure {
+        timerDurationLabelRow = LabelRowFormer<FormLabelCell>().configure {
             $0.text = NSLocalizedString("Turn off after", comment: "")
 
             let comps = NSDateComponents()
@@ -72,25 +89,46 @@ final class SettingsFormViewController: FormViewController {
             $0.subText = timerDurationFormatter.stringFromDateComponents(comps)
         }
 
-        let createHeader: (String -> ViewFormer) = { text in
-            return LabelViewFormer<FormLabelHeaderView>().configure {
-                $0.text = text.uppercaseString
-                $0.viewHeight = 42.0
-            }
+        let timerDurationPickerRow = CustomRowFormer<CountDownCell>(instantiateType: .Nib(nibName: "CountDownCell")) { row in
+            // Workaround to a bug in UIDatePicker implementaion.
+            // http://stackoverflow.com/questions/20181980/uidatepicker-bug-uicontroleventvaluechanged-after-hitting-minimum-internal
+            dispatch_async(dispatch_get_main_queue(), {
+                row.countDownPicker.countDownDuration = Settings.timerDuration
+            })
+            row.countDownPicker.addTarget(self, action: "updateTimerDuration:", forControlEvents: .ValueChanged)
+            }.configure {
+                $0.rowHeight = 217.0
         }
-
-        let colorSection = SectionFormer(rowFormer: colorSelectionRow).set(headerViewFormer: createHeader(NSLocalizedString("Light color", comment: "")))
 
         let generalRowFormers = Settings.timerEnable ? [doubleTapSwitchRow, timerEnableSwitchRow, timerDurationLabelRow] : [doubleTapSwitchRow, timerEnableSwitchRow]
         let generalSection = SectionFormer(rowFormers: generalRowFormers).set(headerViewFormer: createHeader(NSLocalizedString("General", comment: "")))
 
-        timerEnableSwitchRow.onSwitchChanged { switched in
+        timerEnableSwitchRow.onSwitchChanged { [unowned self] switched in
             Settings.timerEnable = switched
 
             if switched {
-                self.former.insertUpdate(rowFormer: timerDurationLabelRow, toIndexPath: NSIndexPath(forItem: 2, inSection: 1), rowAnimation: UITableViewRowAnimation.Automatic)
+                self.former.insertUpdate(rowFormer: self.timerDurationLabelRow, toIndexPath: NSIndexPath(forItem: 2, inSection: 1), rowAnimation: UITableViewRowAnimation.Automatic)
+
+                self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 1), atScrollPosition: .Bottom, animated: true)
             } else {
-                self.former.removeUpdate(rowFormer: timerDurationLabelRow, rowAnimation: UITableViewRowAnimation.Automatic)
+                self.former.removeUpdate(rowFormers: [self.timerDurationLabelRow, timerDurationPickerRow], rowAnimation: UITableViewRowAnimation.Automatic)
+            }
+        }
+
+        var pickerVisible = false
+        timerDurationLabelRow.onSelected { [unowned self] row in
+            if !pickerVisible {
+                self.former.deselect(true)
+                self.former.insertUpdate(rowFormer: timerDurationPickerRow, below: row, rowAnimation: UITableViewRowAnimation.Automatic)
+
+                pickerVisible = true
+
+                self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 3, inSection: 1), atScrollPosition: .Bottom, animated: true)
+            } else {
+                self.former.deselect(true)
+                self.former.removeUpdate(rowFormer: timerDurationPickerRow, rowAnimation: UITableViewRowAnimation.Automatic)
+
+                pickerVisible = false
             }
         }
 
@@ -102,15 +140,19 @@ final class SettingsFormViewController: FormViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: Helper functions
+    // MARK: Actions
 
-//    private func insertRows(sectionTop sectionTop: RowFormer, sectionBottom: RowFormer)(insert: Bool) {
-//        if insert {
-//            former.insertUpdate(rowFormer: subRowFormers, below: sectionBottom, rowAnimation: UITableViewRowAnimation.Automatic)
-//        } else {
-//            former.removeUpdate(rowFormer: subRowFormers, rowAnimation: UITableViewRowAnimation.Automatic)
-//        }
-//    }
+    func updateTimerDuration(sender: UIDatePicker) {
+        Settings.timerDuration = sender.countDownDuration
+
+        timerDurationLabelRow.update { row in
+            let comps = NSDateComponents()
+            let timerDuration = sender.countDownDuration
+            comps.hour = Int(timerDuration) / 3600
+            comps.minute = (Int(timerDuration) % 3600) / 60
+            row.subText = timerDurationFormatter.stringFromDateComponents(comps)
+        }
+    }
 
 }
 
