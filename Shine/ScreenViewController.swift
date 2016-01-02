@@ -25,10 +25,10 @@ class ScreenViewController: UIViewController {
 
     // MARK: Properties
 
-    var brightness: CGFloat = 0.0
-    var lightOn: Bool = false
+    private var brightness: CGFloat = 0.0
+    private var lightOn: Bool = false
 
-    var panLocation: CGPoint = CGPointZero
+    private var panLocation: CGPoint = CGPointZero
 
     @IBOutlet weak var overlayView: UIView!
 
@@ -42,6 +42,8 @@ class ScreenViewController: UIViewController {
 
         return formatter
     }()
+
+    private var timer: NSTimer?
 
     // MARK: Life cycle
 
@@ -71,6 +73,11 @@ class ScreenViewController: UIViewController {
         super.viewWillAppear(animated)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetBrightness", name: UIApplicationDidBecomeActiveNotification, object: nil)
+
+        let duration = Settings.timerDuration
+        if Settings.timerEnable && (duration > 0) {
+            timer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: "turnOff", userInfo: nil, repeats: false)
+        }
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -96,6 +103,8 @@ class ScreenViewController: UIViewController {
         super.viewWillDisappear(animated)
 
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidBecomeActiveNotification, object: nil)
+
+        timer?.invalidate()
     }
 
     // MARK: Navigation
@@ -167,8 +176,7 @@ class ScreenViewController: UIViewController {
     @IBAction func switchOffLight(sender: UITapGestureRecognizer) {
         if Settings.doubleTap && (sender.state == .Ended) {
             if lightOn {
-                brightness = 0.0
-                adjustLight()
+                turnOff()
 
                 lightOn = false
             } else {
@@ -177,6 +185,11 @@ class ScreenViewController: UIViewController {
                 lightOn = true
             }
         }
+    }
+
+    func turnOff() {
+        brightness = 0.0
+        adjustLight()
     }
 
     @IBAction func showSettings(sender: UILongPressGestureRecognizer) {
@@ -253,6 +266,19 @@ extension ScreenViewController: SettingsFormViewDelegate {
         UIView.animateWithDuration(1.0, animations: {
             self.view.backgroundColor = LightColor(rawValue: Settings.lightColor)?.color ?? LightColor.White.color
         })
+    }
+
+    func startTimer() {
+        timer = NSTimer.scheduledTimerWithTimeInterval(Settings.timerDuration, target: self, selector: "turnOff", userInfo: nil, repeats: false)
+    }
+
+    func removeTimer() {
+        timer?.invalidate()
+    }
+
+    func updateTimer() {
+        timer?.invalidate()
+        timer = NSTimer.scheduledTimerWithTimeInterval(Settings.timerDuration, target: self, selector: "turnOff", userInfo: nil, repeats: false)
     }
 
 }

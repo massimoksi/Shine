@@ -109,9 +109,13 @@ final class SettingsFormViewController: FormViewController {
             if switched {
                 self.former.insertUpdate(rowFormer: self.timerDurationLabelRow, toIndexPath: NSIndexPath(forItem: 2, inSection: 1), rowAnimation: .Automatic)
 
+                self.delegate?.startTimer()
+                
                 self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 1), atScrollPosition: .Bottom, animated: true)
             } else {
                 self.former.removeUpdate(rowFormers: [self.timerDurationLabelRow, timerDurationPickerRow], rowAnimation: .Automatic)
+
+                self.delegate?.removeTimer()
             }
         }
 
@@ -152,6 +156,8 @@ final class SettingsFormViewController: FormViewController {
             comps.minute = (Int(timerDuration) % 3600) / 60
             row.subText = timerDurationFormatter.stringFromDateComponents(comps)
         }
+
+        delegate?.updateTimer()
     }
 
 }
@@ -201,5 +207,8 @@ extension SettingsFormViewController: UICollectionViewDelegate {
 protocol SettingsFormViewDelegate: class {
 
     func updateLightColor()
+    func startTimer()
+    func removeTimer()
+    func updateTimer()
 
 }
