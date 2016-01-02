@@ -251,11 +251,7 @@ extension ScreenViewController: SettingsFormViewDelegate {
 
     func updateLightColor() {
         UIView.animateWithDuration(1.0, animations: {
-            if let lightColor = LightColor(rawValue: Settings.lightColor) {
-                self.view.backgroundColor = lightColor.color
-            } else {
-                self.view.backgroundColor = LightColor.White.color
-            }
+            self.view.backgroundColor = LightColor(rawValue: Settings.lightColor)?.color ?? LightColor.White.color
         })
     }
 
