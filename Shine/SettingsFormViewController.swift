@@ -107,11 +107,11 @@ final class SettingsFormViewController: FormViewController {
             Settings.timerEnable = switched
 
             if switched {
-                self.former.insertUpdate(rowFormer: self.timerDurationLabelRow, toIndexPath: NSIndexPath(forItem: 2, inSection: 1), rowAnimation: UITableViewRowAnimation.Automatic)
+                self.former.insertUpdate(rowFormer: self.timerDurationLabelRow, toIndexPath: NSIndexPath(forItem: 2, inSection: 1), rowAnimation: .Automatic)
 
                 self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 1), atScrollPosition: .Bottom, animated: true)
             } else {
-                self.former.removeUpdate(rowFormers: [self.timerDurationLabelRow, timerDurationPickerRow], rowAnimation: UITableViewRowAnimation.Automatic)
+                self.former.removeUpdate(rowFormers: [self.timerDurationLabelRow, timerDurationPickerRow], rowAnimation: .Automatic)
             }
         }
 
@@ -119,14 +119,14 @@ final class SettingsFormViewController: FormViewController {
         timerDurationLabelRow.onSelected { [unowned self] row in
             if !pickerVisible {
                 self.former.deselect(true)
-                self.former.insertUpdate(rowFormer: timerDurationPickerRow, below: row, rowAnimation: UITableViewRowAnimation.Automatic)
+                self.former.insertUpdate(rowFormer: timerDurationPickerRow, below: row, rowAnimation: .Automatic)
 
                 pickerVisible = true
 
                 self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 3, inSection: 1), atScrollPosition: .Bottom, animated: true)
             } else {
                 self.former.deselect(true)
-                self.former.removeUpdate(rowFormer: timerDurationPickerRow, rowAnimation: UITableViewRowAnimation.Automatic)
+                self.former.removeUpdate(rowFormer: timerDurationPickerRow, rowAnimation: .Automatic)
 
                 pickerVisible = false
             }
