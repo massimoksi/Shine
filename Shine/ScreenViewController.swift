@@ -25,14 +25,15 @@ class ScreenViewController: UIViewController {
 
     // MARK: Properties
 
-    private var brightness: CGFloat = 0.0
-    private var lightOn: Bool = false
-
-    private var panLocation: CGPoint = CGPointZero
-
     @IBOutlet weak var overlayView: UIView!
 
     var brightnessLabel: UILabel!
+    var timerButton: UIButton!
+
+    var brightness: CGFloat = 0.0
+    var lightOn: Bool = false   // TODO: Create a light state variable.
+
+    var panLocation: CGPoint = CGPointZero
 
     private lazy var brightnessFormatter: NSNumberFormatter = {
         var formatter = NSNumberFormatter()
@@ -43,25 +44,35 @@ class ScreenViewController: UIViewController {
         return formatter
     }()
 
+    private lazy var timerFormatter: NSDateComponentsFormatter = {
+        var formatter = NSDateComponentsFormatter()
+        formatter.unitsStyle = .Positional
+        formatter.allowedUnits = [.Hour, .Minute]
+        formatter.maximumUnitCount = 2
+        formatter.zeroFormattingBehavior = .None
+
+        return formatter
+    }()
+
     private var timer: NSTimer?
+
+    private var timerActive: Bool {
+        return Settings.timerEnable && (Settings.timerDuration > 0)
+    }
+
+    // MARK: Constants
+
+    private let brightnessThreshold: CGFloat = 0.25
 
     // MARK: Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let lightColor = LightColor(rawValue: Settings.lightColor) {
-            view.backgroundColor = lightColor.color
-        } else {
-            view.backgroundColor = LightColor.White.color
-        }
-
-        brightnessLabel = UILabel(frame: CGRect(x: view.bounds.midX - 50.0, y: view.bounds.midY - 32.0, width: 100.0, height: 64.0))
-        brightnessLabel.font = UIFont.systemFontOfSize(36.0)
-        brightnessLabel.textAlignment = .Center
-        brightnessLabel.textColor = frontColor()
-        brightnessLabel.alpha = 0.0
-        view.addSubview(brightnessLabel)
+        setupBrightness()
+        setupBackground()
+        setupSubviews()
+        setupConstraints()
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,8 +85,9 @@ class ScreenViewController: UIViewController {
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetBrightness", name: UIApplicationDidBecomeActiveNotification, object: nil)
 
+        // Trigger timer.
         let duration = Settings.timerDuration
-        if Settings.timerEnable && (duration > 0) {
+        if timerActive {
             timer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: "turnOff", userInfo: nil, repeats: false)
         }
     }
@@ -132,9 +144,10 @@ class ScreenViewController: UIViewController {
                 panLocation = sender.locationInView(overlayView)
 
                 brightnessLabel.alpha = 1.0
-                brightnessLabel.frame = CGRect(origin: locationForLabelFromLocation(panLocation), size: brightnessLabel.frame.size)
-                brightnessLabel.textColor = frontColor()
+                brightnessLabel.frame = CGRect(origin: locationForLabel(fromLocation: panLocation), size: brightnessLabel.frame.size)
                 brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
+
+                updateColors()
 
             case .Changed:
                 // Calculate pan.
@@ -148,9 +161,10 @@ class ScreenViewController: UIViewController {
 
                 adjustLight()
 
-                brightnessLabel.frame = CGRect(origin: locationForLabelFromLocation(actPanLocation), size: brightnessLabel.frame.size)
-                brightnessLabel.textColor = frontColor()
+                brightnessLabel.frame = CGRect(origin: locationForLabel(fromLocation: actPanLocation), size: brightnessLabel.frame.size)
                 brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
+
+                updateColors()
 
             case .Ended:
                 // Store final screen brightness into user defaults.
@@ -208,24 +222,90 @@ class ScreenViewController: UIViewController {
 
     // MARK: Notifications handlers
 
+    // TODO: is this function necessary?
     func resetBrightness() {
         brightness = CGFloat(Settings.brightness)
 
         adjustLight()
     }
 
+    // MARK: Setup
+
+    private func setupBrightness() {
+        brightness = CGFloat(Settings.brightness)
+    }
+
+    private func setupBackground() {
+        if let lightColor = LightColor(rawValue: Settings.lightColor) {
+            view.backgroundColor = lightColor.color
+        } else {
+            view.backgroundColor = LightColor.White.color
+        }
+    }
+
+    private func setupSubviews() {
+        brightnessLabel = UILabel(frame: CGRect(x: view.bounds.midX - 50.0, y: view.bounds.midY - 32.0, width: 100.0, height: 64.0))
+        brightnessLabel.font = UIFont.systemFontOfSize(36.0)
+        brightnessLabel.textAlignment = .Center
+        brightnessLabel.alpha = 0.0
+
+        timerButton = UIButton()
+        timerButton.setImage(UIImage(named: "Timer"), forState: .Normal)
+        timerButton.translatesAutoresizingMaskIntoConstraints = false
+        timerButton.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 12.0, bottom: 0.0, right: 0.0)
+        if timerActive {
+            timerButton.setTitle(timerFormatter.stringFromDateComponents(timerComponents(fromDuration: Settings.timerDuration)), forState: .Normal)
+            timerButton.alpha = 1.0
+        } else {
+            timerButton.alpha = 0.0
+        }
+
+        updateColors()
+
+        view.addSubview(brightnessLabel)
+        view.addSubview(timerButton)
+    }
+
+    private func setupConstraints() {
+        let viewsDict = [
+            "button": timerButton
+        ]
+
+        let horzConstraint = NSLayoutConstraint.constraintsWithVisualFormat("H:|-12-[button]-12-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDict)
+        view.addConstraints(horzConstraint)
+
+        let vertConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:[button(40)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDict)
+        view.addConstraints(vertConstraint)
+    }
+
     // MARK: Helper functions
 
     private func adjustLight() {
         // Adjust screen brightness.
-        let screenBrightness = (brightness - 0.25) / 0.75
+        let screenBrightness = (brightness - brightnessThreshold) / 0.75
         UIScreen.mainScreen().brightness = screenBrightness
 
         // Darken screen background.
-        overlayView.alpha = 1.0 - min(brightness / 0.25, 1.0)
+        overlayView.alpha = 1.0 - min(brightness / brightnessThreshold, 1.0)
     }
 
-    private func locationForLabelFromLocation(location: CGPoint) -> CGPoint {
+    private func updateColors() {
+        var frontColor: UIColor
+        if brightness > brightnessThreshold {
+            frontColor = UIColor(white: 0.0, alpha: 0.25)
+        } else {
+            frontColor = LightColor(rawValue: Settings.lightColor)?.color ?? LightColor.White.color
+        }
+
+        brightnessLabel.textColor = frontColor
+
+        if timerActive {
+            timerButton.tintColor = frontColor
+            timerButton.setTitleColor(frontColor, forState: .Normal)
+        }
+    }
+
+    private func locationForLabel(fromLocation location: CGPoint) -> CGPoint {
         var newLocation = CGPoint()
 
         // Calculate horizontal position.
@@ -237,23 +317,25 @@ class ScreenViewController: UIViewController {
         }
 
         // Calculate vertical position.
-        let vertMargin: CGFloat = 4.0
+        let vertPadding: CGFloat = 4.0
+        let bottomLimit: CGFloat = timerActive ? (timerButton.frame.height + vertPadding) : vertPadding
+
         newLocation.y = location.y - brightnessLabel.frame.height / 2.0
-        if newLocation.y < vertMargin {
-            newLocation.y = vertMargin
-        } else if newLocation.y > overlayView.frame.height - brightnessLabel.frame.height - vertMargin {
-            newLocation.y = overlayView.frame.height - brightnessLabel.frame.height - vertMargin
+        if newLocation.y < vertPadding {
+            newLocation.y = vertPadding
+        } else if newLocation.y > overlayView.frame.height - brightnessLabel.frame.height - bottomLimit {
+            newLocation.y = overlayView.frame.height - brightnessLabel.frame.height - bottomLimit
         }
 
         return newLocation
     }
 
-    private func frontColor() -> UIColor {
-        if brightness > 0.25 {
-            return UIColor(white: 0.0, alpha: 0.25)
-        } else {
-            return LightColor(rawValue: Settings.lightColor)?.color ?? LightColor.White.color
-        }
+    private func timerComponents(fromDuration duration: NSTimeInterval) -> NSDateComponents {
+        let components = NSDateComponents()
+        components.hour = Int(duration) / 3600
+        components.minute = (Int(duration) % 3600) / 60
+
+        return components
     }
 
 }
@@ -270,15 +352,24 @@ extension ScreenViewController: SettingsFormViewDelegate {
 
     func startTimer() {
         timer = NSTimer.scheduledTimerWithTimeInterval(Settings.timerDuration, target: self, selector: "turnOff", userInfo: nil, repeats: false)
+
+        updateColors()
+
+        timerButton.setTitle(timerFormatter.stringFromDateComponents(timerComponents(fromDuration: Settings.timerDuration)), forState: .Normal)
+        timerButton.alpha = 1.0
     }
 
     func removeTimer() {
         timer?.invalidate()
+
+        timerButton.alpha = 0.0
     }
 
     func updateTimer() {
         timer?.invalidate()
         timer = NSTimer.scheduledTimerWithTimeInterval(Settings.timerDuration, target: self, selector: "turnOff", userInfo: nil, repeats: false)
+
+        timerButton.setTitle(timerFormatter.stringFromDateComponents(timerComponents(fromDuration: Settings.timerDuration)), forState: .Normal)
     }
 
 }

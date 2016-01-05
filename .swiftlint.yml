@@ -1,5 +1,4 @@
 disabled_rules:
-  - todo
   - force_cast
   - force_try
   - variable_name_min_length
@@ -12,8 +11,8 @@ excluded:
   - Carthage
   - Pods
 type_body_length:
-  - 300 # warning
-  - 400 # error
+  - 1000 # warning
+  - 1200 # error
 variable_name_max_length:
   - 40 # warning
   - 60 # error

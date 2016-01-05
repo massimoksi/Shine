@@ -100,6 +100,7 @@ final class SettingsFormViewController: FormViewController {
                 $0.rowHeight = 217.0
         }
 
+        // TODO: Change text to 'Turn off'.
         let generalRowFormers = Settings.timerEnable ? [doubleTapSwitchRow, timerEnableSwitchRow, timerDurationLabelRow] : [doubleTapSwitchRow, timerEnableSwitchRow]
         let generalSection = SectionFormer(rowFormers: generalRowFormers).set(headerViewFormer: createHeader(NSLocalizedString("General", comment: "")))
 
@@ -110,7 +111,7 @@ final class SettingsFormViewController: FormViewController {
                 self.former.insertUpdate(rowFormer: self.timerDurationLabelRow, toIndexPath: NSIndexPath(forItem: 2, inSection: 1), rowAnimation: .Automatic)
 
                 self.delegate?.startTimer()
-                
+
                 self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 1), atScrollPosition: .Bottom, animated: true)
             } else {
                 self.former.removeUpdate(rowFormers: [self.timerDurationLabelRow, timerDurationPickerRow], rowAnimation: .Automatic)
