@@ -20,6 +20,23 @@
 
 import UIKit
 
+enum LightState {
+
+    case Off
+    case On
+
+    mutating func toggle() {
+        switch self {
+        case Off:
+            self = On
+
+        case On:
+            self = Off
+        }
+    }
+
+}
+
 enum LightColor: Int {
 
     case White

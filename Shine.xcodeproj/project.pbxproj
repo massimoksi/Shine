@@ -11,7 +11,7 @@
 		5622D4071BC70F0500B52B92 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5622D4061BC70F0500B52B92 /* TodayViewController.swift */; };
 		5622D40A1BC70F0500B52B92 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5622D4081BC70F0500B52B92 /* MainInterface.storyboard */; };
 		5622D40E1BC70F0500B52B92 /* ShineToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5622D4011BC70F0500B52B92 /* ShineToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		564BD5471BE17EFF006E9C23 /* LightColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564BD5461BE17EFF006E9C23 /* LightColor.swift */; };
+		564BD5471BE17EFF006E9C23 /* Light.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564BD5461BE17EFF006E9C23 /* Light.swift */; };
 		56579CC31BB30FA300060B5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56579CC21BB30FA300060B5C /* AppDelegate.swift */; };
 		56579CC51BB30FA300060B5C /* ScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56579CC41BB30FA300060B5C /* ScreenViewController.swift */; };
 		56579CC81BB30FA300060B5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56579CC61BB30FA300060B5C /* Main.storyboard */; };
@@ -59,7 +59,7 @@
 		5622D4061BC70F0500B52B92 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		5622D4091BC70F0500B52B92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		5622D40B1BC70F0500B52B92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		564BD5461BE17EFF006E9C23 /* LightColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightColor.swift; sourceTree = "<group>"; };
+		564BD5461BE17EFF006E9C23 /* Light.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Light.swift; sourceTree = "<group>"; };
 		56579CBF1BB30FA300060B5C /* Shine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56579CC21BB30FA300060B5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56579CC41BB30FA300060B5C /* ScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenViewController.swift; sourceTree = "<group>"; };
@@ -180,7 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				56579CD41BB35F4900060B5C /* Settings.swift */,
-				564BD5461BE17EFF006E9C23 /* LightColor.swift */,
+				564BD5461BE17EFF006E9C23 /* Light.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -377,7 +377,7 @@
 				56579CD51BB35F4900060B5C /* Settings.swift in Sources */,
 				56DD1AE71C2DF98200739252 /* ColorSelectionCell.swift in Sources */,
 				56579CC51BB30FA300060B5C /* ScreenViewController.swift in Sources */,
-				564BD5471BE17EFF006E9C23 /* LightColor.swift in Sources */,
+				564BD5471BE17EFF006E9C23 /* Light.swift in Sources */,
 				5668B9EB1C33327000755B9C /* CountDownCell.swift in Sources */,
 				56DD1AE41C2BE00000739252 /* SettingsFormViewController.swift in Sources */,
 				56579CC31BB30FA300060B5C /* AppDelegate.swift in Sources */,

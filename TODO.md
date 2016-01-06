@@ -9,6 +9,7 @@ v0.7.0
 v0.8.0
 ------
 [ ] Create instructions to be shown on first launch.
+[ ] Add log messages.
 
 v1.0.0
 ------

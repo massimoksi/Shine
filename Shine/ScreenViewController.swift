@@ -31,7 +31,7 @@ class ScreenViewController: UIViewController {
     var timerButton: UIButton!
 
     var brightness: CGFloat = 0.0
-    var lightOn: Bool = false   // TODO: Create a light state variable.
+    var state: LightState = .Off
 
     var panLocation: CGPoint = CGPointZero
 
@@ -95,7 +95,7 @@ class ScreenViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
-        lightOn = true
+        state = .On
 
         brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
 
@@ -138,7 +138,7 @@ class ScreenViewController: UIViewController {
     // MARK: Actions
 
     @IBAction func adjustBrightness(sender: UIPanGestureRecognizer) {
-        if lightOn {
+        if state == .On {
             switch sender.state {
             case .Began:
                 panLocation = sender.locationInView(overlayView)
@@ -189,15 +189,15 @@ class ScreenViewController: UIViewController {
 
     @IBAction func switchOffLight(sender: UITapGestureRecognizer) {
         if Settings.doubleTap && (sender.state == .Ended) {
-            if lightOn {
-                turnOff()
-
-                lightOn = false
-            } else {
+            switch state {
+            case .Off:
                 resetBrightness()
 
-                lightOn = true
+            case .On:
+                turnOff()
             }
+
+            state.toggle()
         }
     }
 
@@ -213,10 +213,10 @@ class ScreenViewController: UIViewController {
     }
 
     @IBAction func unwindToScreenViewController(segue: UIStoryboardSegue) {
-        if !Settings.doubleTap && !lightOn {
-            lightOn = true
-
+        if !Settings.doubleTap && (state == .Off) {
             resetBrightness()
+
+            state.toggle()
         }
     }
 
