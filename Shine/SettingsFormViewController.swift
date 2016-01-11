@@ -100,9 +100,8 @@ final class SettingsFormViewController: FormViewController {
                 $0.rowHeight = 217.0
         }
 
-        // TODO: Change text to 'Turn off'.
         let generalRowFormers = Settings.timerEnable ? [doubleTapSwitchRow, timerEnableSwitchRow, timerDurationLabelRow] : [doubleTapSwitchRow, timerEnableSwitchRow]
-        let generalSection = SectionFormer(rowFormers: generalRowFormers).set(headerViewFormer: createHeader(NSLocalizedString("General", comment: "")))
+        let generalSection = SectionFormer(rowFormers: generalRowFormers).set(headerViewFormer: createHeader(NSLocalizedString("Turn off", comment: "")))
 
         timerEnableSwitchRow.onSwitchChanged { [unowned self] switched in
             Settings.timerEnable = switched

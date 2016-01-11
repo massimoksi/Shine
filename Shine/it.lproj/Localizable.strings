@@ -20,7 +20,7 @@
 
 // Settings sections.
 "Light color" = "Colore della luce";
-"General" = "Generali";
+"Turn off" = "Spegnimento";
 
 // Settings rows.
 "Turn off with a double tap" = "Spegni con un doppio tocco";

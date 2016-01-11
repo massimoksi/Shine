@@ -25,7 +25,12 @@ class ScreenViewController: UIViewController {
 
     // MARK: Properties
 
-    var brightness: CGFloat = 0.0
+    var brightness: CGFloat = 0.0 {
+        didSet {
+            brightness = max(min(brightness, 1.0), 0.0)
+        }
+    }
+
     var state: LightState = .Off
 
     @IBOutlet weak var overlayView: UIView!
@@ -214,9 +219,7 @@ class ScreenViewController: UIViewController {
                 panLocation = actPanLocation
 
                 // Calculate brightness.
-                // FIXME: do I rellay need to set brightness twice?
                 brightness += panTranslation / (overlayView.bounds.height * 0.75)
-                brightness = max(min(brightness, 1.0), 0.0)
 
                 adjustLight()
 

@@ -20,7 +20,7 @@
 
 // Settings sections.
 "Light color" = "Light color";
-"General" = "General";
+"Turn off" = "Turn off";
 
 // Settings rows.
 "Turn off with a double tap" = "Turn off with a double tap";
