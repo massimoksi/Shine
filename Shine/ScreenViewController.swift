@@ -28,6 +28,12 @@ class ScreenViewController: UIViewController {
     var brightness: CGFloat = 0.0 {
         didSet {
             brightness = max(min(brightness, 1.0), 0.0)
+
+            // Adjust screen brightness.
+            UIScreen.mainScreen().brightness = (brightness - brightnessThreshold) / 0.75
+
+            // Darken screen background.
+            overlayView.alpha = 1.0 - min(brightness / brightnessThreshold, 1.0)
         }
     }
 
@@ -221,8 +227,6 @@ class ScreenViewController: UIViewController {
                 // Calculate brightness.
                 brightness += panTranslation / (overlayView.bounds.height * 0.75)
 
-                adjustLight()
-
                 brightnessLabel.frame = CGRect(origin: locationForLabel(fromLocation: actPanLocation), size: brightnessLabel.frame.size)
                 brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
 
@@ -241,7 +245,7 @@ class ScreenViewController: UIViewController {
                 }
 
             case .Cancelled, .Failed:
-                resetBrightness()
+                setupBrightness()
 
                 brightnessLabel.alpha = 0.0
 
@@ -250,7 +254,7 @@ class ScreenViewController: UIViewController {
                 }
 
             default:
-                resetBrightness()
+                setupBrightness()
 
                 brightnessLabel.alpha = 0.0
 
@@ -269,7 +273,7 @@ class ScreenViewController: UIViewController {
                     timerRunning = true
                 }
 
-                resetBrightness()
+                setupBrightness()
 
             case .On:
                 if timerActive {
@@ -291,7 +295,7 @@ class ScreenViewController: UIViewController {
 
     @IBAction func unwindToScreenViewController(segue: UIStoryboardSegue) {
         if !Settings.doubleTap && (state == .Off) {
-            resetBrightness()
+            setupBrightness()
 
             state.toggle()
         }
@@ -301,7 +305,6 @@ class ScreenViewController: UIViewController {
 
     func turnOff() {
         brightness = 0.0
-        adjustLight()
     }
 
     func refresh() {
@@ -309,13 +312,6 @@ class ScreenViewController: UIViewController {
 
         timerButton.setTitle(refreshBlinker ? timerDuration?.stringByReplacingOccurrencesOfString(":", withString: " ") : timerDuration, forState: .Normal)
         refreshBlinker = !refreshBlinker
-    }
-
-    // TODO: is this function necessary?
-    func resetBrightness() {
-        brightness = CGFloat(Settings.brightness)
-
-        adjustLight()
     }
 
     // MARK: Setup
@@ -356,15 +352,6 @@ class ScreenViewController: UIViewController {
     }
 
     // MARK: Helper functions
-
-    private func adjustLight() {
-        // Adjust screen brightness.
-        let screenBrightness = (brightness - brightnessThreshold) / 0.75
-        UIScreen.mainScreen().brightness = screenBrightness
-
-        // Darken screen background.
-        overlayView.alpha = 1.0 - min(brightness / brightnessThreshold, 1.0)
-    }
 
     private func locationForLabel(fromLocation location: CGPoint) -> CGPoint {
         var newLocation = CGPoint()
