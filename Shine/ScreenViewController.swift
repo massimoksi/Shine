@@ -25,15 +25,13 @@ class ScreenViewController: UIViewController {
 
     // MARK: Properties
 
+    var brightness: CGFloat = 0.0
+    var state: LightState = .Off
+
     @IBOutlet weak var overlayView: UIView!
 
     var brightnessLabel: UILabel!
     var timerButton: UIButton!
-
-    var brightness: CGFloat = 0.0
-    var state: LightState = .Off
-
-    var panLocation: CGPoint = CGPointZero
 
     private lazy var brightnessFormatter: NSNumberFormatter = {
         var formatter = NSNumberFormatter()
@@ -54,7 +52,37 @@ class ScreenViewController: UIViewController {
         return formatter
     }()
 
-    private var timer: NSTimer?
+    private var panLocation = CGPoint()
+
+    private var refreshBlinker = false
+
+    private var turnOffTimer: NSTimer?
+    private var refreshTimer: NSTimer?
+
+    private var timerRunning = false {
+        didSet {
+            if timerRunning {
+                // Start timers.
+                turnOffTimer = NSTimer.scheduledTimerWithTimeInterval(Settings.timerDuration, target: self, selector: "turnOff", userInfo: nil, repeats: false)
+                refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refresh", userInfo: nil, repeats: true)
+
+                timerButton.setTitle(timerFormatter.stringFromDateComponents(timerComponents()), forState: .Normal)
+            } else {
+                // Stop timers.
+                turnOffTimer?.invalidate()
+                refreshTimer?.invalidate()
+
+                turnOffTimer = nil
+                refreshTimer = nil
+
+                let duration = Settings.timerDuration
+                let components = NSDateComponents()
+                components.hour = Int(duration) / 3600
+                components.minute = (Int(duration) % 3600) / 60
+                timerButton.setTitle(timerFormatter.stringFromDateComponents(components), forState: .Normal)
+            }
+        }
+    }
 
     private var timerActive: Bool {
         return Settings.timerEnable && (Settings.timerDuration > 0)
@@ -70,9 +98,31 @@ class ScreenViewController: UIViewController {
         super.viewDidLoad()
 
         setupBrightness()
-        setupBackground()
-        setupSubviews()
+        setupBackgroundColor()
+
+        brightnessLabel = UILabel(frame: CGRect(x: view.bounds.midX - 50.0, y: view.bounds.midY - 32.0, width: 100.0, height: 64.0))
+        brightnessLabel.font = UIFont.systemFontOfSize(36.0)
+        brightnessLabel.textAlignment = .Center
+        brightnessLabel.alpha = 0.0
+        view.addSubview(brightnessLabel)
+
+        timerButton = UIButton()
+        timerButton.setImage(UIImage(named: "Timer"), forState: .Normal)
+        timerButton.translatesAutoresizingMaskIntoConstraints = false
+        timerButton.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 12.0, bottom: 0.0, right: 0.0)
+        view.addSubview(timerButton)
+
+        setupForegroundColor()
         setupConstraints()
+
+        // Trigger timers.
+        if timerActive {
+            timerRunning = true
+
+            timerButton.hidden = false
+        } else {
+            timerButton.hidden = true
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -84,12 +134,6 @@ class ScreenViewController: UIViewController {
         super.viewWillAppear(animated)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetBrightness", name: UIApplicationDidBecomeActiveNotification, object: nil)
-
-        // Trigger timer.
-        let duration = Settings.timerDuration
-        if timerActive {
-            timer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: "turnOff", userInfo: nil, repeats: false)
-        }
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -116,7 +160,11 @@ class ScreenViewController: UIViewController {
 
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidBecomeActiveNotification, object: nil)
 
-        timer?.invalidate()
+        turnOffTimer?.invalidate()
+        refreshTimer?.invalidate()
+
+        turnOffTimer = nil
+        refreshTimer = nil
     }
 
     // MARK: Navigation
@@ -128,6 +176,16 @@ class ScreenViewController: UIViewController {
             presentationSegue.formSheetPresentationController.presentationController?.contentViewSize = CGSize(width: 300.0, height: 300.0)
             presentationSegue.formSheetPresentationController.presentationController?.shouldCenterVertically = true
             presentationSegue.formSheetPresentationController.presentationController?.shouldDismissOnBackgroundViewTap = true
+            presentationSegue.formSheetPresentationController.willPresentContentViewControllerHandler = { [unowned self] _ in
+                if self.timerActive {
+                    self.timerRunning = false
+                }
+            }
+            presentationSegue.formSheetPresentationController.didDismissContentViewControllerHandler = { [unowned self] _ in
+                if self.timerActive {
+                    self.timerRunning = true
+                }
+            }
 
             let settingsNavController = segue.destinationViewController as! UINavigationController
             let settingsViewController = settingsNavController.topViewController as! SettingsFormViewController
@@ -141,13 +199,17 @@ class ScreenViewController: UIViewController {
         if state == .On {
             switch sender.state {
             case .Began:
+                if timerActive {
+                    timerRunning = false
+                }
+
                 panLocation = sender.locationInView(overlayView)
 
                 brightnessLabel.alpha = 1.0
                 brightnessLabel.frame = CGRect(origin: locationForLabel(fromLocation: panLocation), size: brightnessLabel.frame.size)
                 brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
 
-                updateColors()
+                setupForegroundColor()
 
             case .Changed:
                 // Calculate pan.
@@ -156,6 +218,7 @@ class ScreenViewController: UIViewController {
                 panLocation = actPanLocation
 
                 // Calculate brightness.
+                // FIXME: do I rellay need to set brightness twice?
                 brightness += panTranslation / (overlayView.bounds.height * 0.75)
                 brightness = max(min(brightness, 1.0), 0.0)
 
@@ -164,7 +227,7 @@ class ScreenViewController: UIViewController {
                 brightnessLabel.frame = CGRect(origin: locationForLabel(fromLocation: actPanLocation), size: brightnessLabel.frame.size)
                 brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
 
-                updateColors()
+                setupForegroundColor()
 
             case .Ended:
                 // Store final screen brightness into user defaults.
@@ -174,15 +237,27 @@ class ScreenViewController: UIViewController {
                     self.brightnessLabel.alpha = 0.0
                 })
 
+                if timerActive {
+                    timerRunning = true
+                }
+
             case .Cancelled, .Failed:
                 resetBrightness()
 
                 brightnessLabel.alpha = 0.0
 
+                if timerActive {
+                    timerRunning = true
+                }
+
             default:
                 resetBrightness()
 
                 brightnessLabel.alpha = 0.0
+
+                if timerActive {
+                    timerRunning = true
+                }
             }
         }
     }
@@ -191,19 +266,22 @@ class ScreenViewController: UIViewController {
         if Settings.doubleTap && (sender.state == .Ended) {
             switch state {
             case .Off:
+                if timerActive {
+                    timerRunning = true
+                }
+
                 resetBrightness()
 
             case .On:
+                if timerActive {
+                    timerRunning = false
+                }
+
                 turnOff()
             }
 
             state.toggle()
         }
-    }
-
-    func turnOff() {
-        brightness = 0.0
-        adjustLight()
     }
 
     @IBAction func showSettings(sender: UILongPressGestureRecognizer) {
@@ -220,7 +298,19 @@ class ScreenViewController: UIViewController {
         }
     }
 
-    // MARK: Notifications handlers
+    // MARK: Timers
+
+    func turnOff() {
+        brightness = 0.0
+        adjustLight()
+    }
+
+    func refresh() {
+        let timerDuration = timerFormatter.stringFromDateComponents(timerComponents())
+
+        timerButton.setTitle(refreshBlinker ? timerDuration?.stringByReplacingOccurrencesOfString(":", withString: " ") : timerDuration, forState: .Normal)
+        refreshBlinker = !refreshBlinker
+    }
 
     // TODO: is this function necessary?
     func resetBrightness() {
@@ -235,7 +325,7 @@ class ScreenViewController: UIViewController {
         brightness = CGFloat(Settings.brightness)
     }
 
-    private func setupBackground() {
+    private func setupBackgroundColor() {
         if let lightColor = LightColor(rawValue: Settings.lightColor) {
             view.backgroundColor = lightColor.color
         } else {
@@ -243,27 +333,15 @@ class ScreenViewController: UIViewController {
         }
     }
 
-    private func setupSubviews() {
-        brightnessLabel = UILabel(frame: CGRect(x: view.bounds.midX - 50.0, y: view.bounds.midY - 32.0, width: 100.0, height: 64.0))
-        brightnessLabel.font = UIFont.systemFontOfSize(36.0)
-        brightnessLabel.textAlignment = .Center
-        brightnessLabel.alpha = 0.0
+    private func setupForegroundColor() {
+        let frontColor = (brightness > brightnessThreshold) ? UIColor(white: 0.0, alpha: 0.25) : LightColor(rawValue: Settings.lightColor)?.color ?? LightColor.White.color
 
-        timerButton = UIButton()
-        timerButton.setImage(UIImage(named: "Timer"), forState: .Normal)
-        timerButton.translatesAutoresizingMaskIntoConstraints = false
-        timerButton.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 12.0, bottom: 0.0, right: 0.0)
+        brightnessLabel.textColor = frontColor
+
         if timerActive {
-            timerButton.setTitle(timerFormatter.stringFromDateComponents(timerComponents(fromDuration: Settings.timerDuration)), forState: .Normal)
-            timerButton.alpha = 1.0
-        } else {
-            timerButton.alpha = 0.0
+            timerButton.tintColor = frontColor
+            timerButton.setTitleColor(frontColor, forState: .Normal)
         }
-
-        updateColors()
-
-        view.addSubview(brightnessLabel)
-        view.addSubview(timerButton)
     }
 
     private func setupConstraints() {
@@ -287,22 +365,6 @@ class ScreenViewController: UIViewController {
 
         // Darken screen background.
         overlayView.alpha = 1.0 - min(brightness / brightnessThreshold, 1.0)
-    }
-
-    private func updateColors() {
-        var frontColor: UIColor
-        if brightness > brightnessThreshold {
-            frontColor = UIColor(white: 0.0, alpha: 0.25)
-        } else {
-            frontColor = LightColor(rawValue: Settings.lightColor)?.color ?? LightColor.White.color
-        }
-
-        brightnessLabel.textColor = frontColor
-
-        if timerActive {
-            timerButton.tintColor = frontColor
-            timerButton.setTitleColor(frontColor, forState: .Normal)
-        }
     }
 
     private func locationForLabel(fromLocation location: CGPoint) -> CGPoint {
@@ -330,10 +392,18 @@ class ScreenViewController: UIViewController {
         return newLocation
     }
 
-    private func timerComponents(fromDuration duration: NSTimeInterval) -> NSDateComponents {
-        let components = NSDateComponents()
-        components.hour = Int(duration) / 3600
-        components.minute = (Int(duration) % 3600) / 60
+    private func timerComponents() -> NSDateComponents {
+        guard let timer = turnOffTimer else {
+            let duration = Settings.timerDuration
+            let components = NSDateComponents()
+            components.hour = Int(duration) / 3600
+            components.minute = (Int(duration) % 3600) / 60
+
+            return components
+        }
+
+        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        let components = calendar.components([.Hour, .Minute], fromDate: NSDate().dateByAddingTimeInterval(-60.0), toDate: timer.fireDate, options: NSCalendarOptions(rawValue: 0))
 
         return components
     }
@@ -351,25 +421,18 @@ extension ScreenViewController: SettingsFormViewDelegate {
     }
 
     func startTimer() {
-        timer = NSTimer.scheduledTimerWithTimeInterval(Settings.timerDuration, target: self, selector: "turnOff", userInfo: nil, repeats: false)
+        setupForegroundColor()
 
-        updateColors()
-
-        timerButton.setTitle(timerFormatter.stringFromDateComponents(timerComponents(fromDuration: Settings.timerDuration)), forState: .Normal)
-        timerButton.alpha = 1.0
+        timerButton.setTitle(timerFormatter.stringFromDateComponents(timerComponents()), forState: .Normal)
+        timerButton.hidden = false
     }
 
     func removeTimer() {
-        timer?.invalidate()
-
-        timerButton.alpha = 0.0
+        timerButton.hidden = true
     }
 
     func updateTimer() {
-        timer?.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(Settings.timerDuration, target: self, selector: "turnOff", userInfo: nil, repeats: false)
-
-        timerButton.setTitle(timerFormatter.stringFromDateComponents(timerComponents(fromDuration: Settings.timerDuration)), forState: .Normal)
+        timerButton.setTitle(timerFormatter.stringFromDateComponents(timerComponents()), forState: .Normal)
     }
 
 }
