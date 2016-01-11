@@ -75,11 +75,7 @@ class ScreenViewController: UIViewController {
                 turnOffTimer = nil
                 refreshTimer = nil
 
-                let duration = Settings.timerDuration
-                let components = NSDateComponents()
-                components.hour = Int(duration) / 3600
-                components.minute = (Int(duration) % 3600) / 60
-                timerButton.setTitle(timerFormatter.stringFromDateComponents(components), forState: .Normal)
+                timerButton.setTitle(timerFormatter.stringFromDateComponents(timerComponents()), forState: .Normal)
             }
         }
     }
