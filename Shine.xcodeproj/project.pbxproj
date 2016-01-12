@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		561452BF1C45BBCB007C7AFF /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561452BE1C45BBCB007C7AFF /* ScreenView.swift */; };
 		5622D4041BC70F0500B52B92 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5622D4031BC70F0500B52B92 /* NotificationCenter.framework */; };
 		5622D4071BC70F0500B52B92 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5622D4061BC70F0500B52B92 /* TodayViewController.swift */; };
 		5622D40A1BC70F0500B52B92 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5622D4081BC70F0500B52B92 /* MainInterface.storyboard */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		28376F5CA447280C0EE5CD7E /* Pods-Shine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shine.release.xcconfig"; path = "Pods/Target Support Files/Pods-Shine/Pods-Shine.release.xcconfig"; sourceTree = "<group>"; };
+		561452BE1C45BBCB007C7AFF /* ScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
 		5622D4011BC70F0500B52B92 /* ShineToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShineToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5622D4031BC70F0500B52B92 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		5622D4061BC70F0500B52B92 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 		5682236D1BE6D83E00B66360 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				561452BE1C45BBCB007C7AFF /* ScreenView.swift */,
 				56DD1AE61C2DF98200739252 /* ColorSelectionCell.swift */,
 				56DD1AE81C2DF9A500739252 /* ColorSelectionCell.xib */,
 				5668B9EA1C33327000755B9C /* CountDownCell.swift */,
@@ -380,6 +383,7 @@
 				564BD5471BE17EFF006E9C23 /* Light.swift in Sources */,
 				5668B9EB1C33327000755B9C /* CountDownCell.swift in Sources */,
 				56DD1AE41C2BE00000739252 /* SettingsFormViewController.swift in Sources */,
+				561452BF1C45BBCB007C7AFF /* ScreenView.swift in Sources */,
 				56579CC31BB30FA300060B5C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

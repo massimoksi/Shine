@@ -33,13 +33,12 @@ class ScreenViewController: UIViewController {
             UIScreen.mainScreen().brightness = (brightness - brightnessThreshold) / 0.75
 
             // Darken screen background.
-            overlayView.alpha = 1.0 - min(brightness / brightnessThreshold, 1.0)
+            let screenView = view as! ScreenView
+            screenView.brightness = brightness
         }
     }
 
     var state: LightState = .Off
-
-    @IBOutlet weak var overlayView: UIView!
 
     var brightnessLabel: UILabel!
     var timerButton: UIButton!
@@ -197,7 +196,7 @@ class ScreenViewController: UIViewController {
                     timerRunning = false
                 }
 
-                panLocation = sender.locationInView(overlayView)
+                panLocation = sender.locationInView(view)
 
                 brightnessLabel.alpha = 1.0
                 brightnessLabel.frame = CGRect(origin: locationForLabel(fromLocation: panLocation), size: brightnessLabel.frame.size)
@@ -207,12 +206,12 @@ class ScreenViewController: UIViewController {
 
             case .Changed:
                 // Calculate pan.
-                let actPanLocation = sender.locationInView(overlayView)
+                let actPanLocation = sender.locationInView(view)
                 let panTranslation = panLocation.y - actPanLocation.y
                 panLocation = actPanLocation
 
                 // Calculate brightness.
-                brightness += panTranslation / (overlayView.bounds.height * 0.75)
+                brightness += panTranslation / (view.bounds.height * 0.75)
 
                 brightnessLabel.frame = CGRect(origin: locationForLabel(fromLocation: actPanLocation), size: brightnessLabel.frame.size)
                 brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
@@ -364,7 +363,7 @@ class ScreenViewController: UIViewController {
 
         // Calculate horizontal position.
         let horzPadding: CGFloat = 40.0
-        if location.x < overlayView.bounds.midX {
+        if location.x < view.bounds.midX {
             newLocation.x = location.x + horzPadding
         } else {
              newLocation.x = location.x - horzPadding - brightnessLabel.frame.width
@@ -377,8 +376,8 @@ class ScreenViewController: UIViewController {
         newLocation.y = location.y - brightnessLabel.frame.height / 2.0
         if newLocation.y < vertPadding {
             newLocation.y = vertPadding
-        } else if newLocation.y > overlayView.frame.height - brightnessLabel.frame.height - bottomLimit {
-            newLocation.y = overlayView.frame.height - brightnessLabel.frame.height - bottomLimit
+        } else if newLocation.y > view.frame.height - brightnessLabel.frame.height - bottomLimit {
+            newLocation.y = view.frame.height - brightnessLabel.frame.height - bottomLimit
         }
 
         return newLocation

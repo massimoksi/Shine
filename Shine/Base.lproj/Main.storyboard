@@ -12,24 +12,11 @@
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="ScreenView" customModule="Shine" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWl-bQ-LlE">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
-                                <gestureRecognizers/>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
-                        <constraints>
-                            <constraint firstItem="xWl-bQ-LlE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="1h1-D5-0US"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="xWl-bQ-LlE" secondAttribute="bottom" id="QaU-vm-s74"/>
-                            <constraint firstItem="xWl-bQ-LlE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="wIZ-im-E8N"/>
-                            <constraint firstAttribute="trailing" secondItem="xWl-bQ-LlE" secondAttribute="trailing" id="xoR-mD-WOo"/>
-                        </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="et4-BF-0sg" appends="YES" id="W1u-Cc-9oX"/>
                             <outletCollection property="gestureRecognizers" destination="KJc-uj-Mau" appends="YES" id="sUZ-qE-GQE"/>
@@ -38,7 +25,6 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="overlayView" destination="xWl-bQ-LlE" id="5WH-sx-MNv"/>
                         <segue destination="Fcg-30-Dyj" kind="custom" identifier="ShowSettingsSegue" customClass="MZFormSheetPresentationViewControllerSegue" id="MyE-Xc-rx1"/>
                     </connections>
                 </viewController>
