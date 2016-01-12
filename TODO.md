@@ -1,6 +1,7 @@
 v0.6.0
 ------
-[ ] Add a timer to turn the light off automatically.
+[x] Add a timer to turn the light off automatically.
+[ ] Add a preference to lock screen after the light is off.
 
 v0.7.0
 ------
