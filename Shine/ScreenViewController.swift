@@ -76,8 +76,6 @@ class ScreenViewController: UIViewController {
                 // Start timers.
                 turnOffTimer = NSTimer.scheduledTimerWithTimeInterval(Settings.timerDuration, target: self, selector: "turnOff", userInfo: nil, repeats: false)
                 refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refresh", userInfo: nil, repeats: true)
-
-                timerButton.setTitle(timerFormatter.stringFromDateComponents(timerComponents()), forState: .Normal)
             } else {
                 // Stop timers.
                 turnOffTimer?.invalidate()
@@ -85,9 +83,9 @@ class ScreenViewController: UIViewController {
 
                 turnOffTimer = nil
                 refreshTimer = nil
-
-                timerButton.setTitle(timerFormatter.stringFromDateComponents(timerComponents()), forState: .Normal)
             }
+
+            timerButton.setTitle(timerFormatter.stringFromDateComponents(timerComponents()), forState: .Normal)
         }
     }
 
@@ -121,15 +119,6 @@ class ScreenViewController: UIViewController {
 
         setupForegroundColor()
         setupConstraints()
-
-        // Trigger timers.
-        if timerActive {
-            timerRunning = true
-
-            timerButton.hidden = false
-        } else {
-            timerButton.hidden = true
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -140,7 +129,8 @@ class ScreenViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setupBrightness", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "start", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "stop", name: UIApplicationWillResignActiveNotification, object: nil)
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -166,12 +156,9 @@ class ScreenViewController: UIViewController {
         super.viewWillDisappear(animated)
 
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationWillResignActiveNotification, object: nil)
 
-        turnOffTimer?.invalidate()
-        refreshTimer?.invalidate()
-
-        turnOffTimer = nil
-        refreshTimer = nil
+        stop()
     }
 
     // MARK: Navigation
@@ -265,16 +252,11 @@ class ScreenViewController: UIViewController {
         }
     }
 
-    // TODO: rename to toggleLight.
-    @IBAction func switchOffLight(sender: UITapGestureRecognizer) {
+    @IBAction func toggleLight(sender: UITapGestureRecognizer) {
         if Settings.doubleTap && (sender.state == .Ended) {
             switch state {
             case .Off:
-                if timerActive {
-                    timerRunning = true
-                }
-
-                setupBrightness()
+                start()
 
                 // If the screen is not yet automatically locked, when switching the light back on, I need to disable automatic lock.
                 if Settings.lockScreen {
@@ -282,9 +264,7 @@ class ScreenViewController: UIViewController {
                 }
 
             case .On:
-                if timerActive {
-                    timerRunning = false
-                }
+                stop()
 
                 turnOff()
             }
@@ -304,6 +284,22 @@ class ScreenViewController: UIViewController {
             setupBrightness()
 
             state.toggle()
+        }
+    }
+
+    // MARK: Notification handlers
+
+    func start() {
+        setupBrightness()
+
+        if timerActive {
+            timerRunning = true
+        }
+    }
+
+    func stop() {
+        if timerActive {
+            timerRunning = false
         }
     }
 
