@@ -69,14 +69,12 @@ final class SettingsFormViewController: FormViewController {
             $0.titleLabel.text = NSLocalizedString("Turn off with a double tap", comment: "")
         }.configure {
             $0.switched = Settings.doubleTap
-        }.onSwitchChanged { switched in
-            Settings.doubleTap = switched
         }
 
         let timerEnableSwitchRow = SwitchRowFormer<FormSwitchCell>() {
             $0.titleLabel.text = NSLocalizedString("Enable timer", comment: "")
-            }.configure {
-                $0.switched = Settings.timerEnable
+        }.configure {
+            $0.switched = Settings.timerEnable
         }
 
         timerDurationLabelRow = LabelRowFormer<FormLabelCell>().configure {
@@ -96,12 +94,43 @@ final class SettingsFormViewController: FormViewController {
                 row.countDownPicker.countDownDuration = Settings.timerDuration
             })
             row.countDownPicker.addTarget(self, action: "updateTimerDuration:", forControlEvents: .ValueChanged)
-            }.configure {
-                $0.rowHeight = 217.0
+        }.configure {
+            $0.rowHeight = 217.0
         }
 
-        let generalRowFormers = Settings.timerEnable ? [doubleTapSwitchRow, timerEnableSwitchRow, timerDurationLabelRow] : [doubleTapSwitchRow, timerEnableSwitchRow]
+        let lockScreenSwitchRow = SwitchRowFormer<FormSwitchCell>() {
+            $0.titleLabel.text = NSLocalizedString("Lock screen", comment: "")
+        }.configure {
+            $0.switched = Settings.lockScreen
+        }.onSwitchChanged { switched in
+            Settings.lockScreen = switched
+        }
+
+        var generalRowFormers: [RowFormer]
+        if Settings.timerEnable {
+            generalRowFormers = [doubleTapSwitchRow, timerEnableSwitchRow, timerDurationLabelRow, lockScreenSwitchRow]
+        } else if Settings.doubleTap {
+            generalRowFormers = [doubleTapSwitchRow, timerEnableSwitchRow, lockScreenSwitchRow]
+        } else {
+            generalRowFormers = [doubleTapSwitchRow, timerEnableSwitchRow]
+        }
         let generalSection = SectionFormer(rowFormers: generalRowFormers).set(headerViewFormer: createHeader(NSLocalizedString("Turn off", comment: "")))
+
+        doubleTapSwitchRow.onSwitchChanged { [unowned self] switched in
+            Settings.doubleTap = switched
+
+            if switched {
+                // Insert lock screen row if not yet visible.
+                if !Settings.timerEnable {
+                    self.former.insertUpdate(rowFormer: lockScreenSwitchRow, below: timerEnableSwitchRow, rowAnimation: .Automatic)
+                }
+            } else {
+                // Remove lock screen row only if timer is not enabled.
+                if !Settings.timerEnable {
+                    self.former.removeUpdate(rowFormer: lockScreenSwitchRow, rowAnimation: .Automatic)
+                }
+            }
+        }
 
         timerEnableSwitchRow.onSwitchChanged { [unowned self] switched in
             Settings.timerEnable = switched
@@ -112,8 +141,15 @@ final class SettingsFormViewController: FormViewController {
                 self.delegate?.startTimer()
 
                 self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 1), atScrollPosition: .Bottom, animated: true)
+
+                // Insert lock screen row if not yet visible.
+                if !Settings.doubleTap {
+                    self.former.insertUpdate(rowFormer: lockScreenSwitchRow, below: self.timerDurationLabelRow, rowAnimation: .Automatic)
+                }
             } else {
-                self.former.removeUpdate(rowFormers: [self.timerDurationLabelRow, timerDurationPickerRow], rowAnimation: .Automatic)
+                // Remove lock screen row only if double tap is disabled.
+                let rowFormersToBeRemoved = Settings.doubleTap ? [self.timerDurationLabelRow, timerDurationPickerRow] : [self.timerDurationLabelRow, timerDurationPickerRow, lockScreenSwitchRow]
+                self.former.removeUpdate(rowFormers: rowFormersToBeRemoved, rowAnimation: .Automatic)
 
                 self.delegate?.removeTimer()
             }

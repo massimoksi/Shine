@@ -86,6 +86,16 @@ struct Settings {
         }
     }
 
+    static var lockScreen: Bool {
+        get {
+            return NSUserDefaults.standardUserDefaults().boolForKey(Key.LockScreen.rawValue)
+        }
+
+        set {
+            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: Key.LockScreen.rawValue)
+        }
+    }
+
     static func registerDefaults() {
         NSUserDefaults.standardUserDefaults().registerDefaults([
             Key.Brightness.rawValue: Float(1.0),
@@ -93,7 +103,8 @@ struct Settings {
             Key.BundleVersion.rawValue: "0.0.0",
             Key.DoubleTap.rawValue: true,
             Key.TimerEnable.rawValue: false,
-            Key.TimerDuration.rawValue: 600.0
+            Key.TimerDuration.rawValue: 600.0,
+            Key.LockScreen.rawValue: false
         ])
     }
 
@@ -106,6 +117,7 @@ struct Settings {
         case DoubleTap
         case TimerEnable
         case TimerDuration
+        case LockScreen
     }
 
 }

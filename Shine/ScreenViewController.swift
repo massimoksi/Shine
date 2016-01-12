@@ -140,7 +140,7 @@ class ScreenViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetBrightness", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setupBrightness", name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -265,6 +265,7 @@ class ScreenViewController: UIViewController {
         }
     }
 
+    // TODO: rename to toggleLight.
     @IBAction func switchOffLight(sender: UITapGestureRecognizer) {
         if Settings.doubleTap && (sender.state == .Ended) {
             switch state {
@@ -274,6 +275,11 @@ class ScreenViewController: UIViewController {
                 }
 
                 setupBrightness()
+
+                // If the screen is not yet automatically locked, when switching the light back on, I need to disable automatic lock.
+                if Settings.lockScreen {
+                    UIApplication.sharedApplication().idleTimerDisabled = true
+                }
 
             case .On:
                 if timerActive {
@@ -305,6 +311,10 @@ class ScreenViewController: UIViewController {
 
     func turnOff() {
         brightness = 0.0
+
+        if Settings.lockScreen {
+            UIApplication.sharedApplication().idleTimerDisabled = false
+        }
     }
 
     func refresh() {
@@ -316,7 +326,7 @@ class ScreenViewController: UIViewController {
 
     // MARK: Setup
 
-    private func setupBrightness() {
+    func setupBrightness() {
         brightness = CGFloat(Settings.brightness)
     }
 
