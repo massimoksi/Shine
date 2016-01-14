@@ -45,7 +45,7 @@ class ScreenViewController: UIViewController {
     var timerButton: UIButton!
 
     private lazy var brightnessFormatter: NSNumberFormatter = {
-        var formatter = NSNumberFormatter()
+        let formatter = NSNumberFormatter()
         formatter.numberStyle = .PercentStyle
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 0
@@ -54,7 +54,7 @@ class ScreenViewController: UIViewController {
     }()
 
     private lazy var timerFormatter: NSDateComponentsFormatter = {
-        var formatter = NSDateComponentsFormatter()
+        let formatter = NSDateComponentsFormatter()
         formatter.unitsStyle = .Positional
         formatter.allowedUnits = [.Hour, .Minute]
         formatter.maximumUnitCount = 2
