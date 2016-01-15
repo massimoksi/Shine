@@ -38,7 +38,7 @@ class ScreenViewController: UIViewController {
         }
     }
 
-    var state: LightState = .Off
+    var state: LightState = .On
 
     var brightnessLabel: UILabel!
     @IBOutlet weak var timerButton: UIButton!
@@ -123,25 +123,6 @@ class ScreenViewController: UIViewController {
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "start", name: UIApplicationDidBecomeActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "stop", name: UIApplicationWillResignActiveNotification, object: nil)
-    }
-
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-
-        state = .On
-
-        brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
-
-        // Fade label in/out.
-        UIView.animateKeyframesWithDuration(2.0, delay: 0.0, options: UIViewKeyframeAnimationOptions(rawValue: 0), animations: {
-            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.5, animations: { [unowned self] in
-                self.brightnessLabel.alpha = 1.0
-            })
-
-            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: { [unowned self] in
-                self.brightnessLabel.alpha = 0.0
-            })
-        }, completion: nil)
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -287,6 +268,19 @@ class ScreenViewController: UIViewController {
         if timerActive {
             timerRunning = true
         }
+
+        brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
+
+        // Fade label in/out.
+        UIView.animateKeyframesWithDuration(2.0, delay: 0.0, options: UIViewKeyframeAnimationOptions(rawValue: 0), animations: {
+            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.5, animations: { [unowned self] in
+                self.brightnessLabel.alpha = 1.0
+                })
+
+            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: { [unowned self] in
+                self.brightnessLabel.alpha = 0.0
+                })
+            }, completion: nil)
     }
 
     func stop() {
