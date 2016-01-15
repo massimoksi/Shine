@@ -41,7 +41,7 @@ class ScreenViewController: UIViewController {
     var state: LightState = .Off
 
     var brightnessLabel: UILabel!
-    var timerButton: UIButton!
+    @IBOutlet weak var timerButton: UIButton!
 
     private lazy var brightnessFormatter: NSNumberFormatter = {
         let formatter = NSNumberFormatter()
@@ -110,14 +110,7 @@ class ScreenViewController: UIViewController {
         brightnessLabel.alpha = 0.0
         view.addSubview(brightnessLabel)
 
-        timerButton = UIButton()
-        timerButton.setImage(UIImage(named: "Timer"), forState: .Normal)
-        timerButton.translatesAutoresizingMaskIntoConstraints = false
-        timerButton.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 12.0, bottom: 0.0, right: 0.0)
-        view.addSubview(timerButton)
-
         setupForegroundColor()
-        setupConstraints()
     }
 
     override func didReceiveMemoryWarning() {
@@ -342,18 +335,6 @@ class ScreenViewController: UIViewController {
             timerButton.tintColor = frontColor
             timerButton.setTitleColor(frontColor, forState: .Normal)
         }
-    }
-
-    private func setupConstraints() {
-        let viewsDict = [
-            "button": timerButton
-        ]
-
-        let horzConstraint = NSLayoutConstraint.constraintsWithVisualFormat("H:|-12-[button]-12-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDict)
-        view.addConstraints(horzConstraint)
-
-        let vertConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:[button(40)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDict)
-        view.addConstraints(vertConstraint)
     }
 
     // MARK: Helper functions

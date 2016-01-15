@@ -43,7 +43,7 @@ class ScreenView: UIView {
 
         overlayLayer.frame = bounds
         overlayLayer.backgroundColor = UIColor(white: 0.0, alpha: 0.0).CGColor
-        layer.addSublayer(overlayLayer)
+        layer.insertSublayer(overlayLayer, atIndex: 0)
     }
 
     override func layoutSubviews() {
