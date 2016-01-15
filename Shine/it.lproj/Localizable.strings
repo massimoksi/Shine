@@ -18,12 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-// Settings sections.
-"Light color" = "Luce";
-"Turn off" = "Spegnimento";
+"SETTINGS_SEC_LIGHT" = "Luce";
+"SETTINGS_SEC_TURN_OFF" = "Spegnimento";
 
-// Settings rows.
-"Turn off with a double tap" = "Spegni con un doppio tocco";
-"Enable timer" = "Abilita il timer";
-"Turn off after" = "Spegni dopo";
-"Lock screen" = "Blocca lo schermo";
+"SETTINGS_ROW_DOUBLE_TAP" = "Spegni con un doppio tocco";
+"SETTINGS_ROW_TIMER_ENABLE" = "Abilita il timer";
+"SETTINGS_ROW_TIMER_DURATION" = "Spegni dopo";
+"SETTINGS_ROW_LOCK_SCREEN" = "Blocca lo schermo";

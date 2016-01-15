@@ -49,7 +49,7 @@ final class SettingsFormViewController: FormViewController {
         }
 
         // -------------------------
-        // Light color
+        // Light
         // -------------------------
 
         let colorSelectionRow = CustomRowFormer<ColorSelectionCell>(instantiateType: .Nib(nibName: "ColorSelectionCell")) {
@@ -59,26 +59,26 @@ final class SettingsFormViewController: FormViewController {
             $0.rowHeight = 54.0
         }
 
-        let colorSection = SectionFormer(rowFormer: colorSelectionRow).set(headerViewFormer: createHeader(NSLocalizedString("Light color", comment: "")))
+        let colorSection = SectionFormer(rowFormer: colorSelectionRow).set(headerViewFormer: createHeader(NSLocalizedString("SETTINGS_SEC_LIGHT", comment: "")))
 
         // -------------------------
         // General
         // -------------------------
 
         let doubleTapSwitchRow = SwitchRowFormer<FormSwitchCell>() {
-            $0.titleLabel.text = NSLocalizedString("Turn off with a double tap", comment: "")
+            $0.titleLabel.text = NSLocalizedString("SETTINGS_ROW_DOUBLE_TAP", comment: "")
         }.configure {
             $0.switched = Settings.doubleTap
         }
 
         let timerEnableSwitchRow = SwitchRowFormer<FormSwitchCell>() {
-            $0.titleLabel.text = NSLocalizedString("Enable timer", comment: "")
+            $0.titleLabel.text = NSLocalizedString("SETTINGS_ROW_TIMER_ENABLE", comment: "")
         }.configure {
             $0.switched = Settings.timerEnable
         }
 
         timerDurationLabelRow = LabelRowFormer<FormLabelCell>().configure {
-            $0.text = NSLocalizedString("Turn off after", comment: "")
+            $0.text = NSLocalizedString("SETTINGS_ROW_TIMER_DURATION", comment: "")
 
             let comps = NSDateComponents()
             let timerDuration = Settings.timerDuration
@@ -99,7 +99,7 @@ final class SettingsFormViewController: FormViewController {
         }
 
         let lockScreenSwitchRow = SwitchRowFormer<FormSwitchCell>() {
-            $0.titleLabel.text = NSLocalizedString("Lock screen", comment: "")
+            $0.titleLabel.text = NSLocalizedString("SETTINGS_ROW_LOCK_SCREEN", comment: "")
         }.configure {
             $0.switched = Settings.lockScreen
         }.onSwitchChanged { switched in
@@ -114,7 +114,7 @@ final class SettingsFormViewController: FormViewController {
         } else {
             generalRowFormers = [doubleTapSwitchRow, timerEnableSwitchRow]
         }
-        let generalSection = SectionFormer(rowFormers: generalRowFormers).set(headerViewFormer: createHeader(NSLocalizedString("Turn off", comment: "")))
+        let generalSection = SectionFormer(rowFormers: generalRowFormers).set(headerViewFormer: createHeader(NSLocalizedString("SETTINGS_SEC_TURN_OFF", comment: "")))
 
         doubleTapSwitchRow.onSwitchChanged { [unowned self] switched in
             Settings.doubleTap = switched

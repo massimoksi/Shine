@@ -18,12 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-// Settings sections.
-"Light color" = "Light color";
-"Turn off" = "Turn off";
+"SETTINGS_SEC_LIGHT" = "Light";
+"SETTINGS_SEC_TURN_OFF" = "Turn off";
 
-// Settings rows.
-"Turn off with a double tap" = "Turn off with a double tap";
-"Enable timer" = "Enable timer";
-"Turn off after" = "Turn off after";
-"Lock screen" = "Lock screen";
+"SETTINGS_ROW_DOUBLE_TAP" = "Turn off with a double tap";
+"SETTINGS_ROW_TIMER_ENABLE" = "Enable timer";
+"SETTINGS_ROW_TIMER_DURATION" = "Turn off after";
+"SETTINGS_ROW_LOCK_SCREEN" = "Lock screen";
