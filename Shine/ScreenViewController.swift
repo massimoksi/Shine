@@ -140,7 +140,11 @@ class ScreenViewController: UIViewController {
         if segue.identifier == "ShowSettingsSegue" {
             let presentationSegue = segue as! MZFormSheetPresentationViewControllerSegue
             presentationSegue.formSheetPresentationController.contentViewControllerTransitionStyle = .Fade
-            presentationSegue.formSheetPresentationController.presentationController?.contentViewSize = CGSize(width: 300.0, height: 300.0)
+            if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+                presentationSegue.formSheetPresentationController.presentationController?.contentViewSize = CGSize(width: view.bounds.width - 16.0, height: 360.0)
+            } else {
+                presentationSegue.formSheetPresentationController.presentationController?.contentViewSize = CGSize(width: 320.0, height: 480.0)
+            }
             presentationSegue.formSheetPresentationController.presentationController?.shouldCenterVertically = true
             presentationSegue.formSheetPresentationController.presentationController?.shouldDismissOnBackgroundViewTap = true
             presentationSegue.formSheetPresentationController.willPresentContentViewControllerHandler = { [unowned self] _ in
@@ -267,6 +271,10 @@ class ScreenViewController: UIViewController {
 
         if timerActive {
             timerRunning = true
+
+            timerButton.hidden = false
+        } else {
+            timerButton.hidden = true
         }
 
         brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
