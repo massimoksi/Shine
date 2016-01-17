@@ -280,6 +280,7 @@ class ScreenViewController: UIViewController {
         brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
 
         // Fade label in/out.
+        brightnessLabel.center = view.center
         UIView.animateKeyframesWithDuration(2.0, delay: 0.0, options: UIViewKeyframeAnimationOptions(rawValue: 0), animations: {
             UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.5, animations: { [unowned self] in
                 self.brightnessLabel.alpha = 1.0
