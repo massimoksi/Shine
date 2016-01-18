@@ -62,7 +62,7 @@ final class SettingsFormViewController: FormViewController {
         let colorSection = SectionFormer(rowFormer: colorSelectionRow).set(headerViewFormer: createHeader(NSLocalizedString("SETTINGS_SEC_LIGHT", comment: "")))
 
         // -------------------------
-        // General
+        // Turn off
         // -------------------------
 
         let doubleTapSwitchRow = SwitchRowFormer<FormSwitchCell>() {
@@ -106,15 +106,15 @@ final class SettingsFormViewController: FormViewController {
             Settings.lockScreen = switched
         }
 
-        var generalRowFormers: [RowFormer]
+        var turnOffRows: [RowFormer]
         if Settings.timerEnable {
-            generalRowFormers = [doubleTapSwitchRow, timerEnableSwitchRow, timerDurationLabelRow, lockScreenSwitchRow]
+            turnOffRows = [doubleTapSwitchRow, timerEnableSwitchRow, timerDurationLabelRow, lockScreenSwitchRow]
         } else if Settings.doubleTap {
-            generalRowFormers = [doubleTapSwitchRow, timerEnableSwitchRow, lockScreenSwitchRow]
+            turnOffRows = [doubleTapSwitchRow, timerEnableSwitchRow, lockScreenSwitchRow]
         } else {
-            generalRowFormers = [doubleTapSwitchRow, timerEnableSwitchRow]
+            turnOffRows = [doubleTapSwitchRow, timerEnableSwitchRow]
         }
-        let generalSection = SectionFormer(rowFormers: generalRowFormers).set(headerViewFormer: createHeader(NSLocalizedString("SETTINGS_SEC_TURN_OFF", comment: "")))
+        let turnOffSection = SectionFormer(rowFormers: turnOffRows).set(headerViewFormer: createHeader(NSLocalizedString("SETTINGS_SEC_TURN_OFF", comment: "")))
 
         doubleTapSwitchRow.onSwitchChanged { [unowned self] switched in
             Settings.doubleTap = switched
@@ -172,7 +172,7 @@ final class SettingsFormViewController: FormViewController {
             }
         }
 
-        former.append(sectionFormer: colorSection, generalSection)
+        former.append(sectionFormer: colorSection, turnOffSection)
     }
 
     override func didReceiveMemoryWarning() {
