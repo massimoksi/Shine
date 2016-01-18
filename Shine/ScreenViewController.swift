@@ -41,7 +41,12 @@ class ScreenViewController: UIViewController {
     var state: LightState = .On
 
     var brightnessLabel: UILabel!
-    @IBOutlet weak var timerButton: UIButton!
+
+    @IBOutlet weak var timerButton: UIButton! {
+        didSet {
+            timerButton.titleLabel?.font = timerButton.titleLabel?.font.monospacedDigitFont
+        }
+    }
 
     private lazy var brightnessFormatter: NSNumberFormatter = {
         let formatter = NSNumberFormatter()
@@ -55,16 +60,13 @@ class ScreenViewController: UIViewController {
     private lazy var timerFormatter: NSDateComponentsFormatter = {
         let formatter = NSDateComponentsFormatter()
         formatter.unitsStyle = .Positional
-        formatter.allowedUnits = [.Hour, .Minute]
-        formatter.maximumUnitCount = 2
+        formatter.allowedUnits = [.Hour, .Minute, .Second]
         formatter.zeroFormattingBehavior = .None
 
         return formatter
     }()
 
     private var panLocation = CGPoint()
-
-    private var refreshBlinker = false
 
     private var turnOffTimer: NSTimer?
     private var refreshTimer: NSTimer?
@@ -73,8 +75,8 @@ class ScreenViewController: UIViewController {
         didSet {
             if timerRunning {
                 // Start timers.
-                turnOffTimer = NSTimer.scheduledTimerWithTimeInterval(Settings.timerDuration, target: self, selector: "turnOff", userInfo: nil, repeats: false)
-                refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refresh", userInfo: nil, repeats: true)
+                turnOffTimer = NSTimer.scheduledTimerWithTimeInterval(Settings.timerDuration, target: self, selector: "turnOffTimerDidFire:", userInfo: nil, repeats: false)
+                refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refreshTimerDidFire:", userInfo: nil, repeats: true)
             } else {
                 // Stop timers.
                 turnOffTimer?.invalidate()
@@ -84,7 +86,7 @@ class ScreenViewController: UIViewController {
                 refreshTimer = nil
             }
 
-            timerButton.setTitle(timerFormatter.stringFromDateComponents(timerComponents()), forState: .Normal)
+            timerButton.setTitle(timerFormatter.stringFromTimeInterval(Settings.timerDuration), forState: .Normal)
         }
     }
 
@@ -300,19 +302,15 @@ class ScreenViewController: UIViewController {
 
     // MARK: Timers
 
-    func turnOff() {
-        brightness = 0.0
-
-        if Settings.lockScreen {
-            UIApplication.sharedApplication().idleTimerDisabled = false
-        }
+    func turnOffTimerDidFire(timer: NSTimer) {
+        turnOff()
     }
 
-    func refresh() {
-        let timerDuration = timerFormatter.stringFromDateComponents(timerComponents())
+    func refreshTimerDidFire(timer: NSTimer) {
+        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        let components = calendar.components([.Hour, .Minute, .Second], fromDate: NSDate().dateByAddingTimeInterval(-1.0), toDate: (turnOffTimer?.fireDate)!, options: NSCalendarOptions(rawValue: 0))
 
-        timerButton.setTitle(refreshBlinker ? timerDuration?.stringByReplacingOccurrencesOfString(":", withString: " ") : timerDuration, forState: .Normal)
-        refreshBlinker = !refreshBlinker
+        timerButton.setTitle(timerFormatter.stringFromDateComponents(components), forState: .Normal)
     }
 
     // MARK: Setup
@@ -367,20 +365,12 @@ class ScreenViewController: UIViewController {
         return newLocation
     }
 
-    private func timerComponents() -> NSDateComponents {
-        guard let timer = turnOffTimer else {
-            let duration = Settings.timerDuration
-            let components = NSDateComponents()
-            components.hour = Int(duration) / 3600
-            components.minute = (Int(duration) % 3600) / 60
+    private func turnOff() {
+        brightness = 0.0
 
-            return components
+        if Settings.lockScreen {
+            UIApplication.sharedApplication().idleTimerDisabled = false
         }
-
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        let components = calendar.components([.Hour, .Minute], fromDate: NSDate().dateByAddingTimeInterval(-60.0), toDate: timer.fireDate, options: NSCalendarOptions(rawValue: 0))
-
-        return components
     }
 
 }
@@ -398,7 +388,7 @@ extension ScreenViewController: SettingsFormViewDelegate {
     func startTimer() {
         setupForegroundColor()
 
-        timerButton.setTitle(timerFormatter.stringFromDateComponents(timerComponents()), forState: .Normal)
+        timerButton.setTitle(timerFormatter.stringFromTimeInterval(Settings.timerDuration), forState: .Normal)
         timerButton.hidden = false
     }
 
@@ -407,7 +397,7 @@ extension ScreenViewController: SettingsFormViewDelegate {
     }
 
     func updateTimer() {
-        timerButton.setTitle(timerFormatter.stringFromDateComponents(timerComponents()), forState: .Normal)
+        timerButton.setTitle(timerFormatter.stringFromTimeInterval(Settings.timerDuration), forState: .Normal)
     }
 
 }
