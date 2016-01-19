@@ -51,17 +51,17 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="et4-BF-0sg">
                     <connections>
-                        <action selector="adjustBrightness:" destination="BYZ-38-t0r" id="JFV-2y-SHz"/>
+                        <action selector="handlePan:" destination="BYZ-38-t0r" id="JFV-2y-SHz"/>
                     </connections>
                 </panGestureRecognizer>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="KJc-uj-Mau">
                     <connections>
-                        <action selector="showSettings:" destination="BYZ-38-t0r" id="2iS-Rg-tXi"/>
+                        <action selector="handleLongPress:" destination="BYZ-38-t0r" id="2iS-Rg-tXi"/>
                     </connections>
                 </pongPressGestureRecognizer>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="SPP-vI-dNr">
                     <connections>
-                        <action selector="toggleLight:" destination="BYZ-38-t0r" id="dbn-G1-alI"/>
+                        <action selector="handleDoubleTap:" destination="BYZ-38-t0r" id="dbn-G1-alI"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
