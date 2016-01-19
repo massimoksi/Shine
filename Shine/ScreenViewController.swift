@@ -148,7 +148,11 @@ class ScreenViewController: UIViewController {
     private lazy var timerFormatter: NSDateComponentsFormatter = {
         let formatter = NSDateComponentsFormatter()
         formatter.unitsStyle = .Positional
-        formatter.allowedUnits = [.Hour, .Minute, .Second]  // TODO: adjust depending on timer duration.
+        if Settings.timerDuration > 3600 {
+            formatter.allowedUnits = [.Hour, .Minute, .Second]
+        } else {
+            formatter.allowedUnits = [.Minute, .Second]
+        }
         formatter.zeroFormattingBehavior = .None
 
         return formatter
@@ -406,6 +410,7 @@ class ScreenViewController: UIViewController {
 extension ScreenViewController: SettingsFormViewDelegate {
 
     func colorDidChange() {
+        // Update the background color of the view.
         UIView.animateWithDuration(1.0, animations: {
             self.view.backgroundColor = LightColor(rawValue: Settings.lightColor)?.color ?? LightColor.White.color
         })
@@ -423,7 +428,14 @@ extension ScreenViewController: SettingsFormViewDelegate {
     }
 
     func timerDidChange() {
-        timerButton.setTitle(timerFormatter.stringFromTimeInterval(Settings.timerDuration), forState: .Normal)
+        let duration = Settings.timerDuration
+        if duration > 3600 {
+            timerFormatter.allowedUnits = [.Hour, .Minute, .Second]
+        } else {
+            timerFormatter.allowedUnits = [.Minute, .Second]
+        }
+
+        timerButton.setTitle(timerFormatter.stringFromTimeInterval(duration), forState: .Normal)
     }
 
 }
