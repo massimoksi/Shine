@@ -399,28 +399,28 @@ class ScreenViewController: UIViewController {
 
 }
 
-// MARK: - Settings view controller delegate
+// MARK: - Settings form view delegate
 
 extension ScreenViewController: SettingsFormViewDelegate {
 
-    func updateLightColor() {
+    func colorDidChange() {
         UIView.animateWithDuration(1.0, animations: {
             self.view.backgroundColor = LightColor(rawValue: Settings.lightColor)?.color ?? LightColor.White.color
         })
     }
 
-    func startTimer() {
+    func timerWasEnabled() {
         adjustForegroundColor()
 
         timerButton.setTitle(timerFormatter.stringFromTimeInterval(Settings.timerDuration), forState: .Normal)
         timerButton.hidden = false
     }
 
-    func removeTimer() {
+    func timerWasDisabled() {
         timerButton.hidden = true
     }
 
-    func updateTimer() {
+    func timerDidChange() {
         timerButton.setTitle(timerFormatter.stringFromTimeInterval(Settings.timerDuration), forState: .Normal)
     }
 

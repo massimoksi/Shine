@@ -138,7 +138,7 @@ final class SettingsFormViewController: FormViewController {
             if switched {
                 self.former.insertUpdate(rowFormer: self.timerDurationLabelRow, toIndexPath: NSIndexPath(forItem: 2, inSection: 1), rowAnimation: .Automatic)
 
-                self.delegate?.startTimer()
+                self.delegate?.timerWasEnabled()
 
                 self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 1), atScrollPosition: .Bottom, animated: true)
 
@@ -151,7 +151,7 @@ final class SettingsFormViewController: FormViewController {
                 let rowFormersToBeRemoved = Settings.doubleTap ? [self.timerDurationLabelRow, timerDurationPickerRow] : [self.timerDurationLabelRow, timerDurationPickerRow, lockScreenSwitchRow]
                 self.former.removeUpdate(rowFormers: rowFormersToBeRemoved, rowAnimation: .Automatic)
 
-                self.delegate?.removeTimer()
+                self.delegate?.timerWasDisabled()
             }
         }
 
@@ -193,7 +193,7 @@ final class SettingsFormViewController: FormViewController {
             row.subText = timerDurationFormatter.stringFromDateComponents(comps)
         }
 
-        delegate?.updateTimer()
+        delegate?.timerDidChange()
     }
 
 }
@@ -232,7 +232,7 @@ extension SettingsFormViewController: UICollectionViewDelegate {
 
             Settings.lightColor = indexPath.item
 
-            delegate?.updateLightColor()
+            delegate?.colorDidChange()
         }
     }
 
@@ -242,9 +242,9 @@ extension SettingsFormViewController: UICollectionViewDelegate {
 
 protocol SettingsFormViewDelegate: class {
 
-    func updateLightColor()
-    func startTimer()
-    func removeTimer()
-    func updateTimer()
+    func colorDidChange()
+    func timerWasEnabled()
+    func timerWasDisabled()
+    func timerDidChange()
 
 }
