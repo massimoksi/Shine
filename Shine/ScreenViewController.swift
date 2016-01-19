@@ -115,8 +115,6 @@ class ScreenViewController: UIViewController {
 
             // Adjust foreground color.
             adjustForegroundColor()
-
-            // TODO: stop timers when brightness is 0%.
         }
     }
 
