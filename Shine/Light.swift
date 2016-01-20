@@ -20,25 +20,6 @@
 
 import UIKit
 
-enum LightState {
-
-    // swiftlint:disable type_name
-    case Off
-    case On
-    // swiftlint:enable type_name
-
-    mutating func toggle() {
-        switch self {
-        case Off:
-            self = On
-
-        case On:
-            self = Off
-        }
-    }
-
-}
-
 enum LightColor: Int {
 
     case White
