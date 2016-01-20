@@ -104,6 +104,9 @@ class ScreenViewController: UIViewController {
             // Condition brightness.
             brightness = max(min(brightness, 1.0), 0.0)
 
+            // Adjust foreground color.
+            adjustForegroundColor()
+
             // Update brightness label percentage.
             brightnessLabel.text = brightnessFormatter.stringFromNumber(brightness)
 
@@ -113,9 +116,6 @@ class ScreenViewController: UIViewController {
             // Darken screen background.
             let screenView = view as! ScreenView
             screenView.brightness = brightness
-
-            // Adjust foreground color.
-            adjustForegroundColor()
         }
     }
 
@@ -367,8 +367,7 @@ class ScreenViewController: UIViewController {
     // MARK: Helper functions
 
     private func adjustForegroundColor() {
-        // FIXME: check the behavior at 25%.
-        let frontColor = (brightness > brightnessThreshold) ? UIColor(white: 0.0, alpha: 0.25) : LightColor(rawValue: Settings.lightColor)?.color ?? LightColor.White.color
+        let frontColor = (brightness > 0.2) ? UIColor(white: 0.0, alpha: 0.25) : LightColor(rawValue: Settings.lightColor)?.color ?? LightColor.White.color
 
         brightnessLabel.textColor = frontColor
 
