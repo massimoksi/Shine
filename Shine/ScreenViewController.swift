@@ -121,7 +121,7 @@ class ScreenViewController: UIViewController {
 
     let brightnessLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 64.0))
-        label.font = UIFont.systemFontOfSize(36.0)
+        label.font = UIFont.systemFontOfSize(36.0).monospacedDigitFont
         label.textAlignment = .Center
         label.alpha = 0.0
 
