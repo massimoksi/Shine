@@ -366,7 +366,7 @@ class ScreenViewController: UIViewController {
     // MARK: Helper functions
 
     private func adjustForegroundColor() {
-        // TODO: check the behavior at 25%.
+        // FIXME: check the behavior at 25%.
         let frontColor = (brightness > brightnessThreshold) ? UIColor(white: 0.0, alpha: 0.25) : LightColor(rawValue: Settings.lightColor)?.color ?? LightColor.White.color
 
         brightnessLabel.textColor = frontColor
