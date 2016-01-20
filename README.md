@@ -32,6 +32,7 @@ Shine depends on the following third-party libraries:
 
 - [MZFormSheetPresentationController](https://github.com/m1entus/MZFormSheetPresentationController)
 - [Former](https://github.com/ra1028/Former)
+- [Gaston](https://github.com/massimoksi/Gaston)
 
 ## Contact
 

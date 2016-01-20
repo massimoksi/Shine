@@ -1,15 +1,27 @@
 PODS:
   - Former (1.1.0)
+  - Gaston (0.0.1)
   - MZAppearance (1.1.6)
   - MZFormSheetPresentationController (2.1.2):
     - MZAppearance
 
 DEPENDENCIES:
-  - Former
+  - Former (~> 1.1)
+  - Gaston (from `https://github.com/massimoksi/Gaston.git`)
   - MZFormSheetPresentationController (~> 2.1.2)
+
+EXTERNAL SOURCES:
+  Gaston:
+    :git: https://github.com/massimoksi/Gaston.git
+
+CHECKOUT OPTIONS:
+  Gaston:
+    :commit: f720f6b6278a13951ccf77237bb12a881d87af2b
+    :git: https://github.com/massimoksi/Gaston.git
 
 SPEC CHECKSUMS:
   Former: 5b2ac5acdc8b059e1346d048c26a9d5dbd751c55
+  Gaston: c338df1cec79ee18d02570fae3b428e2cac0bab8
   MZAppearance: 0c06d3fa9cc55142f1da14bc8631fbe8fd6e19d5
   MZFormSheetPresentationController: a268a1840780d52f47688d823d2b6d35318bf24d
 

@@ -20,6 +20,7 @@
 
 import UIKit
 import MZFormSheetPresentationController
+import Gaston
 
 class ScreenViewController: UIViewController {
 
@@ -357,7 +358,7 @@ class ScreenViewController: UIViewController {
     }
 
     func refreshTimerDidFire(timer: NSTimer) {
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!   // TODO: import Gaston.
+        let calendar = NSCalendar.gregorianCalendar()
         let components = calendar.components([.Hour, .Minute, .Second], fromDate: NSDate().dateByAddingTimeInterval(-1.0), toDate: (turnOffTimer?.fireDate)!, options: NSCalendarOptions(rawValue: 0))
 
         timerButton.setTitle(timerFormatter.stringFromDateComponents(components), forState: .Normal)
