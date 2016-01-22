@@ -21,6 +21,7 @@
 import UIKit
 import MZFormSheetPresentationController
 import Gaston
+import Ticker
 
 class ScreenViewController: UIViewController {
 
@@ -35,7 +36,7 @@ class ScreenViewController: UIViewController {
 
     private var state: State = .Idle {
         didSet {
-            debug("State: \(state.rawValue)")
+            Ticker.debug("State: \(state.rawValue)")
 
             switch state {
             case .Idle:

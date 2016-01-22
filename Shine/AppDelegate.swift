@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import Ticker
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         // Setup logger.
-        setup()
+        Ticker.setup()
 
         // Register user defaults.
         Settings.registerDefaults()
