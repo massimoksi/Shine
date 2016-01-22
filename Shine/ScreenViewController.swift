@@ -36,7 +36,7 @@ class ScreenViewController: UIViewController {
 
     private var state: State = .Idle {
         didSet {
-            Ticker.debug("State: \(state.rawValue)")
+            Ticker.debug("---> State: \(state.rawValue)")
 
             switch state {
             case .Idle:
@@ -241,9 +241,13 @@ class ScreenViewController: UIViewController {
             presentationSegue.formSheetPresentationController.presentationController?.shouldCenterVertically = true
             presentationSegue.formSheetPresentationController.presentationController?.shouldDismissOnBackgroundViewTap = true
             presentationSegue.formSheetPresentationController.willPresentContentViewControllerHandler = { [unowned self] _ in
+                Ticker.debug("Settings will appear")
+
                 self.state = .Paused
             }
             presentationSegue.formSheetPresentationController.didDismissContentViewControllerHandler = { [unowned self] _ in
+                Ticker.debug("Settings did disappear")
+
                 self.state = .Running
             }
 
@@ -263,6 +267,8 @@ class ScreenViewController: UIViewController {
         if state == .Running {
             switch sender.state {
             case .Began:
+                Ticker.debug("Pan started")
+
                 // Pause timers.
                 if timerActive {
                     timerRunning = false
@@ -282,6 +288,8 @@ class ScreenViewController: UIViewController {
                 brightnessLabel.alpha = 1.0
 
             case .Ended:
+                Ticker.debug("Pan ended with brightness: \(brightness)")
+
                 // Store final screen brightness into user defaults.
                 Settings.brightness = Float(brightness)
 
@@ -296,6 +304,8 @@ class ScreenViewController: UIViewController {
                 }
 
             case .Cancelled, .Failed:
+                Ticker.error("Pan failed")
+
                 // Restore original brightness.
                 brightness = CGFloat(Settings.brightness)
 
@@ -323,12 +333,12 @@ class ScreenViewController: UIViewController {
     }
 
     @IBAction func handleDoubleTap(sender: UITapGestureRecognizer) {
-        if sender.state == .Ended {
+        if Settings.doubleTap && sender.state == .Ended {
+            Ticker.debug("Double tapped")
+
             switch state {
             case .Running:
-                if Settings.doubleTap {
-                    state = .Stopped
-                }
+                state = .Stopped
 
             case .Stopped:
                 state = .Running
@@ -340,6 +350,8 @@ class ScreenViewController: UIViewController {
 
     @IBAction func handleLongPress(sender: UILongPressGestureRecognizer) {
         if sender.state == .Began {
+            Ticker.debug("Long pressed")
+
             performSegueWithIdentifier("ShowSettingsSegue", sender: self)
         }
     }
@@ -347,16 +359,22 @@ class ScreenViewController: UIViewController {
     // MARK: Notification handlers
 
     func applicationDidBecomeActive(notification: NSNotification) {
+        Ticker.debug("Received \(notification.name)")
+
         state = .Running
     }
 
     func applicationWillResignActive(notification: NSNotification) {
+        Ticker.debug("Received \(notification.name)")
+
         state = .Idle
     }
 
     // MARK: Timers
 
     func turnOffTimerDidFire(timer: NSTimer) {
+        Ticker.debug("Fired: turn off timer")
+
         state = .Stopped
     }
 

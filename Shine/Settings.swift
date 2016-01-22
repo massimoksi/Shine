@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 import Foundation
+import Ticker
 
 struct Settings {
 
@@ -28,7 +29,10 @@ struct Settings {
         }
 
         set {
+            // TODO: is it really necessary to condition here?
             NSUserDefaults.standardUserDefaults().setFloat(max(min(newValue, 1.0), 0.0), forKey: Key.Brightness.rawValue)
+
+            Ticker.debug("+++> \(Key.Brightness.rawValue): \(newValue)")
         }
     }
 
@@ -39,6 +43,8 @@ struct Settings {
 
         set {
             NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey: Key.LightColor.rawValue)
+
+            Ticker.debug("+++> \(Key.LightColor.rawValue): \(newValue)")
         }
     }
 
@@ -53,6 +59,8 @@ struct Settings {
 
         set {
             NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: Key.BundleVersion.rawValue)
+
+            Ticker.debug("+++> \(Key.BundleVersion.rawValue): \(newValue)")
         }
     }
 
@@ -63,6 +71,8 @@ struct Settings {
 
         set {
             NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: Key.DoubleTap.rawValue)
+
+            Ticker.debug("+++> \(Key.DoubleTap.rawValue): \(newValue)")
         }
     }
 
@@ -73,6 +83,8 @@ struct Settings {
 
         set {
             NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: Key.TimerEnable.rawValue)
+
+            Ticker.debug("+++> \(Key.TimerEnable.rawValue): \(newValue)")
         }
     }
 
@@ -83,6 +95,8 @@ struct Settings {
 
         set {
             NSUserDefaults.standardUserDefaults().setDouble(newValue, forKey: Key.TimerDuration.rawValue)
+
+            Ticker.debug("+++> \(Key.TimerDuration.rawValue): \(newValue)")
         }
     }
 
@@ -93,6 +107,8 @@ struct Settings {
 
         set {
             NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: Key.LockScreen.rawValue)
+
+            Ticker.debug("+++> \(Key.LockScreen.rawValue): \(newValue)")
         }
     }
 
