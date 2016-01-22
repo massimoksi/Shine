@@ -24,7 +24,7 @@ import Gaston
 
 class ScreenViewController: UIViewController {
 
-    private enum State {
+    private enum State: String {
         case Idle
         case Running
         case Stopped
@@ -35,6 +35,8 @@ class ScreenViewController: UIViewController {
 
     private var state: State = .Idle {
         didSet {
+            debug("State: \(state.rawValue)")
+
             switch state {
             case .Idle:
                 // Stop timers.
