@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         // Setup logger.
-        Ticker.setup()
+        Ticker.setup(style: .Casual(urban: true))
 
         // Register user defaults.
         Settings.registerDefaults()

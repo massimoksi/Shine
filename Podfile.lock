@@ -2,7 +2,7 @@ PODS:
   - Former (1.1.0)
   - Gaston (0.0.1)
   - MZAppearance (1.1.6)
-  - MZFormSheetPresentationController (2.1.2):
+  - MZFormSheetPresentationController (2.1.3):
     - MZAppearance
   - Ticker (0.0.1)
 
@@ -10,24 +10,27 @@ DEPENDENCIES:
   - Former (~> 1.1)
   - Gaston (from `https://github.com/massimoksi/Gaston.git`)
   - MZFormSheetPresentationController (~> 2.1.2)
-  - Ticker (from `~/Projects/Ticker`)
+  - Ticker (from `https://github.com/massimoksi/Ticker.git`)
 
 EXTERNAL SOURCES:
   Gaston:
     :git: https://github.com/massimoksi/Gaston.git
   Ticker:
-    :path: ~/Projects/Ticker
+    :git: https://github.com/massimoksi/Ticker.git
 
 CHECKOUT OPTIONS:
   Gaston:
-    :commit: f720f6b6278a13951ccf77237bb12a881d87af2b
+    :commit: 085f3974b505d14207344e844c3152f296c1368e
     :git: https://github.com/massimoksi/Gaston.git
+  Ticker:
+    :commit: ed7681a0281e2e2a6ac708d72df82bf329449ee3
+    :git: https://github.com/massimoksi/Ticker.git
 
 SPEC CHECKSUMS:
   Former: 5b2ac5acdc8b059e1346d048c26a9d5dbd751c55
-  Gaston: c338df1cec79ee18d02570fae3b428e2cac0bab8
+  Gaston: c93281681d526db7068738a05c0adafdcd311710
   MZAppearance: 0c06d3fa9cc55142f1da14bc8631fbe8fd6e19d5
-  MZFormSheetPresentationController: a268a1840780d52f47688d823d2b6d35318bf24d
+  MZFormSheetPresentationController: 66048b553cb2002901298f66a443eac1d2743524
   Ticker: 8220f7019085480427676fb0aaeca379efd92f47
 
 COCOAPODS: 0.39.0
