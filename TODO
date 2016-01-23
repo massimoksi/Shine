@@ -1,5 +1,5 @@
 v0.7.0:
- [ ] Add log messages.
+ [x] Add log messages. @done (16-01-23 23:14)
  [ ] Monitor battery level.
 
 v0.8.0:
