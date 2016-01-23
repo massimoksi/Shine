@@ -29,8 +29,7 @@ struct Settings {
         }
 
         set {
-            // TODO: is it really necessary to condition here?
-            NSUserDefaults.standardUserDefaults().setFloat(max(min(newValue, 1.0), 0.0), forKey: Key.Brightness.rawValue)
+            NSUserDefaults.standardUserDefaults().setFloat(newValue, forKey: Key.Brightness.rawValue)
 
             Ticker.debug("+++> \(Key.Brightness.rawValue): \(newValue)")
         }
