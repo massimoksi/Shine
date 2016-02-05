@@ -86,6 +86,8 @@ class ScreenViewController: UIViewController {
                 // Stop timers.
                 if timerActive {
                     timerRunning = false
+
+                    timerButton.hidden = true
                 }
 
                 // Enable automatic lock.
