@@ -25,3 +25,4 @@
 "SETTINGS_ROW_TIMER_ENABLE" = "Enable timer";
 "SETTINGS_ROW_TIMER_DURATION" = "Turn off after";
 "SETTINGS_ROW_LOCK_SCREEN" = "Lock screen";
+"SETTINGS_ROW_MONITOR_BATTERY" = "Turn off when battery is low";

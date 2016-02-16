@@ -25,3 +25,4 @@
 "SETTINGS_ROW_TIMER_ENABLE" = "Abilita il timer";
 "SETTINGS_ROW_TIMER_DURATION" = "Spegni dopo";
 "SETTINGS_ROW_LOCK_SCREEN" = "Blocca lo schermo";
+"SETTINGS_ROW_MONITOR_BATTERY" = "Spegni quando la batteria è bassa";

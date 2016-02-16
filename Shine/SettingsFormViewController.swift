@@ -106,13 +106,21 @@ final class SettingsFormViewController: FormViewController {
             Settings.lockScreen = switched
         }
 
+        let monitorBatterySwitchRow = SwitchRowFormer<FormSwitchCell>() {
+            $0.titleLabel.text = NSLocalizedString("SETTINGS_ROW_MONITOR_BATTERY", comment: "")
+            }.configure {
+                $0.switched = Settings.monitorBattery
+            }.onSwitchChanged { switched in
+                Settings.monitorBattery = switched
+        }
+
         var turnOffRows: [RowFormer]
         if Settings.timerEnable {
-            turnOffRows = [doubleTapSwitchRow, timerEnableSwitchRow, timerDurationLabelRow, lockScreenSwitchRow]
+            turnOffRows = [doubleTapSwitchRow, timerEnableSwitchRow, timerDurationLabelRow, lockScreenSwitchRow, monitorBatterySwitchRow]
         } else if Settings.doubleTap {
-            turnOffRows = [doubleTapSwitchRow, timerEnableSwitchRow, lockScreenSwitchRow]
+            turnOffRows = [doubleTapSwitchRow, timerEnableSwitchRow, lockScreenSwitchRow, monitorBatterySwitchRow]
         } else {
-            turnOffRows = [doubleTapSwitchRow, timerEnableSwitchRow]
+            turnOffRows = [doubleTapSwitchRow, timerEnableSwitchRow, monitorBatterySwitchRow]
         }
         let turnOffSection = SectionFormer(rowFormers: turnOffRows).set(headerViewFormer: createHeader(NSLocalizedString("SETTINGS_SEC_TURN_OFF", comment: "")))
 
