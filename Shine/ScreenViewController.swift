@@ -216,9 +216,12 @@ class ScreenViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
+        UIDevice.currentDevice().batteryMonitoringEnabled = true
+
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "applicationDidBecomeActive:", name: UIApplicationDidBecomeActiveNotification, object: nil)
         notificationCenter.addObserver(self, selector: "applicationWillResignActive:", name: UIApplicationWillResignActiveNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "batteryLevelDidChange:", name: UIDeviceBatteryLevelDidChangeNotification, object: nil)
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -227,6 +230,7 @@ class ScreenViewController: UIViewController {
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.removeObserver(self, name: UIApplicationDidBecomeActiveNotification, object: nil)
         notificationCenter.removeObserver(self, name: UIApplicationWillResignActiveNotification, object: nil)
+        notificationCenter.removeObserver(self, name: UIDeviceBatteryLevelDidChangeNotification, object: nil)
     }
 
     // MARK: Navigation
@@ -370,6 +374,16 @@ class ScreenViewController: UIViewController {
         Ticker.debug("Received \(notification.name)")
 
         state = .Idle
+    }
+
+    func batteryLevelDidChange(notification: NSNotification) {
+        Ticker.debug("Received \(notification.name)")
+
+        if state == .Running && UIDevice.currentDevice().batteryState == .Unplugged && UIDevice.currentDevice().batteryLevel < 0.05 {
+            Ticker.warning("Battery level below 5%")
+
+            // TODO: implement.
+        }
     }
 
     // MARK: Timers
