@@ -25,18 +25,11 @@ import Ticker
 
 class ScreenViewController: UIViewController {
 
-    private enum State: String {
-        case Idle
-        case Running
-        case Stopped
-        case Paused
-    }
-
     // MARK: Properties
 
-    private var state: State = .Idle {
+    private var state: ScreenState = .Idle {
         didSet {
-            Ticker.info("---> State: \(state.rawValue)")
+            Ticker.info("---> State: \(state.description())")
 
             switch state {
             case .Idle:
@@ -79,7 +72,7 @@ class ScreenViewController: UIViewController {
                 // Disable automatic lock.
                 UIApplication.sharedApplication().idleTimerDisabled = true
 
-            case .Stopped:
+            case .Stopped(let lock):
                 // Turn the screen off.
                 brightness = 0.0
 
@@ -91,7 +84,7 @@ class ScreenViewController: UIViewController {
                 }
 
                 // Enable automatic lock.
-                if Settings.lockScreen {
+                if lock {
                     UIApplication.sharedApplication().idleTimerDisabled = false
                 }
 
@@ -344,7 +337,7 @@ class ScreenViewController: UIViewController {
 
             switch state {
             case .Running:
-                state = .Stopped
+                state = .Stopped(lock: Settings.lockScreen)
 
             case .Stopped:
                 state = .Running
@@ -382,7 +375,7 @@ class ScreenViewController: UIViewController {
         if state == .Running && UIDevice.currentDevice().batteryState == .Unplugged && UIDevice.currentDevice().batteryLevel < 0.05 {
             Ticker.warning("Battery level below 5%")
 
-            // TODO: implement.
+            state = .Stopped(lock: true)
         }
     }
 
@@ -391,7 +384,7 @@ class ScreenViewController: UIViewController {
     func turnOffTimerDidFire(timer: NSTimer) {
         Ticker.debug("Fired: turn off timer")
 
-        state = .Stopped
+        state = .Stopped(lock: Settings.lockScreen)
     }
 
     func refreshTimerDidFire(timer: NSTimer) {
@@ -474,4 +467,49 @@ extension ScreenViewController: SettingsFormViewDelegate {
         timerButton.setTitle(timerFormatter.stringFromTimeInterval(duration), forState: .Normal)
     }
 
+}
+
+// MARK: - Screen state
+
+private enum ScreenState: Equatable {
+    case Idle
+    case Running
+    case Stopped(lock: Bool)
+    case Paused
+
+    func description() -> String {
+        switch self {
+        case .Idle:
+            return "Idle"
+
+        case .Running:
+            return "Running"
+
+        case .Stopped(lock: _):
+            return "Stopped"
+
+        case .Paused:
+            return "Paused"
+        }
+    }
+
+}
+
+private func == (lhs: ScreenState, rhs: ScreenState) -> Bool {
+    switch (lhs, rhs) {
+    case (.Idle, .Idle):
+        return true
+
+    case (.Running, .Running):
+        return true
+
+    case ( .Stopped(lock: _), .Stopped(lock: _)):
+        return true
+
+    case (.Paused, .Paused):
+        return true
+
+    default:
+        return false
+    }
 }
