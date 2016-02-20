@@ -232,8 +232,8 @@ class ScreenViewController: UIViewController {
         if segue.identifier == "ShowSettingsSegue" {
             let presentationSegue = segue as! MZFormSheetPresentationViewControllerSegue
             presentationSegue.formSheetPresentationController.contentViewControllerTransitionStyle = .Fade
-            if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-                presentationSegue.formSheetPresentationController.presentationController?.contentViewSize = CGSize(width: view.bounds.width - 16.0, height: 360.0)
+            if view.bounds.width == 320.0 {
+                presentationSegue.formSheetPresentationController.presentationController?.contentViewSize = CGSize(width: 304.0, height: 456.0)
             } else {
                 presentationSegue.formSheetPresentationController.presentationController?.contentViewSize = CGSize(width: 320.0, height: 480.0)
             }
