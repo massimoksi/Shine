@@ -1,3 +1,6 @@
 
-/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "UVe-C3-W9R"; */
-"UVe-C3-W9R.title" = "Impostazioni";
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "7ch-1W-Ny2"; */
+"7ch-1W-Ny2.title" = "Impostazioni";
+
+/* Class = "UIButton"; normalTitle = "0:00"; ObjectID = "rQp-kp-sdt"; */
+"rQp-kp-sdt.normalTitle" = "0:00";

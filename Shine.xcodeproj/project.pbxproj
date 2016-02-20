@@ -61,6 +61,7 @@
 		5622D4061BC70F0500B52B92 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		5622D4091BC70F0500B52B92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		5622D40B1BC70F0500B52B92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5649D6F41C791EDC007B0792 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Main.strings; sourceTree = "<group>"; };
 		564BD5461BE17EFF006E9C23 /* LightColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightColor.swift; sourceTree = "<group>"; };
 		56579CBF1BB30FA300060B5C /* Shine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56579CC21BB30FA300060B5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,7 +74,6 @@
 		5668B9EA1C33327000755B9C /* CountDownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountDownCell.swift; sourceTree = "<group>"; };
 		5668B9EC1C33329700755B9C /* CountDownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountDownCell.xib; sourceTree = "<group>"; };
 		56AF763D1BD3871D00DBE670 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MainInterface.strings; sourceTree = "<group>"; };
-		56CD2D961BEAB8860092484E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Main.strings; sourceTree = "<group>"; };
 		56DD1AE31C2BE00000739252 /* SettingsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsFormViewController.swift; sourceTree = "<group>"; };
 		56DD1AE61C2DF98200739252 /* ColorSelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSelectionCell.swift; sourceTree = "<group>"; };
 		56DD1AE81C2DF9A500739252 /* ColorSelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorSelectionCell.xib; sourceTree = "<group>"; };
@@ -412,7 +412,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				56579CC71BB30FA300060B5C /* Base */,
-				56CD2D961BEAB8860092484E /* it */,
+				5649D6F41C791EDC007B0792 /* it */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
