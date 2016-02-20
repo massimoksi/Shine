@@ -123,6 +123,18 @@ struct Settings {
         }
     }
 
+    static var showTutorial: Bool {
+        get {
+            return NSUserDefaults.standardUserDefaults().boolForKey(Key.ShowTutorial.rawValue)
+        }
+
+        set {
+            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: Key.ShowTutorial.rawValue)
+
+            Ticker.debug("~> \(Key.ShowTutorial.rawValue): \(newValue)")
+        }
+    }
+
     static func registerDefaults() {
         NSUserDefaults.standardUserDefaults().registerDefaults([
             Key.Brightness.rawValue: Float(1.0),
@@ -132,7 +144,8 @@ struct Settings {
             Key.TimerEnable.rawValue: false,
             Key.TimerDuration.rawValue: 600.0,
             Key.LockScreen.rawValue: false,
-            Key.MonitorBattery.rawValue: true
+            Key.MonitorBattery.rawValue: true,
+            Key.ShowTutorial.rawValue: true
         ])
     }
 
@@ -147,6 +160,7 @@ struct Settings {
         case TimerDuration
         case LockScreen
         case MonitorBattery
+        case ShowTutorial
     }
 
 }
