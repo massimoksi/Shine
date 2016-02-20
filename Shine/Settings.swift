@@ -31,7 +31,7 @@ struct Settings {
         set {
             NSUserDefaults.standardUserDefaults().setFloat(newValue, forKey: Key.Brightness.rawValue)
 
-            Ticker.debug("~~~> \(Key.Brightness.rawValue): \(newValue)")
+            Ticker.debug("~> \(Key.Brightness.rawValue): \(newValue)")
         }
     }
 
@@ -43,7 +43,7 @@ struct Settings {
         set {
             NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey: Key.LightColor.rawValue)
 
-            Ticker.debug("~~~> \(Key.LightColor.rawValue): \(newValue)")
+            Ticker.debug("~> \(Key.LightColor.rawValue): \(newValue)")
         }
     }
 
@@ -59,7 +59,7 @@ struct Settings {
         set {
             NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: Key.BundleVersion.rawValue)
 
-            Ticker.debug("~~~> \(Key.BundleVersion.rawValue): \(newValue)")
+            Ticker.debug("~> \(Key.BundleVersion.rawValue): \(newValue)")
         }
     }
 
@@ -71,7 +71,7 @@ struct Settings {
         set {
             NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: Key.DoubleTap.rawValue)
 
-            Ticker.debug("~~~> \(Key.DoubleTap.rawValue): \(newValue)")
+            Ticker.debug("~> \(Key.DoubleTap.rawValue): \(newValue)")
         }
     }
 
@@ -83,7 +83,7 @@ struct Settings {
         set {
             NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: Key.TimerEnable.rawValue)
 
-            Ticker.debug("~~~> \(Key.TimerEnable.rawValue): \(newValue)")
+            Ticker.debug("~> \(Key.TimerEnable.rawValue): \(newValue)")
         }
     }
 
@@ -95,7 +95,7 @@ struct Settings {
         set {
             NSUserDefaults.standardUserDefaults().setDouble(newValue, forKey: Key.TimerDuration.rawValue)
 
-            Ticker.debug("~~~> \(Key.TimerDuration.rawValue): \(newValue)")
+            Ticker.debug("~> \(Key.TimerDuration.rawValue): \(newValue)")
         }
     }
 
@@ -107,7 +107,7 @@ struct Settings {
         set {
             NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: Key.LockScreen.rawValue)
 
-            Ticker.debug("~~~> \(Key.LockScreen.rawValue): \(newValue)")
+            Ticker.debug("~> \(Key.LockScreen.rawValue): \(newValue)")
         }
     }
 
@@ -119,7 +119,7 @@ struct Settings {
         set {
             NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: Key.MonitorBattery.rawValue)
 
-            Ticker.debug("~~~> \(Key.MonitorBattery.rawValue): \(newValue)")
+            Ticker.debug("~> \(Key.MonitorBattery.rawValue): \(newValue)")
         }
     }
 

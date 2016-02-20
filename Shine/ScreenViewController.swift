@@ -29,7 +29,7 @@ class ScreenViewController: UIViewController {
 
     private var state: ScreenState = .Idle {
         didSet {
-            Ticker.info("---> State: \(state.description())")
+            Ticker.info("=> State: \(state.description())")
 
             switch state {
             case .Idle:
