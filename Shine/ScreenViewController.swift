@@ -217,6 +217,15 @@ class ScreenViewController: UIViewController {
         notificationCenter.addObserver(self, selector: "batteryLevelDidChange:", name: UIDeviceBatteryLevelDidChangeNotification, object: nil)
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if Settings.showTutorial {
+            // TODO: Use SegueHandlerType.
+            performSegueWithIdentifier("ShowTutorialSegue", sender: self)
+        }
+    }
+
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
 
@@ -229,6 +238,8 @@ class ScreenViewController: UIViewController {
     // MARK: Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        Ticker.debug("-> Segue: \(segue.identifier)")
+
         if segue.identifier == "ShowSettingsSegue" {
             let presentationSegue = segue as! MZFormSheetPresentationViewControllerSegue
             presentationSegue.formSheetPresentationController.contentViewControllerTransitionStyle = .Fade
@@ -360,7 +371,11 @@ class ScreenViewController: UIViewController {
     func applicationDidBecomeActive(notification: NSNotification) {
         Ticker.debug("Received \(notification.name)")
 
-        state = .Running
+        if !Settings.showTutorial {
+            state = .Running
+        } else {
+            state = .Idle
+        }
     }
 
     func applicationWillResignActive(notification: NSNotification) {

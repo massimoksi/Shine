@@ -7,6 +7,7 @@ target 'Shine' do
   pod 'Former', '~> 1.1'
   pod 'Gaston', :git => 'https://github.com/massimoksi/Gaston.git'
   pod 'Ticker', :git => 'https://github.com/massimoksi/Ticker.git'
+  pod 'Gecco', '~> 0.2'
 end
 
 target 'ShineToday' do

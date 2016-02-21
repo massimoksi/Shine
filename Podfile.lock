@@ -1,6 +1,7 @@
 PODS:
   - Former (1.1.0)
   - Gaston (0.0.1)
+  - Gecco (0.2.0)
   - MZAppearance (1.1.6)
   - MZFormSheetPresentationController (2.1.3):
     - MZAppearance
@@ -9,6 +10,7 @@ PODS:
 DEPENDENCIES:
   - Former (~> 1.1)
   - Gaston (from `https://github.com/massimoksi/Gaston.git`)
+  - Gecco (~> 0.2)
   - MZFormSheetPresentationController (~> 2.1.2)
   - Ticker (from `https://github.com/massimoksi/Ticker.git`)
 
@@ -29,6 +31,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Former: 5b2ac5acdc8b059e1346d048c26a9d5dbd751c55
   Gaston: c93281681d526db7068738a05c0adafdcd311710
+  Gecco: 27ab0f43da3f8e844771cf641992afdd1ea09c62
   MZAppearance: 0c06d3fa9cc55142f1da14bc8631fbe8fd6e19d5
   MZFormSheetPresentationController: 66048b553cb2002901298f66a443eac1d2743524
   Ticker: 8220f7019085480427676fb0aaeca379efd92f47
