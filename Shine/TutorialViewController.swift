@@ -19,14 +19,68 @@
 // THE SOFTWARE.
 
 import UIKit
-import Gecco
+import Ticker
 
-class TutorialViewController: SpotlightViewController {
+class TutorialViewController: UIViewController {
+
+    // MARK: - Properties
+
+    @IBOutlet weak var panGestureImageView: UIImageView!
+    @IBOutlet weak var doubleTapGestureImageView: UIImageView!
+    @IBOutlet weak var longPressGestureImageView: UIImageView!
+
+    @IBOutlet weak var panGestureCenterYConstraint: NSLayoutConstraint!
+    @IBOutlet weak var doubleTapGestureWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var longPressGestureWidthConstraint: NSLayoutConstraint!
+
+    private var step = 0 {
+        didSet {
+            switch step {
+            case 1:
+                showPanGesture()
+
+            case 2:
+                showDoubleTapGesture()
+
+            case 3:
+                showLongPressGesture()
+
+            default:
+                panGestureImageView.hidden = true
+                doubleTapGestureImageView.hidden = true
+                longPressGestureImageView.hidden = true
+
+                Settings.showTutorial = false
+
+                dismissViewControllerAnimated(false, completion: nil)
+            }
+        }
+    }
+
+    // MARK: - Constants
+
+    private let animationDuration: NSTimeInterval = 2.0
+    private let animationDelay: NSTimeInterval = 0.5
+
+    // MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        panGestureImageView.hidden = true
+        doubleTapGestureImageView.hidden = true
+        longPressGestureImageView.hidden = true
+
+        panGestureImageView.tintColor = UIColor(white: 0.0, alpha: 0.25)
+        doubleTapGestureImageView.tintColor = UIColor(white: 0.0, alpha: 0.25)
+        longPressGestureImageView.tintColor = UIColor(white: 0.0, alpha: 0.25)
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        step = 1
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,14 +88,76 @@ class TutorialViewController: SpotlightViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    /*
-    // MARK: - Navigation
+    // MARK: - Actions
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func handleTap(sender: UITapGestureRecognizer) {
+        Ticker.debug("Tapped")
+
+        step += 1
     }
-    */
+
+    // MARK: - Helper functions
+
+    private func showPanGesture() {
+        panGestureImageView.hidden = false
+        doubleTapGestureImageView.hidden = true
+        longPressGestureImageView.hidden = true
+
+        UIView.animateKeyframesWithDuration(animationDuration, delay: animationDelay, options: [.Autoreverse, .Repeat], animations: {
+            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 1.0, animations: {
+                self.panGestureCenterYConstraint.constant = 16.0
+
+                self.view.layoutIfNeeded()
+            })
+        }, completion: nil)
+    }
+
+    private func showDoubleTapGesture() {
+        panGestureImageView.hidden = true
+        doubleTapGestureImageView.hidden = false
+        longPressGestureImageView.hidden = true
+
+        UIView.animateKeyframesWithDuration(animationDuration, delay: animationDelay, options: .Repeat, animations: {
+            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.2, animations: {
+                self.doubleTapGestureWidthConstraint.constant = 55.0
+
+                self.view.layoutIfNeeded()
+            })
+            UIView.addKeyframeWithRelativeStartTime(0.2, relativeDuration: 0.2, animations: {
+                self.doubleTapGestureWidthConstraint.constant = 60.0
+
+                self.view.layoutIfNeeded()
+            })
+            UIView.addKeyframeWithRelativeStartTime(0.4, relativeDuration: 0.2, animations: {
+                self.doubleTapGestureWidthConstraint.constant = 55.0
+
+                self.view.layoutIfNeeded()
+            })
+            UIView.addKeyframeWithRelativeStartTime(0.6, relativeDuration: 0.2, animations: {
+                self.doubleTapGestureWidthConstraint.constant = 60.0
+
+                self.view.layoutIfNeeded()
+            })
+        }, completion: nil)
+    }
+
+    private func showLongPressGesture() {
+        panGestureImageView.hidden = true
+        doubleTapGestureImageView.hidden = true
+        longPressGestureImageView.hidden = false
+
+        UIView.animateKeyframesWithDuration(animationDuration, delay: animationDelay, options: .Repeat, animations: {
+            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.2, animations: {
+                self.longPressGestureWidthConstraint.constant = 55.0
+
+                self.view.layoutIfNeeded()
+            })
+            UIView.addKeyframeWithRelativeStartTime(0.8, relativeDuration: 0.2, animations: {
+                self.longPressGestureWidthConstraint.constant = 60.0
+
+                self.view.layoutIfNeeded()
+            })
+        }, completion: nil)
+    }
 
 }

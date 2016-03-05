@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -46,7 +47,7 @@
                     <connections>
                         <outlet property="timerButton" destination="rQp-kp-sdt" id="OzM-PQ-XIC"/>
                         <segue destination="Fcg-30-Dyj" kind="custom" identifier="ShowSettingsSegue" customClass="MZFormSheetPresentationViewControllerSegue" id="MyE-Xc-rx1"/>
-                        <segue destination="WDy-Kz-wx6" kind="presentation" identifier="ShowTutorialSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Llv-Hv-Kvd"/>
+                        <segue destination="WDy-Kz-wx6" kind="presentation" identifier="ShowTutorialSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="3EK-6b-6ge"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -112,10 +113,10 @@
             </objects>
             <point key="canvasLocation" x="1233" y="439"/>
         </scene>
-        <!--View Controller-->
+        <!--Tutorial View Controller-->
         <scene sceneID="5EQ-Xc-d9D">
             <objects>
-                <viewController id="WDy-Kz-wx6" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TutorialVC" id="WDy-Kz-wx6" customClass="TutorialViewController" customModule="Shine" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Rl5-4Z-KNz"/>
                         <viewControllerLayoutGuide type="bottom" id="aba-J2-qHV"/>
@@ -123,15 +124,66 @@
                     <view key="view" contentMode="scaleToFill" id="ZgC-VD-wj3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GestureDoubleTap" translatesAutoresizingMaskIntoConstraints="NO" id="9aN-k9-7ez">
+                                <rect key="frame" x="270" y="32" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="9aN-k9-7ez" secondAttribute="height" multiplier="1:1" id="ViC-oC-M3P"/>
+                                    <constraint firstAttribute="width" constant="60" id="dGm-rw-Qgy"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GestureLongPress" translatesAutoresizingMaskIntoConstraints="NO" id="h4n-34-MKr">
+                                <rect key="frame" x="270" y="412" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="L0P-Bz-7Et"/>
+                                    <constraint firstAttribute="width" secondItem="h4n-34-MKr" secondAttribute="height" multiplier="1:1" id="cT7-MZ-FTK"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GesturePan" translatesAutoresizingMaskIntoConstraints="NO" id="UXe-fu-vfJ">
+                                <rect key="frame" x="20" y="254" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="8Cf-Oz-xhd"/>
+                                    <constraint firstAttribute="width" constant="60" id="oeN-m7-x2r"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="aba-J2-qHV" firstAttribute="top" secondItem="h4n-34-MKr" secondAttribute="bottom" constant="128" id="G7p-qI-d17"/>
+                            <constraint firstItem="h4n-34-MKr" firstAttribute="centerX" secondItem="ZgC-VD-wj3" secondAttribute="centerX" id="KNf-4J-sWG"/>
+                            <constraint firstItem="9aN-k9-7ez" firstAttribute="centerX" secondItem="ZgC-VD-wj3" secondAttribute="centerX" id="LDS-MS-i8O"/>
+                            <constraint firstItem="9aN-k9-7ez" firstAttribute="top" secondItem="Rl5-4Z-KNz" secondAttribute="bottom" constant="32" id="NFX-04-kb9"/>
+                            <constraint firstItem="UXe-fu-vfJ" firstAttribute="leading" secondItem="ZgC-VD-wj3" secondAttribute="leadingMargin" id="guZ-Bd-Eqt"/>
+                            <constraint firstItem="UXe-fu-vfJ" firstAttribute="centerY" secondItem="ZgC-VD-wj3" secondAttribute="centerY" constant="-16" id="xB8-7m-6SC"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="cba-iW-Kcw" appends="YES" id="Owr-4F-a4i"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="doubleTapGestureImageView" destination="9aN-k9-7ez" id="6s4-3w-Nuc"/>
+                        <outlet property="doubleTapGestureWidthConstraint" destination="dGm-rw-Qgy" id="vLA-8a-wkR"/>
+                        <outlet property="longPressGestureImageView" destination="h4n-34-MKr" id="pJH-YF-Lxi"/>
+                        <outlet property="longPressGestureWidthConstraint" destination="L0P-Bz-7Et" id="52Z-KU-NsP"/>
+                        <outlet property="panGestureCenterYConstraint" destination="xB8-7m-6SC" id="4zq-eE-bqu"/>
+                        <outlet property="panGestureImageView" destination="UXe-fu-vfJ" id="PlK-17-heT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5s3-bH-8EZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="cba-iW-Kcw">
+                    <connections>
+                        <action selector="handleTap:" destination="WDy-Kz-wx6" id="0X6-mu-VSs"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1383" y="-271"/>
+            <point key="canvasLocation" x="1383" y="-313"/>
         </scene>
     </scenes>
     <resources>
+        <image name="GestureDoubleTap" width="60" height="60"/>
+        <image name="GestureLongPress" width="60" height="60"/>
+        <image name="GesturePan" width="60" height="60"/>
         <image name="Timer" width="20" height="20"/>
     </resources>
 </document>

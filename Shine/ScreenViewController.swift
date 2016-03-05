@@ -192,6 +192,9 @@ class ScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // TODO: remove
+        Settings.showTutorial = true
+
         if let lightColor = LightColor(rawValue: Settings.lightColor) {
             view.backgroundColor = lightColor.color
         } else {
@@ -221,7 +224,6 @@ class ScreenViewController: UIViewController {
         super.viewDidAppear(animated)
 
         if Settings.showTutorial {
-            // TODO: Use SegueHandlerType.
             performSegueWithIdentifier("ShowTutorialSegue", sender: self)
         }
     }
@@ -264,6 +266,9 @@ class ScreenViewController: UIViewController {
             let settingsNavController = segue.destinationViewController as! UINavigationController
             let settingsViewController = settingsNavController.topViewController as! SettingsFormViewController
             settingsViewController.delegate = self
+//        } else if segue.identifier == "ShowTutorialSegue" {
+//            let tutorialViewController = segue.destinationViewController as! TutorialViewController
+//            tutorialViewController.alpha = 0.5
         }
     }
 
@@ -353,7 +358,8 @@ class ScreenViewController: UIViewController {
             case .Stopped:
                 state = .Running
 
-            default: break
+            default:
+                break
             }
         }
     }
