@@ -59,6 +59,7 @@ class TutorialViewController: UIViewController {
 
     // MARK: - Constants
 
+    private let fadeInDuration: NSTimeInterval = 1.0
     private let animationDuration: NSTimeInterval = 2.0
     private let animationDelay: NSTimeInterval = 0.5
 
@@ -104,7 +105,7 @@ class TutorialViewController: UIViewController {
 
         panGestureImageView.alpha = 0.0
         panGestureImageView.hidden = false
-        UIView.animateWithDuration(1.0, animations: {
+        UIView.animateWithDuration(fadeInDuration, animations: {
             self.panGestureImageView.alpha = 1.0
             }, completion: { _ in
                 UIView.animateKeyframesWithDuration(self.animationDuration, delay: self.animationDelay, options: [.Autoreverse, .Repeat], animations: {
@@ -123,7 +124,7 @@ class TutorialViewController: UIViewController {
 
         doubleTapGestureImageView.alpha = 0.0
         doubleTapGestureImageView.hidden = false
-        UIView.animateWithDuration(1.0, animations: {
+        UIView.animateWithDuration(fadeInDuration, animations: {
             self.doubleTapGestureImageView.alpha = 1.0
             }, completion: { _ in
                 UIView.animateKeyframesWithDuration(self.animationDuration, delay: self.animationDelay, options: .Repeat, animations: {
@@ -157,7 +158,7 @@ class TutorialViewController: UIViewController {
 
         longPressGestureImageView.alpha = 0.0
         longPressGestureImageView.hidden = false
-        UIView.animateWithDuration(1.0, animations: {
+        UIView.animateWithDuration(fadeInDuration, animations: {
             self.longPressGestureImageView.alpha = 1.0
             }, completion: { _ in
                 UIView.animateKeyframesWithDuration(self.animationDuration, delay: self.animationDelay, options: .Repeat, animations: {
