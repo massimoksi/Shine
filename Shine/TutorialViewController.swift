@@ -99,65 +99,80 @@ class TutorialViewController: UIViewController {
     // MARK: - Helper functions
 
     private func showPanGesture() {
-        panGestureImageView.hidden = false
         doubleTapGestureImageView.hidden = true
         longPressGestureImageView.hidden = true
 
-        UIView.animateKeyframesWithDuration(animationDuration, delay: animationDelay, options: [.Autoreverse, .Repeat], animations: {
-            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 1.0, animations: {
-                self.panGestureCenterYConstraint.constant = 16.0
+        panGestureImageView.alpha = 0.0
+        panGestureImageView.hidden = false
+        UIView.animateWithDuration(1.0, animations: {
+            self.panGestureImageView.alpha = 1.0
+            }, completion: { _ in
+                UIView.animateKeyframesWithDuration(self.animationDuration, delay: self.animationDelay, options: [.Autoreverse, .Repeat], animations: {
+                    UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 1.0, animations: {
+                        self.panGestureCenterYConstraint.constant = 16.0
 
-                self.view.layoutIfNeeded()
-            })
-        }, completion: nil)
+                        self.view.layoutIfNeeded()
+                    })
+                }, completion: nil)
+        })
     }
 
     private func showDoubleTapGesture() {
         panGestureImageView.hidden = true
-        doubleTapGestureImageView.hidden = false
         longPressGestureImageView.hidden = true
 
-        UIView.animateKeyframesWithDuration(animationDuration, delay: animationDelay, options: .Repeat, animations: {
-            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.2, animations: {
-                self.doubleTapGestureWidthConstraint.constant = 55.0
+        doubleTapGestureImageView.alpha = 0.0
+        doubleTapGestureImageView.hidden = false
+        UIView.animateWithDuration(1.0, animations: {
+            self.doubleTapGestureImageView.alpha = 1.0
+            }, completion: { _ in
+                UIView.animateKeyframesWithDuration(self.animationDuration, delay: self.animationDelay, options: .Repeat, animations: {
+                    UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.2, animations: {
+                        self.doubleTapGestureWidthConstraint.constant = 55.0
 
-                self.view.layoutIfNeeded()
-            })
-            UIView.addKeyframeWithRelativeStartTime(0.2, relativeDuration: 0.2, animations: {
-                self.doubleTapGestureWidthConstraint.constant = 60.0
+                        self.view.layoutIfNeeded()
+                    })
+                    UIView.addKeyframeWithRelativeStartTime(0.2, relativeDuration: 0.2, animations: {
+                        self.doubleTapGestureWidthConstraint.constant = 60.0
 
-                self.view.layoutIfNeeded()
-            })
-            UIView.addKeyframeWithRelativeStartTime(0.4, relativeDuration: 0.2, animations: {
-                self.doubleTapGestureWidthConstraint.constant = 55.0
+                        self.view.layoutIfNeeded()
+                    })
+                    UIView.addKeyframeWithRelativeStartTime(0.4, relativeDuration: 0.2, animations: {
+                        self.doubleTapGestureWidthConstraint.constant = 55.0
 
-                self.view.layoutIfNeeded()
-            })
-            UIView.addKeyframeWithRelativeStartTime(0.6, relativeDuration: 0.2, animations: {
-                self.doubleTapGestureWidthConstraint.constant = 60.0
+                        self.view.layoutIfNeeded()
+                    })
+                    UIView.addKeyframeWithRelativeStartTime(0.6, relativeDuration: 0.2, animations: {
+                        self.doubleTapGestureWidthConstraint.constant = 60.0
 
-                self.view.layoutIfNeeded()
-            })
-        }, completion: nil)
+                        self.view.layoutIfNeeded()
+                    })
+                }, completion: nil)
+        })
     }
 
     private func showLongPressGesture() {
         panGestureImageView.hidden = true
         doubleTapGestureImageView.hidden = true
+
+        longPressGestureImageView.alpha = 0.0
         longPressGestureImageView.hidden = false
+        UIView.animateWithDuration(1.0, animations: {
+            self.longPressGestureImageView.alpha = 1.0
+            }, completion: { _ in
+                UIView.animateKeyframesWithDuration(self.animationDuration, delay: self.animationDelay, options: .Repeat, animations: {
+                    UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.2, animations: {
+                        self.longPressGestureWidthConstraint.constant = 55.0
 
-        UIView.animateKeyframesWithDuration(animationDuration, delay: animationDelay, options: .Repeat, animations: {
-            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.2, animations: {
-                self.longPressGestureWidthConstraint.constant = 55.0
+                        self.view.layoutIfNeeded()
+                    })
+                    UIView.addKeyframeWithRelativeStartTime(0.8, relativeDuration: 0.2, animations: {
+                        self.longPressGestureWidthConstraint.constant = 60.0
 
-                self.view.layoutIfNeeded()
-            })
-            UIView.addKeyframeWithRelativeStartTime(0.8, relativeDuration: 0.2, animations: {
-                self.longPressGestureWidthConstraint.constant = 60.0
-
-                self.view.layoutIfNeeded()
-            })
-        }, completion: nil)
+                        self.view.layoutIfNeeded()
+                    })
+                }, completion: nil)
+        })
     }
 
 }
