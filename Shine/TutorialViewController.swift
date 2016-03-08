@@ -25,6 +25,8 @@ class TutorialViewController: UIViewController {
 
     // MARK: - Properties
 
+    weak var delegate: TutorialViewControllerDelegate?
+
     @IBOutlet weak var panGestureImageView: UIImageView!
     @IBOutlet weak var doubleTapGestureImageView: UIImageView!
     @IBOutlet weak var longPressGestureImageView: UIImageView!
@@ -53,9 +55,7 @@ class TutorialViewController: UIViewController {
                 longPressGestureImageView.hidden = true
                 captionLabel.hidden = true
 
-                Settings.showTutorial = false
-
-                dismissViewControllerAnimated(false, completion: nil)
+                delegate?.tutorialDidFinish()
             }
         }
     }
@@ -198,5 +198,13 @@ class TutorialViewController: UIViewController {
                 }, completion: nil)
         })
     }
+
+}
+
+// MARK: - Protocols
+
+protocol TutorialViewControllerDelegate: class {
+
+    func tutorialDidFinish()
 
 }

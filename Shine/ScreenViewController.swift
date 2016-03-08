@@ -263,9 +263,9 @@ class ScreenViewController: UIViewController {
             let settingsNavController = segue.destinationViewController as! UINavigationController
             let settingsViewController = settingsNavController.topViewController as! SettingsFormViewController
             settingsViewController.delegate = self
-//        } else if segue.identifier == "ShowTutorialSegue" {
-//            let tutorialViewController = segue.destinationViewController as! TutorialViewController
-//            tutorialViewController.alpha = 0.5
+        } else if segue.identifier == "ShowTutorialSegue" {
+            let tutorialViewController = segue.destinationViewController as! TutorialViewController
+            tutorialViewController.delegate = self
         }
     }
 
@@ -483,6 +483,22 @@ extension ScreenViewController: SettingsFormViewDelegate {
         }
 
         timerButton.setTitle(timerFormatter.stringFromTimeInterval(duration), forState: .Normal)
+    }
+
+}
+
+// MARK: - Tutorial view controller delegate
+
+extension ScreenViewController: TutorialViewControllerDelegate {
+
+    func tutorialDidFinish() {
+        Ticker.debug("Tutorial did finish")
+
+        Settings.showTutorial = false
+
+        state = .Running
+
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
 }
