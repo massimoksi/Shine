@@ -18,6 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+"TUTORIAL_PAN_GESTURE" = "Trascina per regolare la luce";
+"TUTORIAL_DOUBLE_TAP_GESTURE" = "Tocca due volte per spegnere la luce";
+"TUTORIAL_LONG_PRESS_GESTURE" = "Tieni premuto per aprire le impostazioni";
+
 "SETTINGS_SEC_LIGHT" = "Luce";
 "SETTINGS_SEC_TURN_OFF" = "Spegnimento";
 

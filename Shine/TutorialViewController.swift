@@ -29,6 +29,8 @@ class TutorialViewController: UIViewController {
     @IBOutlet weak var doubleTapGestureImageView: UIImageView!
     @IBOutlet weak var longPressGestureImageView: UIImageView!
 
+    @IBOutlet weak var captionLabel: UILabel!
+
     @IBOutlet weak var panGestureCenterYConstraint: NSLayoutConstraint!
     @IBOutlet weak var doubleTapGestureWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var longPressGestureWidthConstraint: NSLayoutConstraint!
@@ -49,6 +51,7 @@ class TutorialViewController: UIViewController {
                 panGestureImageView.hidden = true
                 doubleTapGestureImageView.hidden = true
                 longPressGestureImageView.hidden = true
+                captionLabel.hidden = true
 
                 Settings.showTutorial = false
 
@@ -72,10 +75,12 @@ class TutorialViewController: UIViewController {
         panGestureImageView.hidden = true
         doubleTapGestureImageView.hidden = true
         longPressGestureImageView.hidden = true
+        captionLabel.hidden = true
 
         panGestureImageView.tintColor = UIColor(white: 0.0, alpha: 0.25)
         doubleTapGestureImageView.tintColor = UIColor(white: 0.0, alpha: 0.25)
         longPressGestureImageView.tintColor = UIColor(white: 0.0, alpha: 0.25)
+        captionLabel.textColor = UIColor(white: 0.0, alpha: 0.25)
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -105,8 +110,14 @@ class TutorialViewController: UIViewController {
 
         panGestureImageView.alpha = 0.0
         panGestureImageView.hidden = false
+
+        captionLabel.alpha = 0.0
+        captionLabel.text = NSLocalizedString("TUTORIAL_PAN_GESTURE", comment: "")
+        captionLabel.hidden = false
+
         UIView.animateWithDuration(fadeInDuration, animations: {
             self.panGestureImageView.alpha = 1.0
+            self.captionLabel.alpha = 1.0
             }, completion: { _ in
                 UIView.animateKeyframesWithDuration(self.animationDuration, delay: self.animationDelay, options: [.Autoreverse, .Repeat], animations: {
                     UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 1.0, animations: {
@@ -124,8 +135,14 @@ class TutorialViewController: UIViewController {
 
         doubleTapGestureImageView.alpha = 0.0
         doubleTapGestureImageView.hidden = false
+
+        captionLabel.alpha = 0.0
+        captionLabel.text = NSLocalizedString("TUTORIAL_DOUBLE_TAP_GESTURE", comment: "")
+        captionLabel.hidden = false
+
         UIView.animateWithDuration(fadeInDuration, animations: {
             self.doubleTapGestureImageView.alpha = 1.0
+            self.captionLabel.alpha = 1.0
             }, completion: { _ in
                 UIView.animateKeyframesWithDuration(self.animationDuration, delay: self.animationDelay, options: .Repeat, animations: {
                     UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.2, animations: {
@@ -158,8 +175,14 @@ class TutorialViewController: UIViewController {
 
         longPressGestureImageView.alpha = 0.0
         longPressGestureImageView.hidden = false
+
+        captionLabel.alpha = 0.0
+        captionLabel.text = NSLocalizedString("TUTORIAL_LONG_PRESS_GESTURE", comment: "")
+        captionLabel.hidden = false
+
         UIView.animateWithDuration(fadeInDuration, animations: {
             self.longPressGestureImageView.alpha = 1.0
+            self.captionLabel.alpha = 1.0
             }, completion: { _ in
                 UIView.animateKeyframesWithDuration(self.animationDuration, delay: self.animationDelay, options: .Repeat, animations: {
                     UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.2, animations: {

@@ -18,6 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+"TUTORIAL_PAN_GESTURE" = "Pan to dim light";
+"TUTORIAL_DOUBLE_TAP_GESTURE" = "Double tap to turn the light off";
+"TUTORIAL_LONG_PRESS_GESTURE" = "Long press to open settings";
+
 "SETTINGS_SEC_LIGHT" = "Light";
 "SETTINGS_SEC_TURN_OFF" = "Turn off";
 
