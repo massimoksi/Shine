@@ -192,9 +192,6 @@ class ScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // TODO: remove
-        Settings.showTutorial = true
-
         if let lightColor = LightColor(rawValue: Settings.lightColor) {
             view.backgroundColor = lightColor.color
         } else {
