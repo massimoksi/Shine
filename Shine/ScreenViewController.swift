@@ -390,7 +390,8 @@ class ScreenViewController: UIViewController {
     func batteryLevelDidChange(notification: NSNotification) {
         Ticker.debug("Received \(notification.name)")
 
-        if state == .Running && UIDevice.currentDevice().batteryState == .Unplugged && UIDevice.currentDevice().batteryLevel < 0.05 {
+        let device = UIDevice.currentDevice()
+        if state == .Running && device.batteryState == .Unplugged && device.batteryLevel < 0.05 {
             Ticker.warning("Battery level below 5%")
 
             state = .Stopped(lock: true)
