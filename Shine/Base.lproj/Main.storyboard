@@ -126,7 +126,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GestureDoubleTap" translatesAutoresizingMaskIntoConstraints="NO" id="9aN-k9-7ez">
-                                <rect key="frame" x="270" y="32" width="60" height="60"/>
+                                <rect key="frame" x="270" y="64" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="9aN-k9-7ez" secondAttribute="height" multiplier="1:1" id="ViC-oC-M3P"/>
                                     <constraint firstAttribute="width" constant="60" id="dGm-rw-Qgy"/>
@@ -148,38 +148,24 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Fb-nK-etj">
                                 <rect key="frame" x="20" y="443" width="560" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="gdg-3p-vXp"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="28"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="gdg-3p-vXp"/>
-                                    </mask>
-                                </variation>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="aba-J2-qHV" firstAttribute="top" secondItem="h4n-34-MKr" secondAttribute="bottom" constant="200" id="G7p-qI-d17"/>
                             <constraint firstItem="7Fb-nK-etj" firstAttribute="centerY" secondItem="ZgC-VD-wj3" secondAttribute="centerY" constant="160" id="Hlj-1x-aS8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7Fb-nK-etj" secondAttribute="trailing" id="J4M-TT-uwz"/>
                             <constraint firstItem="h4n-34-MKr" firstAttribute="centerX" secondItem="ZgC-VD-wj3" secondAttribute="centerX" id="KNf-4J-sWG"/>
                             <constraint firstItem="9aN-k9-7ez" firstAttribute="centerX" secondItem="ZgC-VD-wj3" secondAttribute="centerX" id="LDS-MS-i8O"/>
-                            <constraint firstItem="9aN-k9-7ez" firstAttribute="top" secondItem="Rl5-4Z-KNz" secondAttribute="bottom" constant="32" id="NFX-04-kb9"/>
-                            <constraint firstItem="aba-J2-qHV" firstAttribute="top" secondItem="7Fb-nK-etj" secondAttribute="bottom" constant="124" id="a3f-ew-U8q"/>
+                            <constraint firstItem="9aN-k9-7ez" firstAttribute="top" secondItem="Rl5-4Z-KNz" secondAttribute="bottom" constant="64" id="NFX-04-kb9"/>
+                            <constraint firstItem="h4n-34-MKr" firstAttribute="centerY" secondItem="ZgC-VD-wj3" secondAttribute="centerY" constant="70" id="X0G-FU-IKV"/>
                             <constraint firstItem="7Fb-nK-etj" firstAttribute="leading" secondItem="ZgC-VD-wj3" secondAttribute="leadingMargin" id="etp-OF-7xZ"/>
                             <constraint firstItem="UXe-fu-vfJ" firstAttribute="leading" secondItem="ZgC-VD-wj3" secondAttribute="leadingMargin" id="guZ-Bd-Eqt"/>
                             <constraint firstItem="UXe-fu-vfJ" firstAttribute="centerY" secondItem="ZgC-VD-wj3" secondAttribute="centerY" constant="-16" id="xB8-7m-6SC"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="a3f-ew-U8q"/>
-                            </mask>
-                        </variation>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="cba-iW-Kcw" appends="YES" id="Owr-4F-a4i"/>
                         </connections>
