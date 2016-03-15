@@ -28,6 +28,7 @@ enum LightColor: Int {
     case Pink
     case LightBlue
     case Red
+    case Orange
 
     var color: UIColor {
         switch self {
@@ -38,18 +39,21 @@ enum LightColor: Int {
             return UIColor.yellowColor()
 
         case Pink:
-            return UIColor(r: 255, g: 0, b: 255, a: 1.0)
+            return UIColor(r: 255, g: 117, b: 255, a: 1.0)
 
         case LightBlue:
             return UIColor(r: 0, g: 233, b: 255, a: 1.0)
 
         case Red:
             return UIColor.redColor()
+
+        case Orange:
+            return UIColor.orangeColor()
         }
     }
 
     static var allColors: [UIColor] {
-        return [White.color, Yellow.color, Pink.color, LightBlue.color, Red.color]
+        return [White.color, Yellow.color, Pink.color, LightBlue.color, Red.color, Orange.color]
     }
 
 }
