@@ -5,6 +5,12 @@ v0.7.0:
 v0.8.0:
  [x] Create instructions to be shown on first launch. @done (16-03-08 23:34)
 
+v0.8.1:
+ [ ] Define final light colors.
+
+v0.8.2
+ [ ] Create a separate section for battery settings.
+
 v1.0.0:
  [ ] Create the final icon.
  [ ] Create the final launch screen.
