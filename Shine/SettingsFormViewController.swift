@@ -216,8 +216,8 @@ extension SettingsFormViewController: UICollectionViewDataSource {
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ColorSelectionCheckbox", forIndexPath: indexPath) as! ColorSelectionCheckbox
-        cell.tintColor = LightColor.allColors[indexPath.row]
-        cell.on = Settings.lightColor == indexPath.row
+        cell.tintColor = LightColor.allColors[indexPath.item]
+        cell.on = Settings.lightColor == indexPath.item
 
         return cell
     }
@@ -229,17 +229,11 @@ extension SettingsFormViewController: UICollectionViewDataSource {
 extension SettingsFormViewController: UICollectionViewDelegate {
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let oldSelectedIndexPath = NSIndexPath(forItem: Settings.lightColor, inSection: 0)
-
-        if indexPath != oldSelectedIndexPath {
-            let oldSelectedCell = collectionView.cellForItemAtIndexPath(oldSelectedIndexPath) as! ColorSelectionCheckbox
-            oldSelectedCell.on = false
-
-            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! ColorSelectionCheckbox
-            cell.on = true
-
-            Settings.lightColor = indexPath.item
-
+        let selectedColor = indexPath.item
+        if selectedColor != Settings.lightColor {
+            Settings.lightColor = selectedColor
+            collectionView.reloadData()
+            
             delegate?.colorDidChange()
         }
     }
