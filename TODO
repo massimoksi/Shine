@@ -7,6 +7,7 @@ v0.8.0:
 
 v0.8.1:
  [ ] Define final light colors.
+ [ ] Move percentage label in order to improve its visibility while panning.
 
 v0.9.0
  [ ] Create a separate section for battery settings.
