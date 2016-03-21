@@ -231,9 +231,13 @@ extension SettingsFormViewController: UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let selectedColor = indexPath.item
         if selectedColor != Settings.lightColor {
+            let oldCell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: Settings.lightColor, inSection: 0)) as! ColorSelectionCheckbox
+            oldCell.on = false
+
             Settings.lightColor = selectedColor
-            collectionView.reloadData()
-            
+            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! ColorSelectionCheckbox
+            cell.on = true
+
             delegate?.colorDidChange()
         }
     }
