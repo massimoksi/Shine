@@ -164,8 +164,8 @@ class ScreenViewController: UIViewController {
         didSet {
             if timerRunning {
                 // Start timers.
-                turnOffTimer = NSTimer.scheduledTimerWithTimeInterval(Settings.timerDuration, target: self, selector: "turnOffTimerDidFire:", userInfo: nil, repeats: false)
-                refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refreshTimerDidFire:", userInfo: nil, repeats: true)
+                turnOffTimer = NSTimer.scheduledTimerWithTimeInterval(Settings.timerDuration, target: self, selector: #selector(ScreenViewController.turnOffTimerDidFire(_:)), userInfo: nil, repeats: false)
+                refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(ScreenViewController.refreshTimerDidFire(_:)), userInfo: nil, repeats: true)
             } else {
                 // Stop timers.
                 turnOffTimer?.invalidate()
@@ -212,9 +212,9 @@ class ScreenViewController: UIViewController {
         UIDevice.currentDevice().batteryMonitoringEnabled = true
 
         let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: "applicationDidBecomeActive:", name: UIApplicationDidBecomeActiveNotification, object: nil)
-        notificationCenter.addObserver(self, selector: "applicationWillResignActive:", name: UIApplicationWillResignActiveNotification, object: nil)
-        notificationCenter.addObserver(self, selector: "batteryLevelDidChange:", name: UIDeviceBatteryLevelDidChangeNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidBecomeActive(_:)), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(UIApplicationDelegate.applicationWillResignActive(_:)), name: UIApplicationWillResignActiveNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(ScreenViewController.batteryLevelDidChange(_:)), name: UIDeviceBatteryLevelDidChangeNotification, object: nil)
     }
 
     override func viewDidAppear(animated: Bool) {

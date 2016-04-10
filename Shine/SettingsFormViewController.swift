@@ -93,7 +93,7 @@ final class SettingsFormViewController: FormViewController {
             dispatch_async(dispatch_get_main_queue(), {
                 row.countDownPicker.countDownDuration = Settings.timerDuration
             })
-            row.countDownPicker.addTarget(self, action: "updateTimerDuration:", forControlEvents: .ValueChanged)
+            row.countDownPicker.addTarget(self, action: #selector(SettingsFormViewController.updateTimerDuration(_:)), forControlEvents: .ValueChanged)
         }.configure {
             $0.rowHeight = 217.0
         }
