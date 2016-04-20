@@ -6,7 +6,7 @@ v0.8.0:
  [x] Create instructions to be shown on first launch. @done (16-03-08 23:34)
 
 v0.8.1:
- [ ] Define final light colors.
+ [x] Define final light colors. @done (16-04-20 23:02)
  [ ] Move percentage label in order to improve its visibility while panning.
 
 v0.9.0
